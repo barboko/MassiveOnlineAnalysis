@@ -20,16 +20,11 @@
  */
 package moa.gui;
 
-import java.awt.BorderLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
 import moa.DoTask;
 import moa.core.WekaUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * The main class for the MOA gui. Lets the user configure
@@ -43,58 +38,32 @@ public class GUI extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private javax.swing.JTabbedPane panel;
-
     public GUI() {
         initGUI();
     }
 
-    private void initGUI() {
-        setLayout(new BorderLayout());
-
-        // Create and set up tabs
-        panel = new javax.swing.JTabbedPane();
-        add(panel, BorderLayout.CENTER);
-
-        // initialize additional panels
-        String[] tabs = GUIDefaults.getTabs();
-        for (int i = 0; i < tabs.length; i++) {
-            try {
-                // determine classname
-                String[] optionsStr = tabs[i].split(":");
-                String classname = optionsStr[0];
-                // setup panel
-                AbstractTabPanel tabPanel = (AbstractTabPanel) Class.forName(classname).newInstance();
-                panel.addTab(tabPanel.getTabTitle(), null, (JPanel) tabPanel, tabPanel.getDescription());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
     public static void main(String[] args) {
         try {
-            if (DoTask.isJavaVersionOK() == false || WekaUtils.isWekaVersionOK() == false) {
+            if (!DoTask.isJavaVersionOK() || !WekaUtils.isWekaVersionOK()) {
                 return;
             }
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
-                @Override
+                //@Override
                 public void run() {
 
                     // Create and set up the window.
                     JFrame frame = new JFrame("MOA Graphical User Interface");
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    
+
                     try {
                         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     } catch (Exception e) {
                         try {
                             javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-                        } catch (Exception ex) {
+                        } catch (Exception ignored) {
                         }
-                    
+
                     }
 
                     GUI gui = new GUI();
@@ -109,5 +78,29 @@ public class GUI extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void initGUI() {
+        setLayout(new BorderLayout());
+
+        // Create and set up tabs
+        javax.swing.JTabbedPane panel = new javax.swing.JTabbedPane();
+        add(panel, BorderLayout.CENTER);
+
+        // initialize additional panels
+        String[] tabs = GUIDefaults.getTabs();
+        for (String tab : tabs) {
+            try {
+                // determine classname
+                String[] optionsStr = tab.split(":");
+                String classname = optionsStr[0];
+                // setup panel
+                AbstractTabPanel tabPanel = (AbstractTabPanel) Class.forName(classname).newInstance();
+                panel.addTab(tabPanel.getTabTitle(), null, tabPanel, tabPanel.getDescription());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

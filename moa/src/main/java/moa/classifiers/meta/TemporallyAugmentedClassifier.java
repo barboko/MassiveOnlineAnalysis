@@ -21,19 +21,20 @@ package moa.classifiers.meta;
 
 import com.github.javacliparser.FlagOption;
 import com.github.javacliparser.IntOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import com.yahoo.labs.samoa.instances.Attribute;
+import com.yahoo.labs.samoa.instances.DenseInstance;
+import com.yahoo.labs.samoa.instances.Instance;
+import com.yahoo.labs.samoa.instances.Instances;
 import moa.classifiers.AbstractClassifier;
 import moa.classifiers.Classifier;
 import moa.core.Measurement;
 import moa.core.Utils;
 import moa.options.ClassOption;
-import com.yahoo.labs.samoa.instances.Attribute;
-import com.yahoo.labs.samoa.instances.DenseInstance;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.Instances;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Include labels of previous instances into the training data
@@ -54,22 +55,22 @@ public class TemporallyAugmentedClassifier extends AbstractClassifier {
         return "Add some old labels to every instance";
     }
     private static final long serialVersionUID = 1L;
-    
+
     public ClassOption baseLearnerOption = new ClassOption("baseLearner", 'l',
             "Classifier to train.", Classifier.class, "trees.HoeffdingTree");
-    
+
     public IntOption numOldLabelsOption = new IntOption("numOldLabels", 'n',
             "The number of old labels to add to each example.", 1, 0, Integer.MAX_VALUE);
-    
+
     protected Classifier baseLearner;
-    
+
     protected double[] oldLabels;
-    
+
     protected Instances header;
 
     public FlagOption labelDelayOption = new FlagOption("labelDelay", 'd',
-        "Labels arrive with Delay. Use predictions instead of true Labels.");
-    
+            "Labels arrive with Delay. Use predictions instead of true Labels.");
+
     @Override
     public void resetLearningImpl() {
         this.baseLearner = (Classifier) getPreparedClassOption(this.baseLearnerOption);

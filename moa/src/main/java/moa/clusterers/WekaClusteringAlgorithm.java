@@ -19,45 +19,41 @@
  */
 package moa.clusterers;
 
-import java.util.ArrayList;
-import java.util.List;
-import moa.cluster.Clustering;
-import moa.core.AutoClassDiscovery;
-import moa.core.AutoExpandVector;
-import moa.core.Measurement;
-import moa.options.ClassOption;
 import com.github.javacliparser.IntOption;
 import com.github.javacliparser.MultiChoiceOption;
 import com.github.javacliparser.StringOption;
+import com.yahoo.labs.samoa.instances.*;
+import moa.cluster.Clustering;
+import moa.core.AutoClassDiscovery;
+import moa.core.AutoExpandVector;
 import moa.core.FastVector;
-import com.yahoo.labs.samoa.instances.Attribute;
-import com.yahoo.labs.samoa.instances.DenseInstance;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.Instances;
-import com.yahoo.labs.samoa.instances.SamoaToWekaInstanceConverter;
-
+import moa.core.Measurement;
+import moa.options.ClassOption;
 import weka.core.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WekaClusteringAlgorithm extends AbstractClusterer {
 
     private static final long serialVersionUID = 1L;
-    
+
     public IntOption horizonOption = new IntOption("horizon",
             'h', "Range of the window.", 1000);
-    
+
     public MultiChoiceOption wekaAlgorithmOption;
-    
+
     public StringOption parameterOption = new StringOption("parameter", 'p',
             "Parameters that will be passed to the weka algorithm. (e.g. '-N 5' for using SimpleKmeans with 5 clusters)", "-N 5 -S 8");
-    
+
     private Class<?>[] clustererClasses;
-    
+
     private Instances instances;
-    
+
     private weka.clusterers.AbstractClusterer clusterer;
-    
+
     protected SamoaToWekaInstanceConverter instanceConverter;
-    
+
 
     public WekaClusteringAlgorithm() {
         clustererClasses = findWekaClustererClasses();
@@ -133,7 +129,7 @@ public class WekaClusteringAlgorithm extends AbstractClusterer {
         Clustering clustering = null;
         weka.core.Instances wekaInstances= this.instanceConverter.wekaInstances(instances);
         try {
-            
+
             clusterer.buildClusterer(wekaInstances);
             int numClusters = clusterer.numberOfClusters();
             Instances dataset = getDataset(instances.numAttributes(), numClusters);

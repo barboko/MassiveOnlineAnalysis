@@ -1,10 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>nz.ac.waikato.cms.moa</groupId>
-    <artifactId>moa-pom</artifactId>
-    <version>2015.05-SNAPSHOT</version>
+      <version>2012.09-SNAPSHOT</version>
+      <artifactId>moa-pom</artifactId>
   </parent>
 
   <artifactId>moa</artifactId>
@@ -46,16 +46,19 @@
     <dependency>
       <groupId>nz.ac.waikato.cms.weka</groupId>
       <artifactId>weka-dev</artifactId>
+      <version>3.7.12</version>
     </dependency>
 
     <dependency>
-      <groupId>com.googlecode.sizeofag</groupId>
+      <groupId>com.github.fracpete</groupId>
       <artifactId>sizeofag</artifactId>
+        <version>1.0.1</version>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+        <version>4.12</version>
       <scope>test</scope>
     </dependency>
     
@@ -75,6 +78,7 @@
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
 
@@ -125,7 +129,7 @@
     								</goals>
     							</pluginExecutionFilter>
     							<action>
-    								<ignore></ignore>
+    								<ignore/>
     							</action>
     						</pluginExecution>
     					</pluginExecutions>

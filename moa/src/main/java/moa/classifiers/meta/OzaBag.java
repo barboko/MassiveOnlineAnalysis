@@ -55,7 +55,7 @@ public class OzaBag extends AbstractClassifier {
     public String getPurposeString() {
         return "Incremental on-line bagging of Oza and Russell.";
     }
-        
+
     private static final long serialVersionUID = 1L;
 
     public ClassOption baseLearnerOption = new ClassOption("baseLearner", 'l',
@@ -114,7 +114,7 @@ public class OzaBag extends AbstractClassifier {
     @Override
     protected Measurement[] getModelMeasurementsImpl() {
         return new Measurement[]{new Measurement("ensemble size",
-                    this.ensemble != null ? this.ensemble.length : 0)};
+                this.ensemble != null ? this.ensemble.length : 0)};
     }
 
     @Override

@@ -27,7 +27,7 @@ public class SamoaToWekaInstanceConverter {
     /** The weka instance information. */
     protected weka.core.Instances wekaInstanceInformation;
 
-     /**
+    /**
      * Weka instance.
      *
      * @param inst the inst
@@ -48,8 +48,7 @@ public class SamoaToWekaInstanceConverter {
             wekaInstance.setClassValue(inst.classValue());
             //wekaInstance.setValueSparse(wekaInstance.numAttributes(), inst.classValue());*/
         } else {
-            Instance instance = inst;
-            wekaInstance = new weka.core.DenseInstance(instance.weight(), instance.toDoubleArray());
+            wekaInstance = new weka.core.DenseInstance(inst.weight(), inst.toDoubleArray());
            /* if (this.wekaInstanceInformation == null) {
                 this.wekaInstanceInformation = this.wekaInstancesInformation(inst.dataset());
             }
@@ -66,11 +65,11 @@ public class SamoaToWekaInstanceConverter {
         if (inst.numOutputAttributes() == 1){
             wekaInstance.setClassValue(inst.classValue());
         }
-        
+
         return wekaInstance;
     }
-    
-     /**
+
+    /**
      * Weka instances.
      *
      * @param instances the instances
@@ -86,7 +85,7 @@ public class SamoaToWekaInstanceConverter {
         return wekaInstances;
     }
 
-     /**
+    /**
      * Weka instances information.
      *
      * @param instances the instances
@@ -113,7 +112,7 @@ public class SamoaToWekaInstanceConverter {
         return wekaInstances;
     }
 
-     /**
+    /**
      * Weka attribute.
      *
      * @param index the index
@@ -124,7 +123,7 @@ public class SamoaToWekaInstanceConverter {
         weka.core.Attribute wekaAttribute;
         if (attribute.isNominal()) {
             wekaAttribute = new weka.core.Attribute(attribute.name(), attribute.getAttributeValues(), index);
-          
+
         } else {
             wekaAttribute = new weka.core.Attribute(attribute.name(), index);
         }

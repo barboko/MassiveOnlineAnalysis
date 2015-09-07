@@ -19,18 +19,12 @@
  */
 package moa.classifiers.multilabel;
 
-import java.util.Arrays;
-import com.yahoo.labs.samoa.instances.Instance;
-import moa.classifiers.meta.WEKAClassifier;
-import com.yahoo.labs.samoa.instances.InstancesHeader;
-import weka.classifiers.UpdateableClassifier;
-import com.yahoo.labs.samoa.instances.MultiLabelInstance;
-import com.yahoo.labs.samoa.instances.MultiLabelPrediction;
-import com.yahoo.labs.samoa.instances.Prediction;
-import com.yahoo.labs.samoa.instances.SamoaToWekaInstanceConverter;
+import com.yahoo.labs.samoa.instances.*;
 import moa.classifiers.MultiLabelLearner;
 import moa.classifiers.MultiTargetRegressor;
+import moa.classifiers.meta.WEKAClassifier;
 import moa.core.Example;
+import weka.classifiers.UpdateableClassifier;
 
 /**
  * Class for using a MEKA classifier. NOTE: This class only exists to adjust the

@@ -19,24 +19,23 @@
  */
 package moa.clusterers;
 
-import java.io.Serializable;
-
-
-import moa.cluster.Clustering;
-import moa.cluster.SphereCluster;
-import moa.core.Measurement;
-import moa.core.StringUtils;
 import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
-import moa.core.FastVector;
 import com.yahoo.labs.samoa.instances.Instance;
 import com.yahoo.labs.samoa.instances.Instances;
+import moa.cluster.Clustering;
+import moa.cluster.SphereCluster;
+import moa.core.FastVector;
+import moa.core.Measurement;
+import moa.core.StringUtils;
 import weka.core.AttributeStats;
 import weka.experiment.Stats;
 import weka.filters.unsupervised.attribute.Add;
 
+import java.io.Serializable;
+
 /**
- * Class implementing the Cobweb and Classit clustering algorithms.
+ * Class implementing the Cobweb and Classic clustering algorithms.
  * See: http://en.wikipedia.org/wiki/Cobweb_%28clustering%29
  * 
  * Citation: D. Fisher (1987). 
@@ -45,6 +44,12 @@ import weka.filters.unsupervised.attribute.Add;
  **/
 public class CobWeb extends AbstractClusterer {
 
+    @SuppressWarnings("hiding")
+    public static final String classifierPurposeString = "Cobweb and Classit clustering algorithms: it always compares the best host, adding a new leaf, merging the two best hosts, and splitting the best host when considering where to place a new instance..";
+    /**
+     * Normal constant.
+     */
+    protected static final double m_normal = 1.0 / (2 * Math.sqrt(Math.PI));
     private static final long serialVersionUID = 1L;
     public FloatOption acuityOption = new FloatOption("acuity",
             'a', "Acuity (minimum standard deviation)", 1.0, 0.0, 90.0);
@@ -52,6 +57,251 @@ public class CobWeb extends AbstractClusterer {
             'c', "Cutoff (minimum category utility)", 0.002, 0.0, 90.0); //0.01 * Cobweb.m_normal
     public IntOption randomSeedOption = new IntOption("randomSeed", 'r',
             "Seed for random noise.", 1);	//42
+    /**
+     * Acuity (minimum standard deviation).
+     */
+    protected double m_acuity = 1.0;
+    /**
+     * Cutoff (minimum category utility).
+     */
+    protected double m_cutoff = 0.002;//0.01 * Cobweb.m_normal;
+    /**
+     * Holds the root of the Cobweb tree.
+     */
+    protected CNode m_cobwebTree = null;
+    /**
+     * Number of clusters (nodes in the tree). Must never be queried directly,
+     * only via the method numberOfClusters(). Otherwise it's not guaranteed that
+     * it contains the correct value.
+     *
+     * @see #numberOfClusters()
+     * @see #m_numberOfClustersDetermined
+     */
+    protected int m_numberOfClusters = -1;
+    /** whether the number of clusters was already determined */
+    protected boolean m_numberOfClustersDetermined = false;
+    /** the number of splits that happened */
+    protected int m_numberSplits;
+    /** the number of merges that happened */
+    protected int m_numberMerges;
+    /**
+     * Output instances in graph representation of Cobweb tree (Allows
+     * instances at nodes in the tree to be visualized in the Explorer).
+     */
+    protected boolean m_saveInstances = false;
+
+    {
+//		return this.observedClassDistribution.getArrayCopy();
+    }
+
+    @Override
+    public void resetLearningImpl() {
+        setAcuity(this.acuityOption.getValue());
+        setCutoff(this.cutoffOption.getValue());
+        m_numberOfClusters = -1;
+        m_cobwebTree = null;
+        m_numberSplits = 0;
+        m_numberMerges = 0;
+    }
+
+    /**
+     * Adds an instance to the clusterer.
+     *
+     * @param newInstance the instance to be added
+     * @throws Exception 	if something goes wrong
+     */
+    // public void updateClusterer(Instance newInstance) throws Exception {
+    @Override
+    public void trainOnInstanceImpl(Instance newInstance) { //throws Exception {
+        m_numberOfClustersDetermined = false;
+
+        if (m_cobwebTree == null) {
+            m_cobwebTree = new CNode(newInstance.numAttributes(), newInstance);
+        } else {
+            m_cobwebTree.addInstance(newInstance);
+        }
+    }
+
+    /**
+     * Classifies a given instance.
+     *
+     * @param instance the instance to be assigned to a cluster
+     * @return the number of the assigned cluster as an interger
+     * if the class is enumerated, otherwise the predicted value
+     * @throws Exception if instance could not be classified
+     * successfully
+     */
+    public double[] getVotesForInstance(Instance instance) {
+        //public int clusterInstance(Instance instance) {//throws Exception {
+        CNode host = m_cobwebTree;
+        CNode temp = null;
+
+        determineNumberOfClusters();
+
+        if (this.m_numberOfClusters < 1) {
+            return (new double[0]);
+        }
+        double[] ret = new double[this.m_numberOfClusters];
+
+        do {
+            if (host.m_children == null) {
+                temp = null;
+                break;
+            }
+
+            host.updateStats(instance, false);
+            temp = host.findHost(instance, true);
+            host.updateStats(instance, true);
+
+            if (temp != null) {
+                host = temp;
+            }
+        } while (temp != null);
+
+        ret[host.m_clusterNum] = 1.0;
+        return ret;
+    }
+
+    /**
+     * determines the number of clusters if necessary
+     *
+     * @see #m_numberOfClusters
+     * @see #m_numberOfClustersDetermined
+     */
+    protected void determineNumberOfClusters() {
+        if (!m_numberOfClustersDetermined
+                && (m_cobwebTree != null)) {
+            int[] numClusts = new int[1];
+            numClusts[0] = 0;
+            //  try {
+            m_cobwebTree.assignClusterNums(numClusts);
+            // }
+            // catch (Exception e) {
+//	e.printStackTrace();
+//	numClusts[0] = 0;
+            // }
+            m_numberOfClusters = numClusts[0];
+
+            m_numberOfClustersDetermined = true;
+        }
+    }
+
+    /**
+     * Returns the number of clusters.
+     *
+     * @return the number of clusters
+     */
+    public int numberOfClusters() {
+        determineNumberOfClusters();
+        return m_numberOfClusters;
+    }
+
+    @Override
+    protected Measurement[] getModelMeasurementsImpl() {
+        return null;
+    }
+
+    @Override
+    public void getModelDescription(StringBuilder out, int indent) {
+        StringBuffer text = new StringBuffer();
+        if (m_cobwebTree == null) {
+            StringUtils.appendIndented(out, indent, "Cobweb hasn't been built yet!");
+            StringUtils.appendNewline(out);
+        } else {
+            m_cobwebTree.dumpTree(0, text);
+            StringUtils.appendIndented(out, indent, "CobWeb - ");
+            out.append("Number of merges: "
+                    + m_numberMerges + "\nNumber of splits: "
+                    + m_numberSplits + "\nNumber of clusters: "
+                    + numberOfClusters() + "\n" + text.toString());
+            StringUtils.appendNewline(out);
+        }
+    }
+
+    public boolean isRandomizable() {
+        return false;
+    }
+
+    /**
+     * Generates the graph string of the Cobweb tree
+     *
+     * @return a <code>String</code> value
+     * @throws Exception if an error occurs
+     */
+    public String graph() {// throws Exception {
+        StringBuffer text = new StringBuffer();
+
+        text.append("digraph CobwebTree {\n");
+        m_cobwebTree.graphTree(text);
+        text.append("}\n");
+        return text.toString();
+    }
+
+    /**
+     * get the acuity value
+     * @return the acuity
+     */
+    public double getAcuity() {
+        return m_acuity;
+    }
+
+    /**
+     * set the acuity.
+     * @param a the acuity value
+     */
+    public void setAcuity(double a) {
+        m_acuity = a;
+    }
+
+    /**
+     * get the cutoff
+     * @return the cutoff
+     */
+    public double getCutoff() {
+        return m_cutoff;
+    }
+
+    /**
+     * set the cutoff
+     * @param c the cutof
+     */
+    public void setCutoff(double c) {
+        m_cutoff = c;
+    }
+
+    /**
+     * Get the value of saveInstances.
+     *
+     * @return Value of saveInstances.
+     */
+    public boolean getSaveInstanceData() {
+
+        return m_saveInstances;
+    }
+
+    /**
+     * Set the value of saveInstances.
+     *
+     * @param newsaveInstances Value to assign to saveInstances.
+     */
+    public void setSaveInstanceData(boolean newsaveInstances) {
+
+        m_saveInstances = newsaveInstances;
+    }
+
+    public Clustering getClusteringResult() {
+        //throw new UnsupportedOperationException("Not supported yet.");
+	Clustering result = new Clustering();
+        if (m_cobwebTree == null) {
+            //StringUtils.appendIndented(out, indent, "Cobweb hasn't been built yet!");
+            //StringUtils.appendNewline(out);
+        } else {
+            m_cobwebTree.computeTreeClustering(0,result);
+	    System.out.println("After Number of clusters: "+numberOfClusters() );
+	}
+	System.out.println("Number of clusters: "+result.size());
+	return result;
+    }
 
     /**
      * Inner class handling node operations for Cobweb.
@@ -63,6 +313,10 @@ public class CobWeb extends AbstractClusterer {
         /** for serialization */
         static final long serialVersionUID = 3452097436933325631L;
         /**
+         * Instances at this node
+         */
+        protected Instances m_clusterInstances = null;
+        /**
          * Within cluster attribute statistics
          */
         private AttributeStats[] m_attStats;
@@ -70,10 +324,6 @@ public class CobWeb extends AbstractClusterer {
          * Number of attributes
          */
         private int m_numAttributes;
-        /**
-         * Instances at this node
-         */
-        protected Instances m_clusterInstances = null;
         /**
          * Children of this node
          */
@@ -712,8 +962,8 @@ public class CobWeb extends AbstractClusterer {
 		clustering.add(SphereCluster(this.coordinates, .05, m_clusterInstances.numInstances()));*/
 	            if (depth == 0) {
 	    		    double [] centroidCoordinates = new double[m_clusterInstances.numAttributes()];
-			    for (int j = 0; j < m_clusterInstances.numAttributes()-1; j++) {						
-				centroidCoordinates[j] = m_clusterInstances.meanOrMode(j);	
+			    for (int j = 0; j < m_clusterInstances.numAttributes()-1; j++) {
+				centroidCoordinates[j] = m_clusterInstances.meanOrMode(j);
 			    }
 			    clustering.add(new SphereCluster(centroidCoordinates, .05, m_clusterInstances.numInstances()));
 	            }
@@ -727,265 +977,14 @@ public class CobWeb extends AbstractClusterer {
                             + m_clusterInstances.numInstances()
                             + "]");*/
     		    double [] centroidCoordinates = new double[m_clusterInstances.numAttributes()];
-		    for (int j = 0; j < m_clusterInstances.numAttributes()-1; j++) {						
-			centroidCoordinates[j] = m_clusterInstances.meanOrMode(j);	
+		    for (int j = 0; j < m_clusterInstances.numAttributes()-1; j++) {
+			centroidCoordinates[j] = m_clusterInstances.meanOrMode(j);
 		    }
 		    clustering.add(new SphereCluster(centroidCoordinates, .05, m_clusterInstances.numInstances()));
                     ((CNode) m_children.elementAt(i)).computeTreeClustering(depth + 1, clustering);
                 }
             }
         }
-    }
-    /**
-     * Normal constant.
-     */
-    protected static final double m_normal = 1.0 / (2 * Math.sqrt(Math.PI));
-    /**
-     * Acuity (minimum standard deviation).
-     */
-    protected double m_acuity = 1.0;
-    /**
-     * Cutoff (minimum category utility).
-     */
-    protected double m_cutoff = 0.002;//0.01 * Cobweb.m_normal;
-    /**
-     * Holds the root of the Cobweb tree.
-     */
-    protected CNode m_cobwebTree = null;
-    /**
-     * Number of clusters (nodes in the tree). Must never be queried directly,
-     * only via the method numberOfClusters(). Otherwise it's not guaranteed that
-     * it contains the correct value.
-     *
-     * @see #numberOfClusters()
-     * @see #m_numberOfClustersDetermined
-     */
-    protected int m_numberOfClusters = -1;
-    /** whether the number of clusters was already determined */
-    protected boolean m_numberOfClustersDetermined = false;
-    /** the number of splits that happened */
-    protected int m_numberSplits;
-    /** the number of merges that happened */
-    protected int m_numberMerges;
-    /**
-     * Output instances in graph representation of Cobweb tree (Allows
-     * instances at nodes in the tree to be visualized in the Explorer).
-     */
-    protected boolean m_saveInstances = false;
-    @SuppressWarnings("hiding")
-    public static final String classifierPurposeString = "Cobweb and Classit clustering algorithms: it always compares the best host, adding a new leaf, merging the two best hosts, and splitting the best host when considering where to place a new instance..";
-
-    @Override
-    public void resetLearningImpl() {
-        setAcuity(this.acuityOption.getValue());
-        setCutoff(this.cutoffOption.getValue());
-        m_numberOfClusters = -1;
-        m_cobwebTree = null;
-        m_numberSplits = 0;
-        m_numberMerges = 0;
-    }
-
-    /**
-     * Adds an instance to the clusterer.
-     *
-     * @param newInstance the instance to be added
-     * @throws Exception 	if something goes wrong
-     */
-    // public void updateClusterer(Instance newInstance) throws Exception {
-    @Override
-    public void trainOnInstanceImpl(Instance newInstance) { //throws Exception {
-        m_numberOfClustersDetermined = false;
-
-        if (m_cobwebTree == null) {
-            m_cobwebTree = new CNode(newInstance.numAttributes(), newInstance);
-        } else {
-            m_cobwebTree.addInstance(newInstance);
-        }
-    }
-
-    /**
-     * Classifies a given instance.
-     *
-     * @param instance the instance to be assigned to a cluster
-     * @return the number of the assigned cluster as an interger
-     * if the class is enumerated, otherwise the predicted value
-     * @throws Exception if instance could not be classified
-     * successfully
-     */
-    public double[] getVotesForInstance(Instance instance) {
-        //public int clusterInstance(Instance instance) {//throws Exception {
-        CNode host = m_cobwebTree;
-        CNode temp = null;
-
-        determineNumberOfClusters();
-
-        if (this.m_numberOfClusters < 1) {
-            return (new double[0]);
-        }
-        double[] ret = new double[this.m_numberOfClusters];
-
-        do {
-            if (host.m_children == null) {
-                temp = null;
-                break;
-            }
-
-            host.updateStats(instance, false);
-            temp = host.findHost(instance, true);
-            host.updateStats(instance, true);
-
-            if (temp != null) {
-                host = temp;
-            }
-        } while (temp != null);
-
-        ret[host.m_clusterNum] = 1.0;
-        return ret;
-    }
-
-    /**
-     * determines the number of clusters if necessary
-     *
-     * @see #m_numberOfClusters
-     * @see #m_numberOfClustersDetermined
-     */
-    protected void determineNumberOfClusters() {
-        if (!m_numberOfClustersDetermined
-                && (m_cobwebTree != null)) {
-            int[] numClusts = new int[1];
-            numClusts[0] = 0;
-            //  try {
-            m_cobwebTree.assignClusterNums(numClusts);
-            // }
-            // catch (Exception e) {
-//	e.printStackTrace();
-//	numClusts[0] = 0;
-            // }
-            m_numberOfClusters = numClusts[0];
-
-            m_numberOfClustersDetermined = true;
-        }
-    }
-
-    /**
-     * Returns the number of clusters.
-     *
-     * @return the number of clusters
-     */
-    public int numberOfClusters() {
-        determineNumberOfClusters();
-        return m_numberOfClusters;
-    }
-
-    {
-//		return this.observedClassDistribution.getArrayCopy();
-    }
-
-    @Override
-    protected Measurement[] getModelMeasurementsImpl() {
-        return null;
-    }
-
-    @Override
-    public void getModelDescription(StringBuilder out, int indent) {
-        StringBuffer text = new StringBuffer();
-        if (m_cobwebTree == null) {
-            StringUtils.appendIndented(out, indent, "Cobweb hasn't been built yet!");
-            StringUtils.appendNewline(out);
-        } else {
-            m_cobwebTree.dumpTree(0, text);
-            StringUtils.appendIndented(out, indent, "CobWeb - ");
-            out.append("Number of merges: "
-                    + m_numberMerges + "\nNumber of splits: "
-                    + m_numberSplits + "\nNumber of clusters: "
-                    + numberOfClusters() + "\n" + text.toString());
-            StringUtils.appendNewline(out);
-        }
-    }
-
-    public boolean isRandomizable() {
-        return false;
-    }
-
-    /**
-     * Generates the graph string of the Cobweb tree
-     *
-     * @return a <code>String</code> value
-     * @throws Exception if an error occurs
-     */
-    public String graph() {// throws Exception {
-        StringBuffer text = new StringBuffer();
-
-        text.append("digraph CobwebTree {\n");
-        m_cobwebTree.graphTree(text);
-        text.append("}\n");
-        return text.toString();
-    }
-
-    /**
-     * set the acuity.
-     * @param a the acuity value
-     */
-    public void setAcuity(double a) {
-        m_acuity = a;
-    }
-
-    /**
-     * get the acuity value
-     * @return the acuity
-     */
-    public double getAcuity() {
-        return m_acuity;
-    }
-
-    /**
-     * set the cutoff
-     * @param c the cutof
-     */
-    public void setCutoff(double c) {
-        m_cutoff = c;
-    }
-
-    /**
-     * get the cutoff
-     * @return the cutoff
-     */
-    public double getCutoff() {
-        return m_cutoff;
-    }
-
-    /**
-     * Get the value of saveInstances.
-     *
-     * @return Value of saveInstances.
-     */
-    public boolean getSaveInstanceData() {
-
-        return m_saveInstances;
-    }
-
-    /**
-     * Set the value of saveInstances.
-     *
-     * @param newsaveInstances Value to assign to saveInstances.
-     */
-    public void setSaveInstanceData(boolean newsaveInstances) {
-
-        m_saveInstances = newsaveInstances;
-    }
-
-    public Clustering getClusteringResult() {
-        //throw new UnsupportedOperationException("Not supported yet.");
-	Clustering result = new Clustering();
-        if (m_cobwebTree == null) {
-            //StringUtils.appendIndented(out, indent, "Cobweb hasn't been built yet!");
-            //StringUtils.appendNewline(out);
-        } else {
-            m_cobwebTree.computeTreeClustering(0,result);
-	    System.out.println("After Number of clusters: "+numberOfClusters() );    
-	}
-	System.out.println("Number of clusters: "+result.size());
-	return result; 
     }
 
 

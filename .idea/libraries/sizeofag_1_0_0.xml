@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sizeofag-1.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/weka-package/lib/sizeofag-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
