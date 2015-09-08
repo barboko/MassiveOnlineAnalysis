@@ -75,7 +75,7 @@ public class Instances implements Serializable {
      * @param classAttribute the class attribute
      */
     public Instances(Reader reader, int size, int classAttribute) {
-        arff = new ArffLoader(reader, 0, classAttribute);
+        arff = new ArffLoader(reader, classAttribute);
         this.instanceInformation = arff.getStructure();
         this.instances = new ArrayList<Instance>();
     }
