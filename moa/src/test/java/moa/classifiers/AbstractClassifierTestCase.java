@@ -19,12 +19,10 @@
  */
 package moa.classifiers;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
+import com.yahoo.labs.samoa.instances.Instance;
+import com.yahoo.labs.samoa.instances.Instances;
+import com.yahoo.labs.samoa.instances.InstancesHeader;
+import com.yahoo.labs.samoa.instances.Range;
 import moa.core.Example;
 import moa.core.InstanceExample;
 import moa.core.Measurement;
@@ -35,11 +33,10 @@ import moa.test.TestHelper;
 import moa.test.TmpFile;
 import weka.core.MOAUtils;
 
-import com.yahoo.labs.samoa.instances.ArffLoader;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.Instances;
-import com.yahoo.labs.samoa.instances.InstancesHeader;
-import com.yahoo.labs.samoa.instances.Range;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * Ancestor for all classifier test cases.
@@ -96,7 +93,7 @@ extends MoaTestCase {
 
 			result.append("Model measurements\n");
 			for (Measurement m: modelMeasurements) {
-				if (m.getName().indexOf("serialized") > -1)
+				if (m.getName().contains("serialized"))
 					continue;
 				result.append("  " + m.getName() + ": " + MoaTestCase.doubleToString(m.getValue(), 8) + "\n");
 			}
@@ -130,10 +127,10 @@ extends MoaTestCase {
 	 * @param filename	the filename to load (without path)
 	 * @param classIndex	the class index to use
 	 * @return		the data, null if it could not be loaded
-	 * @see		#getDataDirectory()
+	 * //@see		getDataDirectory()
 	 */
 	protected Instances load(String filename, int classIndex) {
-		Instances	result = null;
+		Instances result;
 		//ArffLoader 	loader;
 
 		//result = null;
@@ -185,7 +182,7 @@ extends MoaTestCase {
 			if (i > 0) {
 				votes = scheme.getVotesForInstance(inst);
 
-				evaluator.addResult((Example<Instance>)new InstanceExample(inst), votes);
+				evaluator.addResult(new InstanceExample(inst), votes);
 
 				if (point < inspectionPoints.length) {
 					if (i == inspectionPoints[point] - 1) {
