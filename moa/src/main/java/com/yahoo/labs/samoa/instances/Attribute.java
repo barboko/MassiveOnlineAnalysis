@@ -187,11 +187,7 @@ public class Attribute implements Serializable {
      * @return the int
      */
     public int numValues() {
-        if (isNumeric()) {
-            return 0;
-        } else {
-            return attributeValues.size();
-        }
+        return isNumeric() ? 0 : attributeValues.size();
     }
 
     /**

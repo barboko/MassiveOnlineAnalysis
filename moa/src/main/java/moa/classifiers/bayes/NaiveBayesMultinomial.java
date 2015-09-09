@@ -20,15 +20,16 @@
 
 package moa.classifiers.bayes;
 
-import java.util.Arrays;
 import com.github.javacliparser.FloatOption;
+import com.yahoo.labs.samoa.instances.Instance;
+import com.yahoo.labs.samoa.instances.Instances;
 import moa.classifiers.AbstractClassifier;
 import moa.core.DoubleVector;
 import moa.core.Measurement;
 import moa.core.StringUtils;
 import moa.core.Utils;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.Instances;
+
+import java.util.Arrays;
 
 /**
  * <!-- globalinfo-start --> Class for building and using a multinomial Naive
@@ -104,12 +105,11 @@ public class NaiveBayesMultinomial extends AbstractClassifier {
 
     /**
      * Trains the classifier with the given instance.
-     *
-     * @param instance the new training instance to include in the model
+     * @param inst the new training instance to include in the model
      */
     @Override
     public void trainOnInstanceImpl(Instance inst) {
-        if (this.reset == true) {
+        if (this.reset) {
             this.m_numClasses = inst.numClasses();
             double laplace = this.laplaceCorrectionOption.getValue();
             int numAttributes = inst.numAttributes();
@@ -135,7 +135,7 @@ public class NaiveBayesMultinomial extends AbstractClassifier {
         m_probOfClass[classValue] += w;
 
         m_classTotals[classValue] += w * totalSize(inst);
-        double total = m_classTotals[classValue];
+        //double total = m_classTotals[classValue];
 
         for (int i = 0; i < inst.numValues(); i++) {
             int index = inst.index(i);
@@ -159,15 +159,15 @@ public class NaiveBayesMultinomial extends AbstractClassifier {
      */
     @Override
     public double[] getVotesForInstance(Instance instance) {
-        if (this.reset == true) {
+        if (this.reset)
             return new double[2];
-        }
+
         double[] probOfClassGivenDoc = new double[m_numClasses];
         double totalSize = totalSize(instance);
 
-        for (int i = 0; i < m_numClasses; i++) {
+        for (int i = 0; i < m_numClasses; i++)
             probOfClassGivenDoc[i] = Math.log(m_probOfClass[i]) - totalSize * Math.log(m_classTotals[i]);
-        }
+
 
         for (int i = 0; i < instance.numValues(); i++) {
 

@@ -30,9 +30,7 @@ public class Range {
 
     /**
      * Sets the range from a string representation.
-     *
      * @param range the start and end string
-     *
      */
     public void setRange(String range) {
         String single = range.trim();
@@ -93,13 +91,9 @@ public class Range {
         this.setRange(this.rangeText);
     }
 
-    //JD
     public int getStart() {
         return start;
     }
-
-    //JD
-
     public int getEnd() {
         return end;
     }

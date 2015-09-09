@@ -26,7 +26,6 @@ import java.util.Random;
 
 /**
  * The Class Instances.
- *
  * @author abifet
  */
 public class Instances implements Serializable {
@@ -58,7 +57,6 @@ public class Instances implements Serializable {
 
     /**
      * Instantiates a new instances.
-     *
      * @param chunk the chunk
      */
     public Instances(Instances chunk) {
@@ -74,7 +72,6 @@ public class Instances implements Serializable {
 
     /**
      * Instantiates a new instances.
-     *
      * @param reader         the reader
      * @param size           the size
      * @param classAttribute the class attribute
@@ -87,7 +84,6 @@ public class Instances implements Serializable {
 
     /**
      * Instantiates a new instances.
-     *
      * @param reader the reader
      * @param range
      */
@@ -113,7 +109,6 @@ public class Instances implements Serializable {
 
     /**
      * Instantiates a new instances.
-     *
      * @param st       the st
      * @param v        the v
      * @param capacity the capacity
@@ -124,7 +119,6 @@ public class Instances implements Serializable {
 
     /**
      * Instantiates a new instances.
-     *
      * @param chunk  the chunk
      * @param first  the first instance
      * @param toCopy the j
@@ -134,15 +128,13 @@ public class Instances implements Serializable {
         this(chunk, toCopy);
 
         if ((first < 0) || ((first + toCopy) > chunk.numInstances())) {
-            throw new IllegalArgumentException("Parameters first and/or toCopy out "
-                    + "of range");
+            throw new IllegalArgumentException("Parameters first and/or toCopy out of range");
         }
         chunk.copyInstances(first, this, toCopy);
     }
 
     /**
      * Instantiates a new instances.
-     *
      * @param st       the st
      * @param capacity the capacity
      */
@@ -154,7 +146,6 @@ public class Instances implements Serializable {
 
     /**
      * Sets the relation name.
-     *
      * @param string the new relation name
      */
     public void setRelationName(String string) {
@@ -163,7 +154,6 @@ public class Instances implements Serializable {
 
     /**
      * Gets the relation name.
-     *
      * @return the relation name
      */
     public String getRelationName() {
@@ -172,7 +162,6 @@ public class Instances implements Serializable {
 
     /**
      * Class index.
-     *
      * @return the int
      */
     public int classIndex() {
@@ -181,7 +170,6 @@ public class Instances implements Serializable {
 
     /**
      * Sets the class index.
-     *
      * @param classIndex the new class index
      */
     public void setClassIndex(int classIndex) {
@@ -190,7 +178,6 @@ public class Instances implements Serializable {
 
     /**
      * Class attribute.
-     *
      * @return the attribute
      */
     public Attribute classAttribute() {
@@ -199,7 +186,6 @@ public class Instances implements Serializable {
 
     /**
      * Num attributes.
-     *
      * @return the int
      */
     public int numAttributes() {
@@ -208,7 +194,6 @@ public class Instances implements Serializable {
 
     /**
      * Attribute.
-     *
      * @param w the w
      * @return the attribute
      */
@@ -218,7 +203,6 @@ public class Instances implements Serializable {
 
     /**
      * Num classes.
-     *
      * @return the int
      */
     public int numClasses() {
@@ -227,7 +211,6 @@ public class Instances implements Serializable {
 
     /**
      * Delete attribute at.
-     *
      * @param integer the integer
      */
     public void deleteAttributeAt(Integer integer) {
@@ -236,7 +219,6 @@ public class Instances implements Serializable {
 
     /**
      * Insert attribute at.
-     *
      * @param attribute the attribute
      * @param i         the i
      */
@@ -250,7 +232,6 @@ public class Instances implements Serializable {
 
     /**
      * Instance.
-     *
      * @param num the num
      * @return the instance
      */
@@ -260,7 +241,6 @@ public class Instances implements Serializable {
 
     /**
      * Num instances.
-     *
      * @return the int
      */
     public int numInstances() {
@@ -268,8 +248,7 @@ public class Instances implements Serializable {
     }
 
     /**
-     * Adds the.
-     *
+     * Adds the instance to the Instances.
      * @param inst the inst
      */
     public void add(Instance inst) {
@@ -278,7 +257,6 @@ public class Instances implements Serializable {
 
     /**
      * Randomize.
-     *
      * @param random the random
      */
     public void randomize(Random random) {
@@ -289,7 +267,6 @@ public class Instances implements Serializable {
 
     /**
      * Stratify.
-     *
      * @param numFolds the num folds
      */
     public void stratify(int numFolds) {
@@ -512,7 +489,7 @@ public class Instances implements Serializable {
      */
     public String toString() {
 
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
 
         text.append(ARFF_RELATION).append(" ").
                 append(Utils.quote(this.instanceInformation.getRelationName())).append("\n\n");

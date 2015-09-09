@@ -26,21 +26,18 @@ public interface Instance extends Serializable {
 
     /**
      * Gets the weight of the instance.
-     *
      * @return the weight
      */
     double weight();
 
     /**
      * Sets the weight.
-     *
      * @param weight the new weight
      */
     void setWeight(double weight);
 
     /**
      * Attribute.
-     *
      * @param instAttIndex the inst att index
      * @return the attribute
      */
@@ -48,28 +45,24 @@ public interface Instance extends Serializable {
 
     /**
      * Delete attribute at.
-     *
      * @param i the index
      */
     void deleteAttributeAt(int i);
 
     /**
      * Insert attribute at.
-     *
      * @param i the index
      */
     void insertAttributeAt(int i);
 
     /**
      * Gets the number of attributes.
-     *
      * @return the number of attributes
      */
     int numAttributes();
 
     /**
      * Adds the sparse values.
-     *
      * @param indexValues      the index values
      * @param attributeValues  the attribute values
      * @param numberAttributes the number attributes
@@ -78,14 +71,12 @@ public interface Instance extends Serializable {
 
     /**
      * Gets the number of values, mainly for sparse instances.
-     *
      * @return the number of values
      */
     int numValues();
 
     /**
      * Gets the value of a discrete attribute as a string.
-     *
      * @param i the i
      * @return the string
      */
@@ -93,7 +84,6 @@ public interface Instance extends Serializable {
 
     /**
      * Gets the value of an attribute.
-     *
      * @param instAttIndex the inst att index
      * @return the double
      */
@@ -101,7 +91,6 @@ public interface Instance extends Serializable {
 
     /**
      * Gets the value of an attribute, given the attribute.
-     *
      * @param attribute the attribute
      * @return the double
      */
@@ -109,7 +98,6 @@ public interface Instance extends Serializable {
 
     /**
      * Sets the value of an attribute.
-     *
      * @param instAttIndex the index
      * @param value        the value
      */
@@ -117,7 +105,6 @@ public interface Instance extends Serializable {
 
     /**
      * Checks if an attribute is missing.
-     *
      * @param instAttIndex the inst att index
      * @return true, if is missing
      */
@@ -126,7 +113,6 @@ public interface Instance extends Serializable {
     /**
      * Gets the index of the attribute given the index of the array in a sparse
      * representation.
-     *
      * @param arrayIndex the index of the array
      * @return the index
      */
@@ -135,7 +121,6 @@ public interface Instance extends Serializable {
     /**
      * Gets the value of an attribute in a sparse representation of the
      * instance.
-     *
      * @param i the i
      * @return the value
      */
@@ -143,7 +128,6 @@ public interface Instance extends Serializable {
 
     /**
      * Checks if the attribute is missing sparse.
-     *
      * @param p1 the p1
      * @return true, if is missing sparse
      */
@@ -151,98 +135,84 @@ public interface Instance extends Serializable {
 
     /**
      * To double array.
-     *
      * @return the double[]
      */
     double[] toDoubleArray();
 
     /**
      * Class attribute.
-     *
      * @return the attribute
      */
     Attribute classAttribute();
 
     /**
      * Class index.
-     *
      * @return the int
      */
     int classIndex();
 
     /**
      * Class is missing.
-     *
      * @return true, if successful
      */
     boolean classIsMissing();
 
     /**
      * Class value.
-     *
      * @return the double
      */
     double classValue();
 
     /**
      * Num classes.
-     *
      * @return the int
      */
     int numClasses();
 
     /**
      * Sets the class value.
-     *
      * @param d the new class value
      */
     void setClassValue(double d);
 
     /**
      * Copy.
-     *
      * @return the instance
      */
     Instance copy();
 
     /**
      * Sets the dataset.
-     *
      * @param dataset the new dataset
      */
     void setDataset(Instances dataset);
 
     /**
      * Dataset.
-     *
      * @return the instances
      */
     Instances dataset();
 
     /**
      * Gets the number of input attributes.
-     *
      * @return the number of input attributes
      */
     int numInputAttributes();
 
     /**
      * Gets the number of output attributes.
-     *
      * @return the number of output attributes
      */
     int numOutputAttributes();
 
     /**
      * Gets the number of output attributes.
-     *
      * @return the number of output attributes
      */
     int numberOutputTargets();
 
     /**
      * Gets the value of an output attribute.
-     *
      * @param attributeIndex the index
      * @return the value
      */
@@ -250,7 +220,6 @@ public interface Instance extends Serializable {
 
     /**
      * Sets the value of an output attribute.
-     *
      * @param indexClass     the output attribute index
      * @param valueAttribute the value of the attribute
      */
@@ -258,7 +227,6 @@ public interface Instance extends Serializable {
 
     /**
      * Gets an output attribute given its index.
-     *
      * @param attributeIndex the index
      * @return the attribute
      */
@@ -266,7 +234,6 @@ public interface Instance extends Serializable {
 
     /**
      * Gets an input attribute given its index.
-     *
      * @param attributeIndex the index
      * @return the attribute
      */
@@ -274,7 +241,6 @@ public interface Instance extends Serializable {
 
     /**
      * Gets the value of an input attribute.
-     *
      * @param attributeIndex the index
      * @return the value
      */
@@ -282,7 +248,6 @@ public interface Instance extends Serializable {
 
     /**
      * Gets the value of an output attribute.
-     *
      * @param attributeIndex the index
      * @return the value
      */

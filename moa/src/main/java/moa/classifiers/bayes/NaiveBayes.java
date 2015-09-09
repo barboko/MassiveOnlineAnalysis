@@ -33,9 +33,9 @@ import com.yahoo.labs.samoa.instances.Instance;
  * Naive Bayes incremental learner.
  *
  * <p>Performs classic bayesian prediction while making naive assumption that
- * all inputs are independent.<br /> Naive Bayes is a classiﬁer algorithm known
+ * all inputs are independent.<br /> Naive Bayes is a classifier algorithm known
  * for its simplicity and low computational cost. Given n different classes, the
- * trained Naive Bayes classiﬁer predicts for every unlabelled instance I the
+ * trained Naive Bayes classifier predicts for every unlabelled instance I the
  * class C to which it belongs with high accuracy.</p>
  *
  * <p>Parameters:</p> <ul> <li>-r : Seed for random behaviour of the

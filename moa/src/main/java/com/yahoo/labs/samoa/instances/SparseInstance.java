@@ -16,14 +16,12 @@ package com.yahoo.labs.samoa.instances;
 
 /**
  * The Class SparseInstance.
- *
  * @author abifet
  */
 public class SparseInstance extends InstanceImpl {
 
     /**
      * Instantiates a new sparse instance.
-     *
      * @param d   the d
      * @param res the res
      */
@@ -33,7 +31,6 @@ public class SparseInstance extends InstanceImpl {
 
     /**
      * Instantiates a new sparse instance.
-     *
      * @param inst the inst
      */
     public SparseInstance(InstanceImpl inst) {
@@ -42,7 +39,6 @@ public class SparseInstance extends InstanceImpl {
 
     /**
      * Instantiates a new sparse instance.
-     *
      * @param numberAttributes the number attributes
      */
     public SparseInstance(double numberAttributes) {
@@ -51,7 +47,6 @@ public class SparseInstance extends InstanceImpl {
 
     /**
      * Instantiates a new sparse instance.
-     *
      * @param weight           the weight
      * @param attributeValues  the attribute values
      * @param indexValues      the index values

@@ -26,7 +26,6 @@ import moa.learners.Learner;
 
 /**
  * Classifier interface for incremental classification models.
- *
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
@@ -35,14 +34,12 @@ public interface Classifier extends Learner<Example<Instance>> {
     /**
      * Gets the classifiers of this ensemble. Returns null if this learner is a
      * single learner.
-     *
      * @return an array of the learners of the ensemble
      */
     Classifier[] getSubClassifiers();
 
     /**
      * Produces a copy of this learner.
-     *
      * @return the copy of this learner
      */
     Classifier copy();
@@ -51,7 +48,6 @@ public interface Classifier extends Learner<Example<Instance>> {
      * Gets whether this classifier correctly classifies an instance. Uses
      * getVotesForInstance to obtain the prediction and the instance to obtain
      * its true class.
-     *
      * @param inst the instance to be classified
      * @return true if the instance is correctly classified
      */
@@ -59,7 +55,6 @@ public interface Classifier extends Learner<Example<Instance>> {
 
     /**
      * Trains this learner incrementally using the given example.
-     *
      * @param inst the instance to be used for training
      */
     void trainOnInstance(Instance inst);
@@ -67,7 +62,6 @@ public interface Classifier extends Learner<Example<Instance>> {
     /**
      * Predicts the class memberships for a given instance. If an instance is
      * unclassified, the returned array elements must be all zero.
-     *
      * @param inst the instance to be classified
      * @return an array containing the estimated membership probabilities of the
      * test instance in each class
@@ -79,7 +73,6 @@ public interface Classifier extends Learner<Example<Instance>> {
      * data stream is extended from WEKA
      * <code>Instances</code>. This header is needed to know the number of
      * classes and attributes
-     *
      * @param ih the reference to the data stream header
      */
     //public void setModelContext(InstancesHeader ih);
@@ -89,7 +82,6 @@ public interface Classifier extends Learner<Example<Instance>> {
      * data stream is extended from WEKA
      * <code>Instances</code>. This header is needed to know the number of
      * classes and attributes
-     *
      * @return the reference to the data stream header
      */
     //public InstancesHeader getModelContext();

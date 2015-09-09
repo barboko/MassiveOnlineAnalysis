@@ -19,21 +19,18 @@ import java.io.Serializable;
 
 /**
  * The Interface InstanceData.
- *
  * @author abifet
  */
 public interface InstanceData extends Serializable {
 
     /**
      * Num attributes.
-     *
      * @return the int
      */
     int numAttributes();
 
     /**
      * Value.
-     *
      * @param instAttIndex the inst att index
      * @return the double
      */
@@ -41,7 +38,6 @@ public interface InstanceData extends Serializable {
 
     /**
      * Checks if is missing.
-     *
      * @param instAttIndex the inst att index
      * @return true, if is missing
      */
@@ -49,14 +45,12 @@ public interface InstanceData extends Serializable {
 
     /**
      * Num values.
-     *
      * @return the int
      */
     int numValues();
 
     /**
      * Index.
-     *
      * @param i the i
      * @return the int
      */
@@ -64,7 +58,6 @@ public interface InstanceData extends Serializable {
 
     /**
      * Value sparse.
-     *
      * @param i the i
      * @return the double
      */
@@ -72,7 +65,6 @@ public interface InstanceData extends Serializable {
 
     /**
      * Checks if is missing sparse.
-     *
      * @param p1 the p1
      * @return true, if is missing sparse
      */
@@ -80,14 +72,12 @@ public interface InstanceData extends Serializable {
 
     /**
      * To double array.
-     *
      * @return the double[]
      */
     double[] toDoubleArray();
 
     /**
      * Sets the value.
-     *
      * @param m_numAttributes the m_num attributes
      * @param d               the d
      */
@@ -96,7 +86,6 @@ public interface InstanceData extends Serializable {
 
     /**
      * Deletes an attribute.
-     *
      * @param index the indexes
      */
     void deleteAttributeAt(int index);

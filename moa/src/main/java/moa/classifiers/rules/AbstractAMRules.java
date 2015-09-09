@@ -35,21 +35,20 @@ import com.github.javacliparser.FlagOption;
 import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
 import com.yahoo.labs.samoa.instances.Instance;
-
-import java.util.Arrays;
-import java.util.Iterator;
-
 import moa.classifiers.AbstractClassifier;
 import moa.classifiers.rules.core.Rule;
+import moa.classifiers.rules.core.Rule.Builder;
 import moa.classifiers.rules.core.RuleActiveLearningNode;
 import moa.classifiers.rules.core.RuleSet;
-import moa.classifiers.rules.core.Rule.Builder;
 import moa.classifiers.rules.core.attributeclassobservers.FIMTDDNumericAttributeClassLimitObserver;
 import moa.classifiers.rules.core.voting.ErrorWeightedVote;
 import moa.classifiers.rules.core.voting.Vote;
 import moa.core.Measurement;
 import moa.core.StringUtils;
 import moa.options.ClassOption;
+
+import java.util.Arrays;
+import java.util.Iterator;
 
 
 public abstract class AbstractAMRules extends AbstractClassifier {
@@ -156,7 +155,7 @@ public abstract class AbstractAMRules extends AbstractClassifier {
 	 * Rule.Builder() to build an object with the parameters.
 	 * If you have an algorithm with many parameters, especially if some of them are optional, 
 	 * it can be beneficial to define an object that represents all of the parameters.
-	 * @return
+	 * @return rule
 	 */
 	abstract protected Rule newRule(int ID, RuleActiveLearningNode learningNode, double [] statistics); //Learning node and statistics can be null
 
@@ -201,13 +200,13 @@ public abstract class AbstractAMRules extends AbstractClassifier {
 		Iterator<Rule> ruleIterator= this.ruleSet.iterator();
 		while (ruleIterator.hasNext()) { 
 			Rule rule = ruleIterator.next();
-			if (rule.isCovering(instance) == true) {
+			if (rule.isCovering(instance)) {
 				rulesCoveringInstance = true;
-				if (isAnomaly(instance, rule) == false) {
+				if (!isAnomaly(instance, rule)) {
 					//Update Change Detection Tests
 					double error = rule.computeError(instance); //Use adaptive mode error
 					boolean changeDetected = rule.getLearningNode().updateChangeDetection(error);
-					if (changeDetected == true) {
+					if (changeDetected) {
 						debug("I) Drift Detected. Exa. : " +  this.numInstances + " (" + rule.getInstancesSeen() +") Remove Rule: " +rule.getRuleNumberID(),1);
 
 						ruleIterator.remove();
@@ -233,12 +232,12 @@ public abstract class AbstractAMRules extends AbstractClassifier {
 			}
 		}	
 
-		if (rulesCoveringInstance == false){ 
+		if (!rulesCoveringInstance){
 			defaultRule.updateStatistics(instance);
 			if (defaultRule.getInstancesSeen() % this.gracePeriodOption.getValue() == 0.0) {
 				debug("Nr. examples "+defaultRule.getInstancesSeen(), 4);
 
-				if (defaultRule.tryToExpand(this.splitConfidenceOption.getValue(), this.tieThresholdOption.getValue()) == true) {
+				if (defaultRule.tryToExpand(this.splitConfidenceOption.getValue(), this.tieThresholdOption.getValue())) {
 					Rule newDefaultRule=newRule(defaultRule.getRuleNumberID(),defaultRule.getLearningNode(),defaultRule.getLearningNode().getStatisticsOtherBranchSplit()); //other branch
 					defaultRule.split();
 					defaultRule.setRuleNumberID(++ruleNumberID);
@@ -266,7 +265,7 @@ public abstract class AbstractAMRules extends AbstractClassifier {
 	private boolean isAnomaly(Instance instance, Rule rule) {
 		//AMRUles is equipped with anomaly detection. If on, compute the anomaly value. 			
 		boolean isAnomaly = false;	
-		if (this.noAnomalyDetectionOption.isSet() == false){
+		if (!this.noAnomalyDetectionOption.isSet()){
 			if (rule.getInstancesSeen() >= this.anomalyNumInstThresholdOption.getValue()) {
 				isAnomaly = rule.isAnomaly(instance, 
 						this.univariateAnomalyprobabilityThresholdOption.getValue(),
@@ -408,7 +407,7 @@ public abstract class AbstractAMRules extends AbstractClassifier {
 
 		VerboseToConsole(instance); // Verbose to console Dataset name.
 		for (Rule rule : ruleSet) {
-			if (rule.isCovering(instance) == true){
+			if (rule.isCovering(instance)){
 				numberOfRulesCovering++;
 				//DoubleVector vote = new DoubleVector(rule.getPrediction(instance));
 				double [] vote=rule.getPrediction(instance);

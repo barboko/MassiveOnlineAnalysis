@@ -224,7 +224,7 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
     @Override
     public MOAObject getModel(){
         return this;
-    };
+    }
     
     @Override
     public void trainOnInstance(Example<Instance> example){
