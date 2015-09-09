@@ -19,14 +19,11 @@
  */
 package moa.evaluation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import moa.core.Example;
-import moa.core.Measurement;
 import com.yahoo.labs.samoa.instances.Instance;
 import com.yahoo.labs.samoa.instances.MultiLabelInstance;
 import com.yahoo.labs.samoa.instances.Prediction;
+import moa.core.Example;
+import moa.core.Measurement;
 
 /**
  * Multilabel Window Classification Performance Evaluator.

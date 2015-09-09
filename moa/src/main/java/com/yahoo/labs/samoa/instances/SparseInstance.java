@@ -24,7 +24,7 @@ public class SparseInstance extends InstanceImpl {
     /**
      * Instantiates a new sparse instance.
      *
-     * @param d the d
+     * @param d   the d
      * @param res the res
      */
     public SparseInstance(double d, double[] res) {
@@ -52,9 +52,9 @@ public class SparseInstance extends InstanceImpl {
     /**
      * Instantiates a new sparse instance.
      *
-     * @param weight the weight
-     * @param attributeValues the attribute values
-     * @param indexValues the index values
+     * @param weight           the weight
+     * @param attributeValues  the attribute values
+     * @param indexValues      the index values
      * @param numberAttributes the number attributes
      */
     public SparseInstance(double weight, double[] attributeValues, int[] indexValues, int numberAttributes) {

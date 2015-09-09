@@ -70,8 +70,8 @@ public interface Instance extends Serializable {
     /**
      * Adds the sparse values.
      *
-     * @param indexValues the index values
-     * @param attributeValues the attribute values
+     * @param indexValues      the index values
+     * @param attributeValues  the attribute values
      * @param numberAttributes the number attributes
      */
     void addSparseValues(int[] indexValues, double[] attributeValues, int numberAttributes);
@@ -111,7 +111,7 @@ public interface Instance extends Serializable {
      * Sets the value of an attribute.
      *
      * @param instAttIndex the index
-     * @param value the value
+     * @param value        the value
      */
     void setValue(int instAttIndex, double value);
 
@@ -251,7 +251,7 @@ public interface Instance extends Serializable {
     /**
      * Sets the value of an output attribute.
      *
-     * @param indexClass the output attribute index
+     * @param indexClass     the output attribute index
      * @param valueAttribute the value of the attribute
      */
     void setClassValue(int indexClass, double valueAttribute);

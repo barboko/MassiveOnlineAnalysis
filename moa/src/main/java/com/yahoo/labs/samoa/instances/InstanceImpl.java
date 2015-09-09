@@ -39,7 +39,7 @@ public class InstanceImpl implements MultiLabelInstance {
 
     /**
      * Instantiates a new instance.
-     *
+     * Copy Constructor.
      * @param inst the inst
      */
     public InstanceImpl(InstanceImpl inst) {
@@ -48,9 +48,9 @@ public class InstanceImpl implements MultiLabelInstance {
         this.instanceHeader = inst.instanceHeader;
     }
 
-    //Dense
+    //
     /**
-     * Instantiates a new instance.
+     * Instantiates a new Dense instance.
      *
      * @param weight the weight
      * @param res the res
@@ -60,9 +60,9 @@ public class InstanceImpl implements MultiLabelInstance {
         this.instanceData = new DenseInstanceData(res);
     }
 
-    //Sparse
+
     /**
-     * Instantiates a new instance.
+     * Instantiates a new Sparse instance.
      *
      * @param weight the weight
      * @param attributeValues the attribute values

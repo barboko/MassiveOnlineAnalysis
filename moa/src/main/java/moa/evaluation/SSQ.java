@@ -20,9 +20,10 @@
 
 package moa.evaluation;
 
-import java.util.ArrayList;
 import moa.cluster.Clustering;
 import moa.gui.visualization.DataPoint;
+
+import java.util.ArrayList;
 
 public class SSQ extends MeasureCollection{
 
@@ -32,34 +33,32 @@ public class SSQ extends MeasureCollection{
 
     @Override
     public String[] getNames() {
-        String[] names = {"SSQ"};
-        return names;
+        return new String[]{"SSQ"};
     }
     
   @Override
   protected boolean[] getDefaultEnabled() {
-      boolean [] defaults = {false};
-      return defaults;
+      return new boolean[]{false};
   }
     
     public void evaluateClustering(Clustering clustering, Clustering trueClsutering, ArrayList<DataPoint> points) {
         double sum = 0.0;
-        for (int p = 0; p < points.size(); p++) {
+        for (DataPoint point : points) {
             //don't include noise
-            if(points.get(p).classValue()==-1) continue;
+            if (point.classValue() == -1) continue;
 
             double minDistance = Double.MAX_VALUE;
             for (int c = 0; c < clustering.size(); c++) {
                 double distance = 0.0;
                 double[] center = clustering.get(c).getCenter();
                 for (int i = 0; i < center.length; i++) {
-                    double d = points.get(p).value(i) - center[i];
+                    double d = point.value(i) - center[i];
                     distance += d * d;
                 }
                 minDistance = Math.min(distance, minDistance);
             }
-            
-            sum+=minDistance;
+
+            sum += minDistance;
         }
         
         addValue(0,sum);

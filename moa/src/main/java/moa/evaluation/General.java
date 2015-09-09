@@ -21,11 +21,12 @@
 package moa.evaluation;
 
 
-import java.util.ArrayList;
+import com.yahoo.labs.samoa.instances.Instance;
 import moa.cluster.Clustering;
 import moa.cluster.SphereCluster;
 import moa.gui.visualization.DataPoint;
-import com.yahoo.labs.samoa.instances.Instance;
+
+import java.util.ArrayList;
 
 public class General extends MeasureCollection{
     private int numPoints;
@@ -43,9 +44,8 @@ public class General extends MeasureCollection{
 
     @Override
     protected String[] getNames() {
-        String[] names = {"GPrecision","GRecall","Redundancy","numCluster","numClasses"};
         //String[] names = {"GPrecision","GRecall","Redundancy","Overlap","numCluster","numClasses","Compactness"};
-        return names;
+        return new String[]{"GPrecision","GRecall","Redundancy","numCluster","numClasses"};
     }
 
 //    @Override

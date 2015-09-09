@@ -19,12 +19,10 @@
  */
 package moa.classifiers;
 
+import com.yahoo.labs.samoa.instances.Instance;
+import com.yahoo.labs.samoa.instances.Prediction;
 import moa.core.Example;
 import moa.learners.Learner;
-
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceData;
-import com.yahoo.labs.samoa.instances.Prediction;
 
 /**
  * Classifier interface for incremental classification models.
@@ -40,32 +38,31 @@ public interface Classifier extends Learner<Example<Instance>> {
      *
      * @return an array of the learners of the ensemble
      */
-    public Classifier[] getSubClassifiers();
+    Classifier[] getSubClassifiers();
 
     /**
      * Produces a copy of this learner.
      *
      * @return the copy of this learner
      */
-    public Classifier copy();
+    Classifier copy();
 
     /**
      * Gets whether this classifier correctly classifies an instance. Uses
      * getVotesForInstance to obtain the prediction and the instance to obtain
      * its true class.
      *
-     *
      * @param inst the instance to be classified
      * @return true if the instance is correctly classified
      */
-    public boolean correctlyClassifies(Instance inst);
+    boolean correctlyClassifies(Instance inst);
 
     /**
      * Trains this learner incrementally using the given example.
      *
      * @param inst the instance to be used for training
      */
-    public void trainOnInstance(Instance inst);
+    void trainOnInstance(Instance inst);
 
     /**
      * Predicts the class memberships for a given instance. If an instance is
@@ -75,8 +72,8 @@ public interface Classifier extends Learner<Example<Instance>> {
      * @return an array containing the estimated membership probabilities of the
      * test instance in each class
      */
-    public double[] getVotesForInstance(Instance inst);
-    
+    double[] getVotesForInstance(Instance inst);
+
     /**
      * Sets the reference to the header of the data stream. The header of the
      * data stream is extended from WEKA
@@ -86,7 +83,7 @@ public interface Classifier extends Learner<Example<Instance>> {
      * @param ih the reference to the data stream header
      */
     //public void setModelContext(InstancesHeader ih);
-    
+
     /**
      * Gets the reference to the header of the data stream. The header of the
      * data stream is extended from WEKA
@@ -96,6 +93,6 @@ public interface Classifier extends Learner<Example<Instance>> {
      * @return the reference to the data stream header
      */
     //public InstancesHeader getModelContext();
-    
-    public Prediction getPredictionForInstance(Instance inst);
+
+    Prediction getPredictionForInstance(Instance inst);
 }

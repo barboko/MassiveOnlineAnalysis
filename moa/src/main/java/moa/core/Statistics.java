@@ -353,7 +353,7 @@ public class Statistics {
    * <A HREF="http://people.ne.mediaone.net/moshier/index.html#Cephes">Cephes 2.2</A>
    * Math Library (C).
    *
-   * @param a the argument to the function.
+   * @param x the argument to the function.
    */
   public static double errorFunction(double x) { 
     double y, z;
@@ -662,7 +662,6 @@ public class Statistics {
     };
 
     double p, z;
-    int i;
 
     double q = Math.abs(x);
 
@@ -670,8 +669,7 @@ public class Statistics {
       if( x < 0.0 ) {
 	p = Math.floor(q);
 	if( p == q ) throw new ArithmeticException("gamma: overflow");
-	i = (int)p;
-	z = q - p;
+        z = q - p;
 	if( z > 0.5 ) {
 	  p += 1.0;
 	  z = q - p;
@@ -694,12 +692,9 @@ public class Statistics {
     }
 
     while( x < 0.0 ) {
-      if( x == 0.0 ) {
-	throw new ArithmeticException("gamma: singular");
-      } else
-	if( x > -1.E-9 ) {
-	  return( z/((1.0 + 0.5772156649015329 * x) * x) );
-	}
+      if( x > -1.E-9 ) {
+        return( z/((1.0 + 0.5772156649015329 * x) * x) );
+      }
       z /= x;
       x += 1.0;
     }
@@ -939,7 +934,7 @@ public class Statistics {
     k4 = a + 1.0;
     k5 = 1.0;
     k6 = a + b;
-    k7 = a + 1.0;;
+    k7 = a + 1.0;
     k8 = a + 2.0;
 
     pkm2 = 0.0;

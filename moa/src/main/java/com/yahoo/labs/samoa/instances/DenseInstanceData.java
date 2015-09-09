@@ -19,7 +19,7 @@ package com.yahoo.labs.samoa.instances;
 /**
  * The Class DenseInstanceData.
  */
-public class DenseInstanceData implements InstanceData{
+public class DenseInstanceData implements InstanceData {
 
     /**
      * Instantiates a new dense instance data.
@@ -27,26 +27,28 @@ public class DenseInstanceData implements InstanceData{
      * @param array the array
      */
     public DenseInstanceData(double[] array) {
-       this.attributeValues = array;
+        this.attributeValues = array;
     }
-    
+
     /**
      * Instantiates a new dense instance data.
      *
      * @param length the length
      */
     public DenseInstanceData(int length) {
-       this.attributeValues = new double[length];
+        this.attributeValues = new double[length];
     }
-    
+
     /**
      * Instantiates a new dense instance data.
      */
     public DenseInstanceData() {
-       this(0);
+        this(0);
     }
-    
-    /** The attribute values. */
+
+    /**
+     * The attribute values.
+     */
     protected double[] attributeValues;
 
     /**
@@ -78,7 +80,7 @@ public class DenseInstanceData implements InstanceData{
      */
     @Override
     public boolean isMissing(int indexAttribute) {
-       return Double.isNaN(this.value(indexAttribute));
+        return Double.isNaN(this.value(indexAttribute));
     }
 
     /**
@@ -138,7 +140,7 @@ public class DenseInstanceData implements InstanceData{
      * Sets the value.
      *
      * @param attributeIndex the attribute index
-     * @param d the d
+     * @param d              the d
      */
     @Override
     public void setValue(int attributeIndex, double d) {
@@ -147,13 +149,13 @@ public class DenseInstanceData implements InstanceData{
 
     @Override
     public void deleteAttributeAt(int index) {
-        
+
         double[] newValues = new double[attributeValues.length - 1];
 
         System.arraycopy(attributeValues, 0, newValues, 0, index);
         if (index < attributeValues.length - 1) {
-          System.arraycopy(attributeValues, index + 1, newValues, index,
-              attributeValues.length - (index + 1));
+            System.arraycopy(attributeValues, index + 1, newValues, index,
+                    attributeValues.length - (index + 1));
         }
         attributeValues = newValues;
     }
@@ -162,5 +164,5 @@ public class DenseInstanceData implements InstanceData{
     public InstanceData copy() {
         return new DenseInstanceData(this.attributeValues.clone());
     }
-       
+
 }

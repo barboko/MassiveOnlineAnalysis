@@ -20,35 +20,19 @@
 
 package moa.classifiers;
 
+import com.github.javacliparser.IntOption;
+import com.yahoo.labs.samoa.instances.*;
+import moa.MOAObject;
+import moa.core.*;
+import moa.gui.AWTRenderer;
+import moa.learners.Learner;
+import moa.options.AbstractOptionHandler;
+import moa.tasks.TaskMonitor;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import moa.MOAObject;
-import moa.core.Example;
-
-import com.yahoo.labs.samoa.instances.InstancesHeader;
-
-import moa.core.Measurement;
-import moa.core.ObjectRepository;
-import moa.core.StringUtils;
-import moa.gui.AWTRenderer;
-import moa.learners.Learner;
-import moa.options.AbstractOptionHandler;
-
-import com.github.javacliparser.IntOption;
-
-import moa.tasks.TaskMonitor;
-
-import com.yahoo.labs.samoa.instances.DenseInstanceData;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceData;
-import com.yahoo.labs.samoa.instances.Instances;
-import com.yahoo.labs.samoa.instances.MultiLabelPrediction;
-import com.yahoo.labs.samoa.instances.Prediction;
-
-import moa.core.Utils;
 
 public abstract class AbstractClassifier extends AbstractOptionHandler
         implements Classifier { //Learner<Example<Instance>> {
@@ -168,8 +152,7 @@ public abstract class AbstractClassifier extends AbstractOptionHandler
     @Override
     public void trainOnInstance(Instance inst) {
         boolean isTraining = (inst.weight() > 0.0);
-        if (this instanceof SemiSupervisedLearner == false &&
-                inst.classIsMissing() == true){
+        if (!(this instanceof SemiSupervisedLearner) && inst.classIsMissing()){
             isTraining = false;
         }
         if (isTraining) {

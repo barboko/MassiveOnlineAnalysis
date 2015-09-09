@@ -19,15 +19,13 @@
  */
 package moa.evaluation;
 
+import moa.AbstractMOAObject;
+import moa.core.Measurement;
+import moa.learners.Learner;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import moa.AbstractMOAObject;
-import moa.classifiers.Classifier;
-import moa.clusterers.Clusterer;
-import moa.learners.Learner;
-import moa.core.Measurement;
 
 /**
  * Class that stores an array of evaluation measurements.

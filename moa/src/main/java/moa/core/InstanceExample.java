@@ -2,6 +2,9 @@ package moa.core;
 
 import com.yahoo.labs.samoa.instances.Instance;
 
+/**
+ *
+ */
 public class InstanceExample implements Example<Instance> {
 
 	public Instance instance;

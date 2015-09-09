@@ -20,9 +20,7 @@
 package moa.evaluation;
 
 import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceData;
 import com.yahoo.labs.samoa.instances.Prediction;
-
 import moa.AbstractMOAObject;
 import moa.core.Example;
 import moa.core.Measurement;
@@ -88,16 +86,16 @@ public class BasicConceptDriftPerformanceEvaluator extends AbstractMOAObject
                 //Change detected
                 //System.out.println("Change detected with delay "+ this.delay );
                 this.numberDetections += inst.weight();
-                if (this.hasChangeOccurred == true) { 
+                if (this.hasChangeOccurred) {
                     this.totalDelay += this.delay - classVotes[2];
                     this.numberDetectionsOccurred += inst.weight();
                     this.hasChangeOccurred = false;
                 }
             }
-            if (this.hasChangeOccurred && classVotes[1] == 1.0) {
+            if (this.hasChangeOccurred && (classVotes[1] == 1.0)) {
                 //Warning detected
                 //System.out.println("Warning detected at "+getTotalWeightObserved());
-                if (this.isWarningZone == false) {
+                if (!this.isWarningZone) {
                     this.numberWarnings += inst.weight();
                     this.isWarningZone = true;
                 } 

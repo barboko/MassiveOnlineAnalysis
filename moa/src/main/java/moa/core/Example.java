@@ -1,10 +1,12 @@
 package moa.core;
 
-public interface Example< T extends Object> {
-
-	public T getData();
-
-	public double weight();
-	
-	public void setWeight(double weight);
+/**
+ * Interface for something unknown.
+ * TODO: Check what is all about it.
+ * @param <T>
+ */
+public interface Example<T extends Object> {
+    T getData();
+    double weight();
+    void setWeight(double weight);
 } 

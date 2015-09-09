@@ -50,7 +50,6 @@ public class InputStreamProgressMonitor extends FilterInputStream {
 	public int getBytesRead() {
 		return this.inputBytesRead;
 	}
-
 	public int getBytesRemaining() {
 		return this.inputByteSize - this.inputBytesRead;
 	}

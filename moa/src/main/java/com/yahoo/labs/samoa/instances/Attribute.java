@@ -15,11 +15,11 @@
  */
 package com.yahoo.labs.samoa.instances;
 
+import moa.core.Utils;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import moa.core.Utils;
 /**
  * The Class Attribute.
  */
@@ -235,7 +235,7 @@ public class Attribute implements Serializable {
      */
     public final int indexOfValue(String value) {
 
-        if (isNominal() == false) {
+        if (!isNominal()) {
             return -1;
         }
         if (this.valuesStringAttribute == null) {
@@ -246,12 +246,8 @@ public class Attribute implements Serializable {
                 count++;
             }
         }
-        Integer val = (Integer) this.valuesStringAttribute.get(value);
-        if (val == null) {
-            return -1;
-        } else {
-            return val.intValue();
-        }
+        Integer val = this.valuesStringAttribute.get(value);
+        return val == null ? -1 : val;
     }
     
     /**
@@ -263,14 +259,14 @@ public class Attribute implements Serializable {
      */
     public final String toString() {
     
-    StringBuffer text = new StringBuffer();
+    StringBuilder text = new StringBuilder();
     
     text.append(ARFF_ATTRIBUTE).append(" ").append(Utils.quote(this.name())).append(" ");
     
     if (this.isNominal){
         text.append('{');
         Enumeration enu =  enumerateValues();
-        while (enu.hasMoreElements()) {
+        while ((enu != null) && enu.hasMoreElements()) {
             text.append(Utils.quote((String) enu.nextElement()));
             if (enu.hasMoreElements())
                 text.append(',');
@@ -281,7 +277,7 @@ public class Attribute implements Serializable {
     } else if (this.isDate){
         text.append(ARFF_ATTRIBUTE_DATE).append(" ").append(Utils.quote(m_DateFormat.toPattern()));
     } else{
-        text.append("UNKNOW");
+        text.append("UNKNOWN");
     }
     
     return text.toString();

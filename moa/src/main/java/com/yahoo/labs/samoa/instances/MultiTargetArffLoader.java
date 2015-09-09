@@ -29,7 +29,7 @@ public class MultiTargetArffLoader extends ArffLoader {
 
     @Override
     protected Instance newSparseInstance(double d, double[] res) {
-        return new SparseInstance(d, res); // TODO
+        return new SparseInstance(d, res);
     }
 
     @Override

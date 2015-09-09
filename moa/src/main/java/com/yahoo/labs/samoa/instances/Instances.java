@@ -15,13 +15,14 @@
  */
 package com.yahoo.labs.samoa.instances;
 
+import moa.core.Utils;
+
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import moa.core.Utils;
 
 /**
  * The Class Instances.
@@ -30,12 +31,16 @@ import moa.core.Utils;
  */
 public class Instances implements Serializable {
 
-    /** The keyword used to denote the start of an arff header */
+    /**
+     * The keyword used to denote the start of an arff header
+     */
     public final static String ARFF_RELATION = "@relation";
-  
-    /** The keyword used to denote the start of the arff data section */
+
+    /**
+     * The keyword used to denote the start of the arff data section
+     */
     public final static String ARFF_DATA = "@data";
-  
+
     private static final long serialVersionUID = 8110510475535581577L;
     /**
      * The instance information.
@@ -70,8 +75,8 @@ public class Instances implements Serializable {
     /**
      * Instantiates a new instances.
      *
-     * @param reader the reader
-     * @param size the size
+     * @param reader         the reader
+     * @param size           the size
      * @param classAttribute the class attribute
      */
     public Instances(Reader reader, int size, int classAttribute) {
@@ -95,7 +100,7 @@ public class Instances implements Serializable {
     /**
      * Instantiates a new instances.
      *
-     * @param chunk the chunk
+     * @param chunk    the chunk
      * @param capacity the capacity
      */
     public Instances(Instances chunk, int capacity) {
@@ -109,8 +114,8 @@ public class Instances implements Serializable {
     /**
      * Instantiates a new instances.
      *
-     * @param st the st
-     * @param v the v
+     * @param st       the st
+     * @param v        the v
      * @param capacity the capacity
      */
     public Instances(String st, List<Attribute> v, int capacity) {
@@ -120,8 +125,8 @@ public class Instances implements Serializable {
     /**
      * Instantiates a new instances.
      *
-     * @param chunk the chunk
-     * @param first the first instance
+     * @param chunk  the chunk
+     * @param first  the first instance
      * @param toCopy the j
      */
     public Instances(Instances chunk, int first, int toCopy) {
@@ -138,14 +143,15 @@ public class Instances implements Serializable {
     /**
      * Instantiates a new instances.
      *
-     * @param st the st
+     * @param st       the st
      * @param capacity the capacity
      */
     public Instances(StringReader st, int capacity) {
-         this.instances = new ArrayList<Instance>(capacity);
+        this.instances = new ArrayList<Instance>(capacity);
     }
 
     //Information Instances
+
     /**
      * Sets the relation name.
      *
@@ -232,15 +238,16 @@ public class Instances implements Serializable {
      * Insert attribute at.
      *
      * @param attribute the attribute
-     * @param i the i
+     * @param i         the i
      */
     public void insertAttributeAt(Attribute attribute, int i) {
-    	if (this.instanceInformation==null)
-    		this.instanceInformation= new InstanceInformation();
+        if (this.instanceInformation == null)
+            this.instanceInformation = new InstanceInformation();
         this.instanceInformation.insertAttributeAt(attribute, i);
     }
 
     //List of Instances
+
     /**
      * Instance.
      *
@@ -329,8 +336,7 @@ public class Instances implements Serializable {
      *
      * @param numFolds the num folds
      * @param numFold
-     * @param n the n
-     * @param random the random
+     * @param random   the random
      * @return the instances
      */
     public Instances trainCV(int numFolds, int numFold, Random random) {
@@ -368,7 +374,7 @@ public class Instances implements Serializable {
      * Test cv.
      *
      * @param numFolds the num folds
-     * @param numFold the num fold
+     * @param numFold  the num fold
      * @return the instances
      */
     public Instances testCV(int numFolds, int numFold) {
@@ -392,6 +398,7 @@ public class Instances implements Serializable {
     /*  public Instances dataset() {
      throw new UnsupportedOperationException("Not yet implemented");
      }*/
+
     /**
      * Mean or mode.
      *
@@ -427,8 +434,8 @@ public class Instances implements Serializable {
     public void delete() {
         this.instances = new ArrayList<Instance>();
     }
-    
-     /**
+
+    /**
      * Delete.
      */
     public void delete(int index) {
@@ -479,64 +486,64 @@ public class Instances implements Serializable {
         return this.instance(k);
     }
 
-	public void setRangeOutputIndices(Range range) {
-		this.instanceInformation.setRangeOutputIndices(range);
-		
-	}
-	
+    public void setRangeOutputIndices(Range range) {
+        this.instanceInformation.setRangeOutputIndices(range);
+
+    }
+
     public void setAttributes(List<Attribute> v) {
-    	if(this.instanceInformation==null)
-    		this.instanceInformation= new InstanceInformation();
+        if (this.instanceInformation == null)
+            this.instanceInformation = new InstanceInformation();
         this.instanceInformation.setAttributes(v);
     }
-    
+
     public void setAttributes(List<Attribute> v, List<Integer> indexValues) {
-    	if(this.instanceInformation==null)
-    		this.instanceInformation= new InstanceInformation();
+        if (this.instanceInformation == null)
+            this.instanceInformation = new InstanceInformation();
         this.instanceInformation.setAttributes(v, indexValues);
     }
-    
-      /**
-   * Returns the dataset as a string in ARFF format. Strings
-   * are quoted if they contain whitespace characters, or if they
-   * are a question mark.
-   *
-   * @return the dataset in ARFF format as a string
-   */
-  public String toString() {
-    
-    StringBuffer text = new StringBuffer();
-    
-    text.append(ARFF_RELATION).append(" ").
-      append(Utils.quote( this.instanceInformation.getRelationName())).append("\n\n");
-    for (int i = 0; i < numAttributes(); i++) {
-      text.append(attribute(i).toString()).append("\n");
-    }
-    text.append("\n").append(ARFF_DATA).append("\n");
 
-    text.append(stringWithoutHeader());
-    return text.toString();
-  }
-  
     /**
-   * Returns the instances in the dataset as a string in ARFF format. Strings
-   * are quoted if they contain whitespace characters, or if they
-   * are a question mark.
-   *
-   * @return the dataset in ARFF format as a string
-   */
-  protected String stringWithoutHeader() {
-    
-    StringBuffer text = new StringBuffer();
+     * Returns the dataset as a string in ARFF format. Strings
+     * are quoted if they contain whitespace characters, or if they
+     * are a question mark.
+     *
+     * @return the dataset in ARFF format as a string
+     */
+    public String toString() {
 
-    for (int i = 0; i < numInstances(); i++) {
-      text.append(instance(i));
-      if (i < numInstances() - 1) {
-	text.append('\n');
-      }
+        StringBuffer text = new StringBuffer();
+
+        text.append(ARFF_RELATION).append(" ").
+                append(Utils.quote(this.instanceInformation.getRelationName())).append("\n\n");
+        for (int i = 0; i < numAttributes(); i++) {
+            text.append(attribute(i).toString()).append("\n");
+        }
+        text.append("\n").append(ARFF_DATA).append("\n");
+
+        text.append(stringWithoutHeader());
+        return text.toString();
     }
-    return text.toString();
-    
-  }
-  
+
+    /**
+     * Returns the instances in the dataset as a string in ARFF format. Strings
+     * are quoted if they contain whitespace characters, or if they
+     * are a question mark.
+     *
+     * @return the dataset in ARFF format as a string
+     */
+    protected String stringWithoutHeader() {
+
+        StringBuilder text = new StringBuilder();
+
+        for (int i = 0; i < numInstances(); i++) {
+            text.append(instance(i));
+            if (i < numInstances() - 1) {
+                text.append('\n');
+            }
+        }
+        return text.toString();
+
+    }
+
 }

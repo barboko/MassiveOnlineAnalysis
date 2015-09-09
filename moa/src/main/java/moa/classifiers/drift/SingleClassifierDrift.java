@@ -19,7 +19,6 @@
  */
 package moa.classifiers.drift;
 
-
 /**
  * Class for handling concept drift datasets with a wrapper on a
  * classifier.<p>
@@ -35,6 +34,4 @@ package moa.classifiers.drift;
  * @version 1.1
  */
 public class SingleClassifierDrift extends DriftDetectionMethodClassifier{
-
-
 }

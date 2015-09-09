@@ -32,6 +32,7 @@ public class AttributesInformation implements Serializable {
      * The attribute information.
      */
     protected List<Attribute> attributes;
+
     protected List<Integer> indexValues;
     /**
      * The number of attributes.
@@ -43,12 +44,15 @@ public class AttributesInformation implements Serializable {
      */
     protected Attribute defaultNumericAttribute;
 
+
+    //@SuppressWarnings("unused")
     public AttributesInformation(AttributesInformation chunk) {
         this.attributes = chunk.attributes;
         this.indexValues = chunk.indexValues;
         this.numberAttributes = chunk.numberAttributes;
     }
 
+    //@SuppressWarnings("unused")
     public AttributesInformation(List<Attribute> v, List<Integer> i, int numberAttributes) {
         this.attributes = v;
         this.indexValues = i;

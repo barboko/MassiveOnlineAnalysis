@@ -20,14 +20,12 @@
  */
 package moa.evaluation;
 
+import com.yahoo.labs.samoa.instances.Instance;
+import com.yahoo.labs.samoa.instances.Prediction;
 import moa.AbstractMOAObject;
 import moa.core.Example;
 import moa.core.Measurement;
 import moa.core.Utils;
-
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceData;
-import com.yahoo.labs.samoa.instances.Prediction;
 
 /**
  * Classification evaluator that performs basic incremental evaluation.
@@ -78,7 +76,7 @@ public class BasicClassificationPerformanceEvaluator extends AbstractMOAObject
     public void addResult(Example<Instance> example, double[] classVotes) {
         Instance inst = example.getData();
         double weight = inst.weight();
-        if (inst.classIsMissing() == false){
+        if (!inst.classIsMissing()) {
             int trueClass = (int) inst.classValue();
             if (weight > 0.0) {
                 if (this.weightObserved == 0) {
@@ -102,14 +100,14 @@ public class BasicClassificationPerformanceEvaluator extends AbstractMOAObject
     @Override
     public Measurement[] getPerformanceMeasurements() {
         return new Measurement[]{
-            new Measurement("classified instances",
-            getTotalWeightObserved()),
-            new Measurement("classifications correct (percent)",
-            getFractionCorrectlyClassified() * 100.0),
-            new Measurement("Kappa Statistic (percent)",
-            getKappaStatistic() * 100.0),
-            new Measurement("Kappa Temporal Statistic (percent)",
-            getKappaTemporalStatistic() * 100.0)
+                new Measurement("classified instances",
+                        getTotalWeightObserved()),
+                new Measurement("classifications correct (percent)",
+                        getFractionCorrectlyClassified() * 100.0),
+                new Measurement("Kappa Statistic (percent)",
+                        getKappaStatistic() * 100.0),
+                new Measurement("Kappa Temporal Statistic (percent)",
+                        getKappaTemporalStatistic() * 100.0)
         };
 
     }
@@ -158,11 +156,8 @@ public class BasicClassificationPerformanceEvaluator extends AbstractMOAObject
                 sb, indent);
     }
 
-
-
-	@Override
-	public void addResult(Example<Instance> testInst, Prediction prediction) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void addResult(Example<Instance> testInst, Prediction prediction) {
+        // TODO Auto-generated method stub
+    }
 }

@@ -19,13 +19,14 @@
  */
 package moa.evaluation;
 
-import java.util.ArrayList;
 import moa.cluster.Clustering;
 import moa.gui.visualization.DataPoint;
 
+import java.util.ArrayList;
+
 public class Accuracy extends MeasureCollection implements ClassificationMeasureCollection {
 
-    private boolean debug = false;
+    //private boolean debug = false;
 
     public Accuracy() {
         super();
@@ -33,14 +34,12 @@ public class Accuracy extends MeasureCollection implements ClassificationMeasure
 
     @Override
     public String[] getNames() {
-        String[] names = {"Accuracy", "Kappa", "Kappa Temp", "Ram-Hours", "Time", "Memory"};
-        return names;
+        return new String[]{"Accuracy", "Kappa", "Kappa Temp", "Ram-Hours", "Time", "Memory"};
     }
 
     @Override
     protected boolean[] getDefaultEnabled() {
-        boolean[] defaults = {true, true, true, true, true, true};
-        return defaults;
+        return new boolean[]{true, true, true, true, true, true};
     }
 
     public void evaluateClustering(Clustering clustering, Clustering trueClsutering, ArrayList<DataPoint> points) {

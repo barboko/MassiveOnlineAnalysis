@@ -19,16 +19,12 @@
  */
 package moa.evaluation;
 
+import com.yahoo.labs.samoa.instances.Instance;
+import com.yahoo.labs.samoa.instances.MultiLabelInstance;
+import com.yahoo.labs.samoa.instances.Prediction;
 import moa.AbstractMOAObject;
 import moa.core.Example;
 import moa.core.Measurement;
-
-import com.yahoo.labs.samoa.instances.DenseInstance;
-import com.yahoo.labs.samoa.instances.DenseInstanceData;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceData;
-import com.yahoo.labs.samoa.instances.MultiLabelInstance;
-import com.yahoo.labs.samoa.instances.Prediction;
 
 /**
  * Regression evaluator that performs basic incremental evaluation.
@@ -37,16 +33,12 @@ import com.yahoo.labs.samoa.instances.Prediction;
  * @version $Revision: 7 $
  */
 public class BasicMultiTargetPerformanceEvaluator extends AbstractMOAObject
-        implements MultiTargetPerformanceEvaluator, RegressionPerformanceEvaluator{
+        implements MultiTargetPerformanceEvaluator, RegressionPerformanceEvaluator {
 
     private static final long serialVersionUID = 1L;
-
     protected double weightObserved;
-
     protected double squareError;
-
     protected double averageError;
-    
     protected int numberOutputs;
 
     @Override
@@ -59,18 +51,18 @@ public class BasicMultiTargetPerformanceEvaluator extends AbstractMOAObject
     @Override
     public void addResult(Example<Instance> example, Prediction prediction) {
 
-    MultiLabelInstance inst = (MultiLabelInstance) example.getData();
-    if (numberOutputs == 0) {
-    	numberOutputs = inst.numberOutputTargets();
-    }
+        MultiLabelInstance inst = (MultiLabelInstance) example.getData();
+        if (numberOutputs == 0) {
+            numberOutputs = inst.numberOutputTargets();
+        }
         if (inst.weight() > 0.0) {
             this.weightObserved += inst.weight();
-            if (prediction != null ) {
-            	for (int i = 0; i< numberOutputs;i++){
-            		double err = inst.classValue(i) - ((prediction.numOutputAttributes()==0) ? 0.0 : prediction.getVote(i,0));
-	                this.squareError += (err) * (err);
-	                this.averageError += Math.abs(err);
-            	}
+            if (prediction != null) {
+                for (int i = 0; i < numberOutputs; i++) {
+                    double err = inst.classValue(i) - ((prediction.numOutputAttributes() == 0) ? 0.0 : prediction.getVote(i, 0));
+                    this.squareError += (err) * (err);
+                    this.averageError += Math.abs(err);
+                }
             }
             //System.out.println(inst.classValue()+", "+prediction);
         }
@@ -79,12 +71,12 @@ public class BasicMultiTargetPerformanceEvaluator extends AbstractMOAObject
     @Override
     public Measurement[] getPerformanceMeasurements() {
         return new Measurement[]{
-                    new Measurement("classified instances",
-                    getTotalWeightObserved()),
-                    new Measurement("mean absolute error",
-                    getMeanError()),
-                    new Measurement("root mean squared error",
-                    getSquareError())};
+                new Measurement("classified instances",
+                        getTotalWeightObserved()),
+                new Measurement("mean absolute error",
+                        getMeanError()),
+                new Measurement("root mean squared error",
+                        getSquareError())};
     }
 
     public double getTotalWeightObserved() {
@@ -98,7 +90,7 @@ public class BasicMultiTargetPerformanceEvaluator extends AbstractMOAObject
 
     public double getSquareError() {
         return Math.sqrt(this.weightObserved > 0.0 ? this.squareError
-                / (this.weightObserved * this.numberOutputs): 0.0);
+                / (this.weightObserved * this.numberOutputs) : 0.0);
     }
 
     @Override
@@ -107,10 +99,10 @@ public class BasicMultiTargetPerformanceEvaluator extends AbstractMOAObject
                 sb, indent);
     }
 
-	@Override
-	public void addResult(Example<Instance> example, double[] classVotes) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void addResult(Example<Instance> example, double[] classVotes) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

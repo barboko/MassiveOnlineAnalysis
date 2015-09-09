@@ -28,19 +28,20 @@ import java.util.logging.Logger;
  * The Class ArffLoader. Loads an Arff file with sparse or dense format.
  */
 public class ArffLoader {
-
+    //region Members
     /**
      * The instance information.
      */
     protected InstanceInformation instanceInformation;
-
     protected InstancesHeader streamHeader;
-
     /**
      * The stream tokenizer.
      */
     protected StreamTokenizer streamTokenizer;
+    protected Range range;
+    //endregion
 
+    //region Constructors
     /**
      * Instantiates a new arff loader.
      *
@@ -57,9 +58,6 @@ public class ArffLoader {
             this.instanceInformation.setClassIndex(classAttribute - 1);
         }
     }
-
-    protected Range range;
-
     /**
      * Instantiates a new arff loader.
      *
@@ -98,6 +96,7 @@ public class ArffLoader {
         }
 
     }
+    //endregion
 
     /**
      * Gets the structure.

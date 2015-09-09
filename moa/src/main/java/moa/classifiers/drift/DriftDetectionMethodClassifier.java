@@ -19,15 +19,17 @@
 package moa.classifiers.drift;
 
 import com.yahoo.labs.samoa.instances.Instance;
-import java.util.LinkedList;
-import java.util.List;
 import moa.classifiers.AbstractClassifier;
 import moa.classifiers.Classifier;
+import moa.classifiers.core.driftdetection.ChangeDetector;
 import moa.classifiers.meta.WEKAClassifier;
 import moa.core.Measurement;
 import moa.core.Utils;
-import moa.classifiers.core.driftdetection.ChangeDetector;
 import moa.options.ClassOption;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class for handling concept drift datasets with a wrapper on a
@@ -60,7 +62,7 @@ public class DriftDetectionMethodClassifier extends AbstractClassifier {
 
     protected Classifier classifier;
 
-    protected Classifier newclassifier;
+    protected Classifier newClassifier;
 
     protected ChangeDetector driftDetectionMethod;
 
@@ -74,27 +76,24 @@ public class DriftDetectionMethodClassifier extends AbstractClassifier {
     }
 
     public boolean isChangeDetected() {
-        return (this.ddmLevel == DriftDetectionMethod.DDM_OUTCONTROL_LEVEL);
+        return (this.ddmLevel == DriftDetectionMethod.DDM_OUT_CONTROL_LEVEL);
     }*/
 
-    public static final int DDM_INCONTROL_LEVEL = 0;
-
+    public static final int DDM_IN_CONTROL_LEVEL = 0;
     public static final int DDM_WARNING_LEVEL = 1;
-
-    public static final int DDM_OUTCONTROL_LEVEL = 2;
+    public static final int DDM_OUT_CONTROL_LEVEL = 2;
     
     @Override
     public void resetLearningImpl() {
         this.classifier = ((Classifier) getPreparedClassOption(this.baseLearnerOption)).copy();
-        this.newclassifier = this.classifier.copy();
+        this.newClassifier = this.classifier.copy();
         this.classifier.resetLearning();
-        this.newclassifier.resetLearning();
+        this.newClassifier.resetLearning();
         this.driftDetectionMethod = ((ChangeDetector) getPreparedClassOption(this.driftDetectionMethodOption)).copy();
         this.newClassifierReset = false;
     }
 
     protected int changeDetected = 0;
-
     protected int warningDetected = 0;
 
     @Override
@@ -102,16 +101,12 @@ public class DriftDetectionMethodClassifier extends AbstractClassifier {
         //this.numberInstances++;
         int trueClass = (int) inst.classValue();
         boolean prediction;
-        if (Utils.maxIndex(this.classifier.getVotesForInstance(inst)) == trueClass) {
-            prediction = true;
-        } else {
-            prediction = false;
-        }
+        prediction = Utils.maxIndex(this.classifier.getVotesForInstance(inst)) == trueClass;
         //this.ddmLevel = this.driftDetectionMethod.computeNextVal(prediction);
         this.driftDetectionMethod.input(prediction ? 0.0 : 1.0);
-        this.ddmLevel = DDM_INCONTROL_LEVEL;
+        this.ddmLevel = DDM_IN_CONTROL_LEVEL;
         if (this.driftDetectionMethod.getChange()) {
-         this.ddmLevel =  DDM_OUTCONTROL_LEVEL;
+         this.ddmLevel =  DDM_OUT_CONTROL_LEVEL;
         }
         if (this.driftDetectionMethod.getWarningZone()) {
            this.ddmLevel =  DDM_WARNING_LEVEL;
@@ -120,30 +115,30 @@ public class DriftDetectionMethodClassifier extends AbstractClassifier {
             case DDM_WARNING_LEVEL:
                 //System.out.println("1 0 W");
             	//System.out.println("DDM_WARNING_LEVEL");
-                if (newClassifierReset == true) {
+                if (newClassifierReset) {
                     this.warningDetected++;
-                    this.newclassifier.resetLearning();
+                    this.newClassifier.resetLearning();
                     newClassifierReset = false;
                 }
-                this.newclassifier.trainOnInstance(inst);
+                this.newClassifier.trainOnInstance(inst);
                 break;
 
-            case DDM_OUTCONTROL_LEVEL:
+            case DDM_OUT_CONTROL_LEVEL:
                 //System.out.println("0 1 O");
-            	//System.out.println("DDM_OUTCONTROL_LEVEL");
+            	//System.out.println("DDM_OUT_CONTROL_LEVEL");
                 this.changeDetected++;
                 this.classifier = null;
-                this.classifier = this.newclassifier;
+                this.classifier = this.newClassifier;
                 if (this.classifier instanceof WEKAClassifier) {
                     ((WEKAClassifier) this.classifier).buildClassifier();
                 }
-                this.newclassifier = ((Classifier) getPreparedClassOption(this.baseLearnerOption)).copy();
-                this.newclassifier.resetLearning();
+                this.newClassifier = ((Classifier) getPreparedClassOption(this.baseLearnerOption)).copy();
+                this.newClassifier.resetLearning();
                 break;
 
-            case DDM_INCONTROL_LEVEL:
+            case DDM_IN_CONTROL_LEVEL:
                 //System.out.println("0 0 I");
-            	//System.out.println("DDM_INCONTROL_LEVEL");
+            	//System.out.println("DDM_IN_CONTROL_LEVEL");
                 newClassifierReset = true;
                 break;
             default:
@@ -173,11 +168,9 @@ public class DriftDetectionMethodClassifier extends AbstractClassifier {
         List<Measurement> measurementList = new LinkedList<Measurement>();
         measurementList.add(new Measurement("Change detected", this.changeDetected));
         measurementList.add(new Measurement("Warning detected", this.warningDetected));
-        Measurement[] modelMeasurements = ((AbstractClassifier) this.classifier).getModelMeasurements();
+        Measurement[] modelMeasurements = this.classifier.getModelMeasurements();
         if (modelMeasurements != null) {
-            for (Measurement measurement : modelMeasurements) {
-                measurementList.add(measurement);
-            }
+            Collections.addAll(measurementList, modelMeasurements);
         }
         this.changeDetected = 0;
         this.warningDetected = 0;

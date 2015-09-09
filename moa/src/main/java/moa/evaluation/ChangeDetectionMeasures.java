@@ -20,12 +20,13 @@
 
 package moa.evaluation;
 
-import java.util.ArrayList;
 import moa.cluster.Clustering;
 import moa.gui.visualization.DataPoint;
 
+import java.util.ArrayList;
+
 public class ChangeDetectionMeasures extends MeasureCollection implements ClassificationMeasureCollection{
-    private boolean debug = false;
+    //private boolean debug = false;
 
     public ChangeDetectionMeasures() {
         super();
@@ -33,14 +34,12 @@ public class ChangeDetectionMeasures extends MeasureCollection implements Classi
 
     @Override
     public String[] getNames() {
-        String[] names = {"Input","","","Ram-Hours","Time","Memory"};
-        return names;
+        return new String[]{"Input","","","Ram-Hours","Time","Memory"};
     }
     
   @Override
   protected boolean[] getDefaultEnabled() {
-      boolean [] defaults = {true,false,false,true,true,true};
-      return defaults;
+      return new boolean[]{true,false,false,true,true,true};
   }
     
     public void evaluateClustering(Clustering clustering, Clustering trueClustering, ArrayList<DataPoint> points) {

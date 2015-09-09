@@ -20,10 +20,11 @@
 
 package moa.evaluation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import moa.cluster.Clustering;
 import moa.gui.visualization.DataPoint;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class StatisticalCollection extends MeasureCollection{
@@ -32,14 +33,12 @@ public class StatisticalCollection extends MeasureCollection{
     @Override
     protected String[] getNames() {
         //String[] names = {"van Dongen","Rand statistic", "C Index"};
-        String[] names = {"van Dongen","Rand statistic"};
-        return names;
+        return new String[]{"van Dongen","Rand statistic"};
     }
 
     @Override
     protected boolean[] getDefaultEnabled() {
-        boolean [] defaults = {false, false};
-        return defaults;
+        return new boolean[]{false, false};
     }
 
     @Override
@@ -124,7 +123,7 @@ public class StatisticalCollection extends MeasureCollection{
         //double[] withinClusters = new double[numClusters];
         double[] minWithinClusters = new double[numClusters];
         double[] maxWithinClusters = new double[numClusters];
-        ArrayList<Integer>[] pointsInClusters = new ArrayList[numClusters];
+        ArrayList[] pointsInClusters = new ArrayList[numClusters];
         for (int c = 0; c < numClusters; c++) {
             pointsInClusters[c] = new ArrayList<Integer>();
             minWithinClusters[c] = Double.MAX_VALUE;
@@ -167,10 +166,10 @@ public class StatisticalCollection extends MeasureCollection{
                maxWithin = maxWithinClusters[c];
         }
 
-        double cindex = 0;
+        double cIndex = 0;
         if(numDistancesWithin != 0){
             double meanWithinClustersDistance = withinClustersDistance/numDistancesWithin;
-            cindex = (meanWithinClustersDistance - minWithin)/(maxWithin-minWithin);
+            cIndex = (meanWithinClustersDistance - minWithin)/(maxWithin-minWithin);
         }
 
 
@@ -179,7 +178,7 @@ public class StatisticalCollection extends MeasureCollection{
             System.out.println("Max:"+Arrays.toString(maxWithinClusters));
             System.out.println("totalWithin:"+numDistancesWithin);
         }
-        return cindex;
+        return cIndex;
     }
 
 

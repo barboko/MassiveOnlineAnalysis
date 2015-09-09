@@ -20,28 +20,29 @@
 
 package moa.evaluation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import moa.cluster.Clustering;
 import moa.gui.visualization.DataPoint;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MembershipMatrix {
 
-    HashMap<Integer, Integer>  classmap;
+    HashMap<Integer, Integer> classMap;
     int cluster_class_weights[][];
     int cluster_sums[];
     int class_sums[];
     int total_entries;
     int class_distribution[];
     int total_class_entries;
-    int initalBuildTimestamp = -1;
+    int initialBuildTimestamp = -1;
 
     public MembershipMatrix(Clustering foundClustering, ArrayList<DataPoint> points) {
-        classmap = Clustering.classValues(points);
-//        int lastID  = classmap.size()-1;
-//        classmap.put(-1, lastID);
-        int numClasses = classmap.size();
+        classMap = Clustering.classValues(points);
+//        int lastID  = classMap.size()-1;
+//        classMap.put(-1, lastID);
+        int numClasses = classMap.size();
         int numCluster = foundClustering.size()+1;
 
         cluster_class_weights = new int[numCluster][numClasses];
@@ -50,31 +51,31 @@ public class MembershipMatrix {
         class_sums = new int[numClasses];
         total_entries = 0;
         total_class_entries = points.size();
-        for (int p = 0; p < points.size(); p++) {
-            int worklabel = classmap.get((int)points.get(p).classValue());
+        for (DataPoint point : points) {
+            int workLabel = classMap.get((int) point.classValue());
             //real class distribution
-            class_distribution[worklabel]++;
+            class_distribution[workLabel]++;
             boolean covered = false;
-            for (int c = 0; c < numCluster-1; c++) {
-                double prob = foundClustering.get(c).getInclusionProbability(points.get(p));
-                if(prob >= 1){
-                    cluster_class_weights[c][worklabel]++;
-                    class_sums[worklabel]++;
+            for (int c = 0; c < numCluster - 1; c++) {
+                double prob = foundClustering.get(c).getInclusionProbability(point);
+                if (prob >= 1) {
+                    cluster_class_weights[c][workLabel]++;
+                    class_sums[workLabel]++;
                     cluster_sums[c]++;
                     total_entries++;
                     covered = true;
                 }
             }
-            if(!covered){
-                cluster_class_weights[numCluster-1][worklabel]++;
-                class_sums[worklabel]++;
-                cluster_sums[numCluster-1]++;
+            if (!covered) {
+                cluster_class_weights[numCluster - 1][workLabel]++;
+                class_sums[workLabel]++;
+                cluster_sums[numCluster - 1]++;
                 total_entries++;
             }
 
         }
         
-        initalBuildTimestamp = points.get(0).getTimestamp();
+        initialBuildTimestamp = points.get(0).getTimestamp();
     }
 
     public int getClusterClassWeight(int i, int j){
@@ -94,15 +95,15 @@ public class MembershipMatrix {
     }
 
     public int getClusterClassWeightByLabel(int cluster, int classLabel){
-        return cluster_class_weights[cluster][classmap.get(classLabel)];
+        return cluster_class_weights[cluster][classMap.get(classLabel)];
     }
 
     public int getClassSumByLabel(int classLabel){
-        return class_sums[classmap.get(classLabel)];
+        return class_sums[classMap.get(classLabel)];
     }
 
     public int getClassDistributionByLabel(int classLabel){
-        return class_distribution[classmap.get(classLabel)];
+        return class_distribution[classMap.get(classLabel)];
     }
 
     public int getTotalEntries(){
@@ -110,42 +111,42 @@ public class MembershipMatrix {
     }
 
     public int getNumClasses(){
-        return classmap.size();
+        return classMap.size();
     }
 
     public boolean hasNoiseClass(){
-        return classmap.containsKey(-1);
+        return classMap.containsKey(-1);
     }
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("Membership Matrix\n");
         for (int i = 0; i < cluster_class_weights.length; i++) {
             for (int j = 0; j < cluster_class_weights[i].length; j++) {
-                sb.append(cluster_class_weights[i][j]+"\t ");
+                sb.append(cluster_class_weights[i][j]).append("\t ");
             }
-            sb.append("| "+cluster_sums[i]+"\n");
+            sb.append("| ").append(cluster_sums[i]).append("\n");
         }
         //sb.append("-----------\n");
-        for (int i = 0; i < class_sums.length; i++) {
-            sb.append(class_sums[i]+"\t ");
+        for (int class_sum : class_sums) {
+            sb.append(class_sum).append("\t ");
         }
-        sb.append("| "+total_entries+"\n");
+        sb.append("| ").append(total_entries).append("\n");
 
 
         sb.append("Real class distribution \n");
-        for (int i = 0; i < class_distribution.length; i++) {
-            sb.append(class_distribution[i]+"\t ");
+        for (int aClass_distribution : class_distribution) {
+            sb.append(aClass_distribution).append("\t ");
         }
-        sb.append("| "+total_class_entries+"\n");
+        sb.append("| ").append(total_class_entries).append("\n");
 
         return sb.toString();
     }
 
 
-    public int getInitalBuildTimestamp(){
-    	return initalBuildTimestamp;
+    public int getInitialBuildTimestamp(){
+    	return initialBuildTimestamp;
     }
     
 
