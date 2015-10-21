@@ -30,7 +30,6 @@ public abstract class AbstractChangeDetector extends AbstractOptionHandler
         implements ChangeDetector {
 
 
-
     /**
      * Change was detected
      */

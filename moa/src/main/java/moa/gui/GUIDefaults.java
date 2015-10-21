@@ -75,7 +75,7 @@ public class GUIDefaults
      *
      * @return              the props file
      */
-    public final static Properties getProperties() {
+    public static Properties getProperties() {
         return PROPERTIES;
     }
 

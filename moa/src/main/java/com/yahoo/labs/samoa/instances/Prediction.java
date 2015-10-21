@@ -18,7 +18,6 @@ public interface Prediction {
 
     /**
      * Number of output attributes.
-     *
      * @return the number of output attributes
      */
     int numOutputAttributes();

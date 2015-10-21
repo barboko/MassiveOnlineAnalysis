@@ -361,10 +361,23 @@ public class ArffLoader {
                     if (token.startsWith("@RELATION")) {
                         streamTokenizer.nextToken();
                         relation = streamTokenizer.sval;
+
                       //  System.out.println("RELATION " + relation);
                     } else if (token.startsWith("@ATTRIBUTE")) {
                         streamTokenizer.nextToken();
+
+                        //region Handling Delay Time
                         String name = streamTokenizer.sval;
+                        int delay = 0;
+                        if(name != null && name.startsWith("#")) {
+                            String delayStr = name.substring(1);
+                            delay = delayStr.equals("#") ? -1 : Integer.parseInt(delayStr);
+
+                            streamTokenizer.nextToken();
+                            name = streamTokenizer.sval;
+                        }
+                        //endregion
+
                         //System.out.println("* " + name);
                         if (name == null) {
                             name = Double.toString(streamTokenizer.nval);
@@ -372,6 +385,9 @@ public class ArffLoader {
                         streamTokenizer.nextToken();
                         String type = streamTokenizer.sval;
                        // System.out.println("* " + name + ":" + type + " ");
+
+                        Attribute a;
+
                         if (streamTokenizer.ttype == '{') {
                             streamTokenizer.nextToken();
                             List<String> attributeLabels = new ArrayList<String>();
@@ -387,6 +403,8 @@ public class ArffLoader {
 
                                 streamTokenizer.nextToken();
                             }
+
+
                            // System.out.println();
                             //attributes.add(new Attribute(name, attributeLabels));
                             //commented JD
@@ -395,8 +413,10 @@ public class ArffLoader {
                              } else {
                              inputAttributes.add(new Attribute(name, attributeLabels));
                              }*/
-                            auxAttributes.add(new Attribute(name, attributeLabels));
-                            numAttributes++;
+
+                            a = new Attribute(name, attributeLabels);
+                            //auxAttributes.add(new Attribute(name, attributeLabels));
+                            //numAttributes++;
                         } else {
                             // Add attribute
                             //commented JD
@@ -405,9 +425,14 @@ public class ArffLoader {
                              } else {
                              inputAttributes.add(new Attribute(name));
                              }*/
-                            auxAttributes.add(new Attribute(name));
-                            numAttributes++;
+                            a = new Attribute(name);
+                            //auxAttributes.add(new Attribute(name));
+                            //numAttributes++;
                         }
+
+                        a.setDelayTime(delay);
+                        auxAttributes.add(a);
+                        numAttributes++;
 
                     } else if (token.startsWith("@DATA")) {
                         //System.out.print("END");

@@ -320,7 +320,6 @@ public class TaskManagerPanel extends JPanel {
             }
         });
         this.runTaskButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 runTask((Task) TaskManagerPanel.this.currentTask.copy());
@@ -381,9 +380,8 @@ public class TaskManagerPanel extends JPanel {
                     cliString, MainTask.class, null);
             String taskText = this.currentTask.getCLICreationString(MainTask.class);
             this.taskDescField.setText(taskText);
-            if (storePreference == true){
-            //Save task text as a preference
-            prefs.put(PREF_NAME, taskText);
+            if (storePreference) { //Save task text as a preference
+                prefs.put(PREF_NAME, taskText);
             }
         } catch (Exception ex) {
             GUIUtils.showExceptionDialog(this, "Problem with task", ex);
@@ -392,6 +390,9 @@ public class TaskManagerPanel extends JPanel {
 
     public void runTask(Task task) {
         TaskThread thread = new TaskThread(task);
+        //region For Debugging
+        thread.setName("Running Task");
+        //endregion
         this.taskList.add(0, thread);
         this.taskTableModel.fireTableDataChanged();
         this.taskTable.setRowSelectionInterval(0, 0);

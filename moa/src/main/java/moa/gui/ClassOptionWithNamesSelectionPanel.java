@@ -97,12 +97,12 @@ public class ClassOptionWithNamesSelectionPanel extends JPanel {
         Class<?>[] classesFound = AutoClassDiscovery.findClassesOfType("moa",
                 requiredType);
         for (Class<?> cl : classesFound) {
-        	for (int i = 0; i < classNames.length; i++) {
-        		if (cl.getSimpleName().contains(classNames[i])) {
-        			finalClasses.add(cl);
-        			break;
-        		}
-        	}
+            for (String className : classNames) {
+                if (cl.getSimpleName().contains(className)) {
+                    finalClasses.add(cl);
+                    break;
+                }
+            }
         }
         Class<?>[] tasksFound = AutoClassDiscovery.findClassesOfType("moa",
                 Task.class);
@@ -110,12 +110,12 @@ public class ClassOptionWithNamesSelectionPanel extends JPanel {
             try {
                 Task task = (Task) foundTask.newInstance();
                 if (requiredType.isAssignableFrom(task.getTaskResultType())) {
-                	for (int i = 0; i < classNames.length; i++) {
-                		if (foundTask.getSimpleName().contains(classNames[i])) {
-                			finalClasses.add(foundTask);
-                			break;
-                		}
-                	}
+                    for (String className : classNames) {
+                        if (foundTask.getSimpleName().contains(className)) {
+                            finalClasses.add(foundTask);
+                            break;
+                        }
+                    }
                 }
             } catch (Exception e) {
                 // ignore

@@ -24,7 +24,7 @@ import java.io.Serializable;
 public interface InstanceData extends Serializable {
 
     /**
-     * Num attributes.
+     * Numbers of attributes in the Instance.
      * @return the int
      */
     int numAttributes();

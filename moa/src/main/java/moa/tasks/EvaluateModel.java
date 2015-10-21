@@ -114,7 +114,7 @@ public class EvaluateModel extends MainTask {
         }
         while (stream.hasMoreInstances()
                 && ((maxInstances < 0) || (instancesProcessed < maxInstances))) {
-            Example testInst = (Example) stream.nextInstance();//.copy();
+            Example testInst = stream.nextInstance();//.copy();
             int trueClass = (int) ((Instance) testInst.getData()).classValue();
             //testInst.setClassMissing();
             double[] prediction = model.getVotesForInstance(testInst);
@@ -146,9 +146,8 @@ public class EvaluateModel extends MainTask {
                 }
             }
         }
-        if (outputPredictionResultStream != null) {
-            outputPredictionResultStream.close();
-        }
+
+        if (outputPredictionResultStream != null) outputPredictionResultStream.close();
         return new LearningEvaluation(evaluator, model);
     }
 }

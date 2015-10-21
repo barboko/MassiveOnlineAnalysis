@@ -17,11 +17,10 @@ package com.yahoo.labs.samoa.instances;
 
 /**
  * The Class InstanceImpl.
- *
  * @author abifet
  */
 public class InstanceImpl implements MultiLabelInstance {
-
+    //region Members
     /**
      * The weight.
      */
@@ -36,7 +35,9 @@ public class InstanceImpl implements MultiLabelInstance {
      * The instance information.
      */
     protected InstancesHeader instanceHeader;
+    //endregion
 
+    //region Constructors
     /**
      * Instantiates a new instance.
      * Copy Constructor.
@@ -94,7 +95,9 @@ public class InstanceImpl implements MultiLabelInstance {
         this.instanceData = new DenseInstanceData(new double[numAttributes]); //JD
         this.weight = 1;
     }
+    //endregion
 
+    //region Weight Property
     /**
      * Weight.
      *
@@ -114,6 +117,7 @@ public class InstanceImpl implements MultiLabelInstance {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+    //endregion
 
     /**
      * Attribute.
@@ -133,7 +137,6 @@ public class InstanceImpl implements MultiLabelInstance {
      */
     @Override
     public void deleteAttributeAt(int i) {
-        //throw new UnsupportedOperationException("Not yet implemented");
         this.instanceData.deleteAttributeAt(i);
     }
 
@@ -149,7 +152,6 @@ public class InstanceImpl implements MultiLabelInstance {
 
     /**
      * Num attributes.
-     *
      * @return the int
      */
     @Override
@@ -159,7 +161,6 @@ public class InstanceImpl implements MultiLabelInstance {
 
     /**
      * Value.
-     *
      * @param instAttIndex the inst att index
      * @return the double
      */
@@ -170,7 +171,6 @@ public class InstanceImpl implements MultiLabelInstance {
 
     /**
      * Checks if is missing.
-     *
      * @param instAttIndex the inst att index
      * @return true, if is missing
      */
@@ -181,7 +181,6 @@ public class InstanceImpl implements MultiLabelInstance {
 
     /**
      * Num values.
-     *
      * @return the int
      */
     @Override
@@ -327,20 +326,20 @@ public class InstanceImpl implements MultiLabelInstance {
         this.setValue(classIndex(), d);
     }
 
+    //region Copy Constructor
     /**
-     * Copy.
-     *
+     * Deep Copy - Copy Constructor
      * @return the instance
      */
     @Override
     public Instance copy() {
-        InstanceImpl inst = new InstanceImpl(this);
-        return inst;
+        return new InstanceImpl(this);
     }
+    //endregion
 
+    //region Dataset Property
     /**
-     * Dataset.
-     *
+     * Dataset - Getter
      * @return the instances
      */
     @Override
@@ -350,13 +349,14 @@ public class InstanceImpl implements MultiLabelInstance {
 
     /**
      * Sets the dataset.
-     *
+     *  Dataset - Setter
      * @param dataset the new dataset
      */
     @Override
     public void setDataset(Instances dataset) {
         this.instanceHeader = new InstancesHeader(dataset);
     }
+    //endregion
 
     /**
      * Adds the sparse values.
@@ -370,6 +370,7 @@ public class InstanceImpl implements MultiLabelInstance {
         this.instanceData = new SparseInstanceData(attributeValues, indexValues, numberAttributes); //???
     }
 
+    //region ToString
     /**
      * Text representation of a InstanceImpl.
      */
@@ -377,12 +378,13 @@ public class InstanceImpl implements MultiLabelInstance {
     public String toString() {
         double[] aux = this.instanceData.toDoubleArray();
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < aux.length; i++) {
-            str.append(aux[i]).append(" ");
-        }
+
+        for (double anAux : aux)
+            str.append(anAux).append(" ");
 
         return str.toString();
     }
+    //endregion
 
     @Override
     public int numInputAttributes() {

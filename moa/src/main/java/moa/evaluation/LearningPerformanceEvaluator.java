@@ -40,7 +40,7 @@ public interface LearningPerformanceEvaluator<E extends Example> extends MOAObje
      * starting a new evaluator from scratch.
      *
      */
-	public void reset();
+    void reset();
 
    /**
      * Adds a learning result to this evaluator.
@@ -50,14 +50,14 @@ public interface LearningPerformanceEvaluator<E extends Example> extends MOAObje
      * probabilities of the test instance in each class
      * @return an array of measurements monitored in this evaluator
      */
-	public void addResult(E testInst, Prediction prediction);
-    public void addResult(E example, double[] classVotes);
+    void addResult(E testInst, Prediction prediction);
+    void addResult(E example, double[] classVotes);
 
     /**
      * Gets the current measurements monitored by this evaluator.
      *
      * @return an array of measurements monitored by this evaluator
      */
-	public Measurement[] getPerformanceMeasurements();
+    Measurement[] getPerformanceMeasurements();
 
 }

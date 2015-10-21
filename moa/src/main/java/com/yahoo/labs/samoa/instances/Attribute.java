@@ -20,36 +20,55 @@ import moa.core.Utils;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 /**
  * The Class Attribute.
  */
 public class Attribute implements Serializable {
 
-    /** The keyword used to denote the start of an arff attribute declaration */
+    /**
+     * The keyword used to denote the start of an arff attribute declaration
+     */
     public final static String ARFF_ATTRIBUTE = "@attribute";
 
-    /** A keyword used to denote a numeric attribute */
+    /**
+     * A keyword used to denote a numeric attribute
+     */
     public final static String ARFF_ATTRIBUTE_INTEGER = "integer";
 
-    /** A keyword used to denote a numeric attribute */
+    /**
+     * A keyword used to denote a numeric attribute
+     */
     public final static String ARFF_ATTRIBUTE_REAL = "real";
 
-    /** A keyword used to denote a numeric attribute */
+    /**
+     * A keyword used to denote a numeric attribute
+     */
     public final static String ARFF_ATTRIBUTE_NUMERIC = "numeric";
 
-    /** The keyword used to denote a string attribute */
+    /**
+     * The keyword used to denote a string attribute
+     */
     public final static String ARFF_ATTRIBUTE_STRING = "string";
 
-    /** The keyword used to denote a date attribute */
+    /**
+     * The keyword used to denote a date attribute
+     */
     public final static String ARFF_ATTRIBUTE_DATE = "date";
 
-    /** The keyword used to denote a relation-valued attribute */
+    /**
+     * The keyword used to denote a relation-valued attribute
+     */
     public final static String ARFF_ATTRIBUTE_RELATIONAL = "relational";
 
-    /** The keyword used to denote the end of the declaration of a subrelation */
+    /**
+     * The keyword used to denote the end of the declaration of a subrelation
+     */
     public final static String ARFF_END_SUBRELATION = "@end";
 
-    /** Strings longer than this will be stored compressed. */
+    /**
+     * Strings longer than this will be stored compressed.
+     */
     private static final int STRING_COMPRESS_THRESHOLD = 200;
 
     /**
@@ -63,15 +82,15 @@ public class Attribute implements Serializable {
     protected boolean isNumeric;
 
     /**
-    * The is date.
-    */
+     * The is date.
+     */
     protected boolean isDate;
 
-     /** 
-     * Date format specification for date attributes 
+    /**
+     * Date format specification for date attributes
      */
     protected SimpleDateFormat m_DateFormat;
-  
+
     /**
      * The name.
      */
@@ -97,6 +116,39 @@ public class Attribute implements Serializable {
     protected int index;
 
     /**
+     * The value of the delay units that the attribute is arriving after the recieving the first attributes
+     * of the Instance.
+     */
+    private int delayTime = 0;
+
+    /**
+     * @return Value of the delay time units
+     * @author Bar Bokovza & Leonid Rice
+     */
+    public int getDelayTime() {
+        return delayTime;
+    }
+
+    /**
+     * Setting the delay time. Needs to be larger than -1.
+     * @param value The new value of the delay time units
+     * @author Bar Bokovza & Leonid Rice
+     */
+    public void setDelayTime(int value) {
+        if (value != delayTime && value >= -1)
+            delayTime = value;
+    }
+
+    /**
+     * Returns true if the attribute is not going to arrive at all.
+     * @return boolean value
+     * @author Bar Bokovza & Leonid Rice
+     */
+    public boolean isHiddenAttribute() {
+        return delayTime == -1;
+    }
+
+    /**
      * Instantiates a new attribute.
      *
      * @param string the string
@@ -109,7 +161,7 @@ public class Attribute implements Serializable {
     /**
      * Instantiates a new attribute.
      *
-     * @param attributeName the attribute name
+     * @param attributeName   the attribute name
      * @param attributeValues the attribute values
      */
     public Attribute(String attributeName, List<String> attributeValues) {
@@ -122,21 +174,21 @@ public class Attribute implements Serializable {
      * Instantiates a new attribute.
      *
      * @param attributeName the attribute name
-     * @param dateFormat the format of the date used
+     * @param dateFormat    the format of the date used
      */
     public Attribute(String attributeName, String dateFormat) {
         this.name = attributeName;
-        this.index  = -1;
+        this.index = -1;
         this.valuesStringAttribute = null;
         this.isDate = true;
-        
+
         if (dateFormat != null) {
-          m_DateFormat = new SimpleDateFormat(dateFormat);
+            m_DateFormat = new SimpleDateFormat(dateFormat);
         } else {
-          m_DateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            m_DateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         }
-  }
-                   
+    }
+
     /**
      * Instantiates a new attribute.
      */
@@ -245,51 +297,51 @@ public class Attribute implements Serializable {
         Integer val = this.valuesStringAttribute.get(value);
         return val == null ? -1 : val;
     }
-    
+
     /**
-    * Returns a description of this attribute in ARFF format. Quotes
-    * strings if they contain whitespace characters, or if they
+     * Returns a description of this attribute in ARFF format. Quotes
+     * strings if they contain whitespace characters, or if they
      * are a question mark.
      *
      * @return a description of this attribute as a string
      */
     public final String toString() {
-    
-    StringBuilder text = new StringBuilder();
-    
-    text.append(ARFF_ATTRIBUTE).append(" ").append(Utils.quote(this.name())).append(" ");
-    
-    if (this.isNominal){
-        text.append('{');
-        Enumeration enu =  enumerateValues();
-        while ((enu != null) && enu.hasMoreElements()) {
-            text.append(Utils.quote((String) enu.nextElement()));
-            if (enu.hasMoreElements())
-                text.append(',');
-        }
-        text.append('}');
-    } else if (this.isNumeric){
-        text.append(ARFF_ATTRIBUTE_NUMERIC);
-    } else if (this.isDate){
-        text.append(ARFF_ATTRIBUTE_DATE).append(" ").append(Utils.quote(m_DateFormat.toPattern()));
-    } else{
-        text.append("UNKNOWN");
-    }
-    
-    return text.toString();
-  }
-  
-    /**
-   * Returns an enumeration of all the attribute's values if the
-   * attribute is nominal, null otherwise.
-   *
-   * @return enumeration of all the attribute's values
-   */
-  public final /*@ pure @*/ Enumeration enumerateValues() {
 
-    if (this.isNominal()) {
-      return Collections.enumeration(this.attributeValues);
+        StringBuilder text = new StringBuilder();
+
+        text.append(ARFF_ATTRIBUTE).append(" ").append(Utils.quote(this.name())).append(" ");
+
+        if (this.isNominal) {
+            text.append('{');
+            Enumeration enu = enumerateValues();
+            while ((enu != null) && enu.hasMoreElements()) {
+                text.append(Utils.quote((String) enu.nextElement()));
+                if (enu.hasMoreElements())
+                    text.append(',');
+            }
+            text.append('}');
+        } else if (this.isNumeric) {
+            text.append(ARFF_ATTRIBUTE_NUMERIC);
+        } else if (this.isDate) {
+            text.append(ARFF_ATTRIBUTE_DATE).append(" ").append(Utils.quote(m_DateFormat.toPattern()));
+        } else {
+            text.append("UNKNOWN");
+        }
+
+        return text.toString();
     }
-    return null;
-  }
+
+    /**
+     * Returns an enumeration of all the attribute's values if the
+     * attribute is nominal, null otherwise.
+     *
+     * @return enumeration of all the attribute's values
+     */
+    public final /*@ pure @*/ Enumeration enumerateValues() {
+
+        if (this.isNominal()) {
+            return Collections.enumeration(this.attributeValues);
+        }
+        return null;
+    }
 }

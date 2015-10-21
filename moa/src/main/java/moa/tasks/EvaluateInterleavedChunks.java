@@ -192,12 +192,12 @@ public class EvaluateInterleavedChunks extends MainTask {
 				}
 			}		
 			
-			////Testing
+			//region Testing
 			long testStartTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
 			if(!firstChunk)
 			{
 				for (int i=0; i< chunkInstances.numInstances(); i++) {
-					Example testInst = new InstanceExample((Instance) chunkInstances.instance(i));
+					Example testInst = new InstanceExample(chunkInstances.instance(i));
 					//testInst.setClassMissing();
 					double[] prediction = learner.getVotesForInstance(testInst);
 					evaluator.addResult(testInst, prediction);
@@ -209,8 +209,9 @@ public class EvaluateInterleavedChunks extends MainTask {
 			}
 			
 			sampleTestTime += TimingUtils.getNanoCPUTimeOfCurrentThread() - testStartTime;
-			
-			////Training
+			//endregion
+
+			//region Training
 			long trainStartTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
 			
 			for (int i=0; i< chunkInstances.numInstances(); i++) {
@@ -219,8 +220,9 @@ public class EvaluateInterleavedChunks extends MainTask {
 		    }
 			
 			sampleTrainTime += TimingUtils.getNanoCPUTimeOfCurrentThread() - trainStartTime;
-			
-			////Result output
+			//endregion
+
+			//region Result output
 			if (instancesProcessed % this.sampleFrequencyOption.getValue() == 0) {
 				
 				double RAMHoursIncrement = learner.measureByteSize() / (1024.0 * 1024.0 * 1024.0); //GBs
@@ -256,8 +258,9 @@ public class EvaluateInterleavedChunks extends MainTask {
 					immediateResultStream.flush();
 				}
 			}
+			//endregion
 			
-			////Memory testing
+			//region Memory testing
 			if (instancesProcessed % INSTANCES_BETWEEN_MONITOR_UPDATES == 0) {
 				if (monitor.taskShouldAbort()) {
 					return null;
@@ -283,6 +286,7 @@ public class EvaluateInterleavedChunks extends MainTask {
 								.getNanoCPUTimeOfCurrentThread()
 								- evaluateStartTime);
 			}
+			//endregion
 		}
 		if (immediateResultStream != null) {
 			immediateResultStream.close();

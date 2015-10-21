@@ -97,7 +97,7 @@ public class RegressionTaskManagerPanel extends JPanel {
                 int column) {
             double frac = -1.0;
             if (value instanceof Double) {
-                frac = ((Double) value).doubleValue();
+                frac = (Double) value;
             }
             if (frac >= 0.0) {
                 setIndeterminate(false);
@@ -174,7 +174,7 @@ public class RegressionTaskManagerPanel extends JPanel {
                 case 3:
                     return thread.getCurrentActivityString();
                 case 4:
-                    return new Double(thread.getCurrentActivityFracComplete());
+                    return thread.getCurrentActivityFracComplete();
             }
             return null;
         }

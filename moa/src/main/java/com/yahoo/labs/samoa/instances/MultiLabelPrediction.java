@@ -73,11 +73,11 @@ public class MultiLabelPrediction implements Prediction {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < prediction.length; i++) {
-            sb.append("Out " + i + ": ");
+            sb.append("Out ").append(i).append(": ");
             for (int c = 0; c < prediction[i].numValues(); c++) {
-                sb.append(((int) (prediction[i].getValue(c) * 1000) / 1000.0) + " ");
+                sb.append((int) (prediction[i].getValue(c) * 1000) / 1000.0).append(" ");
             }
         }
         return sb.toString();
@@ -85,9 +85,7 @@ public class MultiLabelPrediction implements Prediction {
 
     @Override
     public boolean hasVotesForAttribute(int outputAttributeIndex) {
-        if (prediction.length < (outputAttributeIndex + 1))
-            return false;
-        return (prediction[outputAttributeIndex].numValues() == 0) ? false : true;
+        return prediction.length >= (outputAttributeIndex + 1) && ((prediction[outputAttributeIndex].numValues() != 0));
     }
 
     @Override

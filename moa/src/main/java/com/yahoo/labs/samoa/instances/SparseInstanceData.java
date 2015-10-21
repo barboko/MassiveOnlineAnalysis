@@ -44,10 +44,12 @@ public class SparseInstanceData implements InstanceData {
         this.indexValues = new int[length];
     }
 
+    //region Members
     /**
      * The attribute values.
      */
     protected double[] attributeValues;
+    //endregion
 
     /**
      * Gets the attribute values.

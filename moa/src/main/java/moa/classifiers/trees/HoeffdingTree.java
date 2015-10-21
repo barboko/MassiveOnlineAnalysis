@@ -777,23 +777,21 @@ public FlagOption binarySplitsOption = new FlagOption("binarySplits", 'b',
 
     public void deactivateAllLeaves() {
         FoundNode[] learningNodes = findLearningNodes();
-        for (int i = 0; i < learningNodes.length; i++) {
-            if (learningNodes[i].node instanceof ActiveLearningNode) {
+        for (FoundNode learningNode : learningNodes)
+            if (learningNode.node instanceof ActiveLearningNode) {
                 deactivateLearningNode(
-                        (ActiveLearningNode) learningNodes[i].node,
-                        learningNodes[i].parent, learningNodes[i].parentBranch);
+                        (ActiveLearningNode) learningNode.node,
+                        learningNode.parent, learningNode.parentBranch);
             }
-        }
     }
 
     protected void deactivateLearningNode(ActiveLearningNode toDeactivate,
             SplitNode parent, int parentBranch) {
         Node newLeaf = new InactiveLearningNode(toDeactivate.getObservedClassDistribution());
-        if (parent == null) {
-            this.treeRoot = newLeaf;
-        } else {
-            parent.setChild(parentBranch, newLeaf);
-        }
+
+        if (parent == null) this.treeRoot = newLeaf;
+        else parent.setChild(parentBranch, newLeaf);
+
         this.activeLeafNodeCount--;
         this.inactiveLeafNodeCount++;
     }

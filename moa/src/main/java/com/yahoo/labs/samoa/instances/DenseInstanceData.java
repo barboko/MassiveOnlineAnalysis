@@ -46,10 +46,12 @@ public class DenseInstanceData implements InstanceData {
         this(0);
     }
 
+    //region Members
     /**
      * The attribute values.
      */
     protected double[] attributeValues;
+    //endregion
 
     /**
      * Num attributes.

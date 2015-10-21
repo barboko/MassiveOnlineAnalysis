@@ -104,11 +104,9 @@ public class DataPoint extends DenseInstance{
             sortedset = new TreeSet<String>(measure_values.keySet());
         }
 
-        Iterator miterator = sortedset.iterator();
-         while(miterator.hasNext()) {
-             String key = (String)miterator.next();
-             sb.append("<tr><td>"+key+"</td><td>"+measure_values.get(key)+"</td></tr>");
-         }
+        for (Object key : sortedset) {
+            sb.append("<tr><td>" + key + "</td><td>" + measure_values.get(key) + "</td></tr>");
+        }
 
         sb.append("</table></html>");
         return sb.toString();

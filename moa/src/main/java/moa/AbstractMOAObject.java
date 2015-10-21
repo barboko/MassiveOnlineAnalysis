@@ -23,12 +23,13 @@ import moa.core.SerializeUtils;
 import moa.core.SizeOf;
 
 /**
- * Abstract MOA Object. All classes that are serializable, copiable,
+ * Abstract MOA Object. All classes that are serializable, copyable,
  * can measure its size, and can give a description, extend this class.
  *
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @version $Revision: 7 $
  */
+
 public abstract class AbstractMOAObject implements MOAObject {
 
     @Override

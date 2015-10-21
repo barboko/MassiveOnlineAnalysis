@@ -33,7 +33,7 @@ public class Range {
      * @param range the start and end string
      */
     public void setRange(String range) {
-        String single = range.trim();
+        //String single = range.trim();
         int hyphenIndex = range.indexOf('-');
 
         if (hyphenIndex > 0) {

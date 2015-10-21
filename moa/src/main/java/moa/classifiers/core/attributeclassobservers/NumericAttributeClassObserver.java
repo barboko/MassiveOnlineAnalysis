@@ -29,5 +29,4 @@ package moa.classifiers.core.attributeclassobservers;
  */
 public interface NumericAttributeClassObserver extends AttributeClassObserver {
 
-   
 }

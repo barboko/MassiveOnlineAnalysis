@@ -58,7 +58,7 @@ public abstract class Cluster extends AbstractMOAObject {
      * Returns the probability of the given point belonging to
      * this cluster.
      *
-     * @param point
+     * //@param instance
      * @return a value between 0 and 1
      */
     public abstract double getInclusionProbability(Instance instance);
@@ -159,10 +159,9 @@ public abstract class Cluster extends AbstractMOAObject {
         sb.append("<br>");
         sb.append("<b>Evaluation</b><br>");
         sb.append("<table>");
-        Iterator miterator = measure_values.entrySet().iterator();
-        while(miterator.hasNext()) {
-             Map.Entry e = (Map.Entry)miterator.next();
-             sb.append("<tr><td>"+e.getKey()+"</td><td>"+e.getValue()+"</td></tr>");
+        for (Object o : measure_values.entrySet()) {
+            Map.Entry e = (Map.Entry) o;
+            sb.append("<tr><td>" + e.getKey() + "</td><td>" + e.getValue() + "</td></tr>");
         }
         sb.append("</table>");
         sb.append("</html>");
