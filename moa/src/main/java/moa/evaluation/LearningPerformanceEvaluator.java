@@ -19,9 +19,7 @@
  */
 package moa.evaluation;
 
-import com.yahoo.labs.samoa.instances.InstanceData;
 import com.yahoo.labs.samoa.instances.Prediction;
-
 import moa.MOAObject;
 import moa.core.Example;
 import moa.core.Measurement;
@@ -42,7 +40,10 @@ public interface LearningPerformanceEvaluator<E extends Example> extends MOAObje
      */
     void reset();
 
-   /**
+
+    void addResult(E testInst, Prediction prediction);
+
+    /**
      * Adds a learning result to this evaluator.
      *
      * @param example the example to be classified
@@ -50,7 +51,6 @@ public interface LearningPerformanceEvaluator<E extends Example> extends MOAObje
      * probabilities of the test instance in each class
      * @return an array of measurements monitored in this evaluator
      */
-    void addResult(E testInst, Prediction prediction);
     void addResult(E example, double[] classVotes);
 
     /**

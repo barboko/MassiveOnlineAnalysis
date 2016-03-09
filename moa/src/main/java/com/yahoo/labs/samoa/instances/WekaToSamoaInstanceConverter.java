@@ -79,6 +79,7 @@ public class WekaToSamoaInstanceConverter implements Serializable{
      * Samoa instances information.
      *
      * @param instances the instances
+      *
      * @return the instances
      */
     public Instances samoaInstancesInformation(weka.core.Instances instances) {

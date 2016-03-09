@@ -1,30 +1,23 @@
 package moa.streams.filters;
 
+import com.github.javacliparser.StringOption;
+import com.yahoo.labs.samoa.instances.*;
+import moa.core.InstanceExample;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import moa.core.InstanceExample;
-import moa.streams.MultiTargetInstanceStream;
-
-import com.github.javacliparser.StringOption;
-import com.yahoo.labs.samoa.instances.Attribute;
-import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceImpl;
-import com.yahoo.labs.samoa.instances.Instances;
-import com.yahoo.labs.samoa.instances.InstancesHeader;
-import com.yahoo.labs.samoa.instances.Range;
 
 public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter implements MultiLabelStreamFilter{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected InstancesHeader dataset;
-	protected Selection inputsSelected; 
-	protected Selection outputsSelected;
-	
 	public StringOption inputStringOption= new StringOption("inputStringOption", 'i', "Selection of attributes to be used as input.", "1") ;
 	public StringOption outputStringOption= new StringOption("outputStringOption", 'o', "Selection of attributes to be used as output.", "-1") ;
+	protected InstancesHeader dataset;
+	protected Selection inputsSelected;
+	protected Selection outputsSelected;
+
     @Override
     public String getPurposeString() {
         return "Selects input and output attributes.";
@@ -37,7 +30,7 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 
 	@Override
 	public InstanceExample nextInstance() {
-		Instance instance = (Instance) ((Instance) this.inputStream.nextInstance().getData());
+		Instance instance = inputStream.nextInstance().getData();
 		if(dataset==null){
 			initialize(instance);
 		}		
@@ -77,7 +70,7 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 	}
 
 	private Selection getSelection(String text) {
-		Selection s= new Selection();
+		Selection s = new Selection();
 		String [] parts=text.trim().split(",");
 		for (String p : parts)
 		{

@@ -34,5 +34,5 @@ public interface StreamFilter extends ExampleStream {
      *
      * @param stream the input stream to the filter
      */
-    public void setInputStream(ExampleStream stream);
+    void setInputStream(ExampleStream stream);
 }

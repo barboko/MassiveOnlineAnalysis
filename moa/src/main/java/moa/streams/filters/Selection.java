@@ -2,7 +2,6 @@ package moa.streams.filters;
 
 import java.util.ArrayList;
 
-
 public class Selection {
 	private ArrayList<Node> selection;
 	private int numvalues;

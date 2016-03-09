@@ -45,21 +45,21 @@ public interface Learner<E extends Example> extends MOAObject, OptionHandler, AW
      *
      * @return true if the learner needs a random seed.
      */
-    public boolean isRandomizable();
+    boolean isRandomizable();
 
     /**
      * Sets the seed for random number generation.
      *
      * @param s the seed
      */
-    public void setRandomSeed(int s);
+    void setRandomSeed(int s);
 
     /**
      * Gets whether training has started.
      *
      * @return true if training has started
      */
-    public boolean trainingHasStarted();
+    boolean trainingHasStarted();
 
     /**
      * Gets the sum of the weights of the instances that have been used
@@ -67,39 +67,39 @@ public interface Learner<E extends Example> extends MOAObject, OptionHandler, AW
      *
      * @return the weight of the instances that have been used training
      */
-    public double trainingWeightSeenByModel();
+    double trainingWeightSeenByModel();
 
     /**
      * Resets this learner. It must be similar to
      * starting a new learner from scratch.
      *
      */
-    public void resetLearning();
+    void resetLearning();
 
     /**
      * Trains this learner incrementally using the given example.
      *
-     * @param inst the instance to be used for training
+     * @param example the instance to be used for training
      */
-    public void trainOnInstance(E example);
+    void trainOnInstance(E example);
 
     /**
      * Predicts the class memberships for a given instance. If
      * an instance is unclassified, the returned array elements
      * must be all zero.
      *
-     * @param inst the instance to be classified
+     * @param example the instance to be classified
      * @return an array containing the estimated membership
      * probabilities of the test instance in each class
      */
-    public double[] getVotesForInstance(E example);
+    double[] getVotesForInstance(E example);
 
     /**
      * Gets the current measurements of this learner.
      *
      * @return an array of measurements to be used in evaluation tasks
      */
-    public Measurement[] getModelMeasurements();
+    Measurement[] getModelMeasurements();
 
     /**
      * Gets the learners of this ensemble.
@@ -107,14 +107,14 @@ public interface Learner<E extends Example> extends MOAObject, OptionHandler, AW
      *
      * @return an array of the learners of the ensemble
      */
-    public Learner[] getSublearners();
+    Learner[] getSublearners();
 
      /**
      * Gets the model if this learner.
      *
      * @return the copy of this learner
      */
-    public MOAObject getModel();
+     MOAObject getModel();
     
      /**
      * Sets the reference to the header of the data stream.
@@ -123,7 +123,7 @@ public interface Learner<E extends Example> extends MOAObject, OptionHandler, AW
      *
      * @param ih the reference to the data stream header
      */
-    public void setModelContext(InstancesHeader ih);
+     void setModelContext(InstancesHeader ih);
     
     /**
      * Gets the reference to the header of the data stream.
@@ -132,9 +132,9 @@ public interface Learner<E extends Example> extends MOAObject, OptionHandler, AW
      *
      * @return the reference to the data stream header
      */
-    public InstancesHeader getModelContext();
+    InstancesHeader getModelContext();
 
-	public Prediction getPredictionForInstance(E testInst);
+	Prediction getPredictionForInstance(E testInst);
     
 }
 
