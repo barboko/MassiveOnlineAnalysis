@@ -4,6 +4,7 @@ import com.yahoo.labs.samoa.instances.Instance;
 import moa.classifiers.AbstractClassifier;
 import moa.classifiers.Classifier;
 import moa.core.Measurement;
+import moa.options.ClassOption;
 
 /**
  * @author leonid rice (leorice) & bar bokovza (barboko)
@@ -21,6 +22,10 @@ public class DelayedAttributesClassifier extends AbstractClassifier {
     //endregion
 
     //region Properties
+    //endregion
+
+    //region Options
+    public ClassOption learnerOption = new ClassOption("learner", 'l', "Classifier to train.", Classifier.class, "trees.HoeffdingTree -l NB -e 1000 -g 100 -c 0.01");
     //endregion
 
     //region Constructors
