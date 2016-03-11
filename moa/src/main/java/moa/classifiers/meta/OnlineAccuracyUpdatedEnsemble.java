@@ -75,7 +75,9 @@ public class OnlineAccuracyUpdatedEnsemble extends AbstractClassifier {
 	 */
 	public FlagOption linearOption = new FlagOption("linearFunction", 'f', "When checked the algorithm uses a linear weighting function.");
 
-	
+
+
+
 	/**
 	 * The weights of stored classifiers. 
 	 * weights[x][0] = weight

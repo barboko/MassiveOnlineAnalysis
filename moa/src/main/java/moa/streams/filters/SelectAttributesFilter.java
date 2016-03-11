@@ -16,6 +16,7 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 	public StringOption outputStringOption= new StringOption("outputStringOption", 'o', "Selection of attributes to be used as output.", "-1") ;
 	protected InstancesHeader dataset;
 	protected Selection inputsSelected;
+	//List of Nodes  , that each node is a range
 	protected Selection outputsSelected;
 
     @Override

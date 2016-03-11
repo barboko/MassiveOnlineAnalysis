@@ -1,4 +1,4 @@
-package moa.delayed;
+package moa.classifiers.meta;
 
 import com.yahoo.labs.samoa.instances.Instance;
 import moa.classifiers.AbstractClassifier;
@@ -7,9 +7,15 @@ import moa.core.Measurement;
 import moa.options.ClassOption;
 
 /**
- * @author leonid rice (leorice) & bar bokovza (barboko)
+ * @author leonid rise (leorise) & bar bokovza (barboko)
  */
 public class DelayedAttributesClassifier extends AbstractClassifier {
+
+    @Override
+    public String getPurposeString() {
+        return "Delayed Attributes Classifier based on Bar & Leonid ISE 2016 Project";
+    }
+
     //region Internal Classes
     private class WindowedClassifier {
         private Classifier _classifier;
@@ -64,5 +70,12 @@ public class DelayedAttributesClassifier extends AbstractClassifier {
     public boolean isRandomizable() {
         return false;
     }
+
+
+
+
     //endregion
+
+
+
 }

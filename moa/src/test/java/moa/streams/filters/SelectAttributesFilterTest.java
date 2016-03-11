@@ -49,5 +49,4 @@ public class SelectAttributesFilterTest {
 		assertEquals(3, inst.value(7),EPS);
 		assertEquals(3.3, inst.value(8),EPS);
 	}
-
 }

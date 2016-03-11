@@ -44,6 +44,7 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
         return "Accuracy Weighted Ensemble classifier as proposed by Wang et al. in 'Mining concept-drifting data streams using ensemble classifiers', KDD 2003";
     }
 
+
     /**
      * Simple weight comparator. Needed for sorting component classifiers.
      */
@@ -119,6 +120,8 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
     protected Classifier candidateClassifier;
 
     protected Instances currentChunk;
+
+
 
     @Override
     public void prepareForUseImpl(TaskMonitor monitor, ObjectRepository repository) {
