@@ -144,7 +144,7 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
         this.processedInstances = 0;
         this.ensemble = new Classifier[0];
         this.storedLearners = new Classifier[0];
-
+        //NOTICE: This line creates the classifier
         this.candidateClassifier = (Classifier) getPreparedClassOption(this.learnerOption);
         this.candidateClassifier.resetLearning();
     }
@@ -181,8 +181,6 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
 
     /**
      * Processes a chunk.
-     *
-     * @param useMseR Determines whether to use the MSEr threshold.
      */
     protected void processChunk() {
         // Compute weights
@@ -239,7 +237,6 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
      * @param candidate Candidate classifier.
      * @param chunk Data chunk of examples.
      * @param numFolds Number of folds in candidate classifier cross-validation.
-     * @param useMseR Determines whether to use the MSEr threshold.
      * @return Candidate classifier weight.
      */
     protected double computeCandidateWeight(Classifier candidate, Instances chunk, int numFolds) {
@@ -278,7 +275,6 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
      *
      * @param learner Classifier to calculate weight for.
      * @param chunk Data chunk of examples.
-     * @param useMseR Determines whether to use the MSEr threshold.
      * @return The given classifier's weight.
      */
     protected double computeWeight(Classifier learner, Instances chunk) {
@@ -321,8 +317,8 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
         double p_c;
         double mse_r = 0;
 
-        for (int i = 0; i < this.classDistributions.length; i++) {
-            p_c = (double) this.classDistributions[i] / (double) this.chunkSize;
+        for (long classDistribution : this.classDistributions) {
+            p_c = (double) classDistribution / (double) this.chunkSize;
             mse_r += p_c * ((1 - p_c) * (1 - p_c));
         }
 
