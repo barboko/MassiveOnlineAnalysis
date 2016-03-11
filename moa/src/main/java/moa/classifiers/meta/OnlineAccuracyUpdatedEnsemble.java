@@ -166,10 +166,10 @@ public class OnlineAccuracyUpdatedEnsemble extends AbstractClassifier {
         		this.weights[i][0] = this.computeWeight(i, inst);
             }
         }
-        	
-    	for (int i = 0; i < this.ensemble.length; i++) {
-			this.ensemble[i].classifier.trainOnInstance(inst);
-        }
+
+		for (ClassifierWithMemory anEnsemble : this.ensemble) {
+			anEnsemble.classifier.trainOnInstance(inst);
+		}
 	}
 
 	/**
@@ -276,8 +276,6 @@ public class OnlineAccuracyUpdatedEnsemble extends AbstractClassifier {
 
 	/**
 	 * Computes the MSEr threshold.
-	 * 
-	 * @return The MSEr threshold.
 	 */
 	protected void computeMseR() {
 		double p_c;
@@ -351,7 +349,7 @@ public class OnlineAccuracyUpdatedEnsemble extends AbstractClassifier {
 	protected Measurement[] getModelMeasurementsImpl() {
 		if(this.verboseOption.isSet())
 		{
-			Measurement[] measurements = new Measurement[(int) this.memberCountOption.getValue()];
+			Measurement[] measurements = new Measurement[this.memberCountOption.getValue()];
 	
 			for (int m = 0; m < this.memberCountOption.getValue(); m++) {
 				measurements[m] = new Measurement("Member weight " + (m + 1), -1);
@@ -400,7 +398,7 @@ public class OnlineAccuracyUpdatedEnsemble extends AbstractClassifier {
 	
 	/**
 	 * Finds the index of the classifier with the smallest weight.
-	 * @return
+	 * @return index
 	 */
 	private int getPoorestClassifierIndex() {
 		int minIndex = 0;
