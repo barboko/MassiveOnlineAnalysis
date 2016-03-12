@@ -1,19 +1,16 @@
 package moa.classifiers.meta;
 
-import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
 import com.yahoo.labs.samoa.instances.Instance;
-import com.yahoo.labs.samoa.instances.InstanceInformation;
 import com.yahoo.labs.samoa.instances.Instances;
+import com.yahoo.labs.samoa.instances.InstanceInformation;
 import com.yahoo.labs.samoa.instances.InstancesHeader;
 import moa.classifiers.AbstractClassifier;
 import moa.classifiers.Classifier;
 import moa.core.Measurement;
 import moa.core.ObjectRepository;
-import moa.learners.Learner;
 import moa.options.ClassOption;
 import moa.tasks.TaskMonitor;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -34,52 +31,35 @@ public class DelayedAttributesClassifier extends AbstractClassifier {
 
     }
     //endregion
-
-
     //region Options
     /**
      * Type of classifier to use as a component classifier.
      */
     public ClassOption learnerOption = new ClassOption("learner", 'l', "Classifier to train.", Classifier.class, "trees.HoeffdingTree -l NB -e 1000 -g 100 -c 0.01");
-
     /**
      * Number of folds in candidate classifier cross-validation.
      */
     public IntOption numFoldsOption = new IntOption("numFolds", 'f', "Number of cross-validation folds for candidate classifier testing.", 10, 1, Integer.MAX_VALUE);
 
 
+
+
     //endregion
 
     //region Members
-
     protected Classifier[] ensemble;
     protected Classifier candidateClassifier;
-    protected int processedInstance;
-    protected int numFolds;
     protected int attributesDelayedCount;
     protected Instances currentInstance;
-
+    protected int processedInstance =0;
+    protected boolean initClassifiers = false;
+    protected int numFolds;
+    protected boolean reset;
 
     //endregion
-
     //region Properties
 
-    @Override
-    public void prepareForUseImpl(TaskMonitor monitor, ObjectRepository repository) {
-        this.attributesDelayedCount= getNumDelyedClasffiers();
-        this.numFolds = this.numFoldsOption.getValue();
-        this.candidateClassifier = (Classifier) getPreparedClassOption(this.learnerOption);
-        this.candidateClassifier.resetLearning();
 
-        this.ensemble = new Classifier[attributesDelayedCount];
-        for(int i=0 ; i<attributesDelayedCount ; i++)
-        {
-            ensemble[i] =candidateClassifier.copy();
-        }
-
-
-        super.prepareForUseImpl(monitor, repository);
-    }
 
     @Override
     public void resetLearningImpl() {
@@ -87,9 +67,8 @@ public class DelayedAttributesClassifier extends AbstractClassifier {
         this.processedInstance = 0;
         //this.ensemble = new Classifier[0];
         this.ensemble = new Classifier[0];
-        //NOTICE: This line creates the classifier
-        this.candidateClassifier = (Classifier) getPreparedClassOption(this.learnerOption);
-        this.candidateClassifier.resetLearning();
+        this.initClassifiers = true;
+        this.reset = true;
     }
 
     //endregion
@@ -108,13 +87,55 @@ public class DelayedAttributesClassifier extends AbstractClassifier {
 
     @Override
     public double[] getVotesForInstance(Instance inst) {
-        return new double[0];
+        if (this.initClassifiers == true) {
+            return new double[0];
+        }
+
+        int numClasses = inst.numClasses();
+        int sizeEnsemble = this.ensemble.length;
+        double[][] votes = new double[sizeEnsemble][numClasses];
+
+        for (int ii = 0; ii < sizeEnsemble; ii++)
+        {
+            double[] vote = this.ensemble[ii].getVotesForInstance(inst);
+
+        }
+
     }
 
 
 
     @Override
     public void trainOnInstanceImpl(Instance inst) {
+        int numClasses = inst.numClasses();
+        //Init Ensemble
+        if (this.initClassifiers == true) {
+            this.attributesDelayedCount= getNumDelyedClasffiers();
+            this.numFolds = this.numFoldsOption.getValue();
+            this.candidateClassifier = (Classifier) getPreparedClassOption(this.learnerOption);
+            this.candidateClassifier.resetLearning();
+
+            this.ensemble = new Classifier[attributesDelayedCount];
+            for(int i=0 ; i<attributesDelayedCount ; i++)
+                {
+                    ensemble[i] =  candidateClassifier.copy();
+                }
+
+            this.initClassifiers = false;
+        }
+
+        //Create instances
+        //TODO
+        Instance Inst = (Instance) inst.copy();
+
+        Instance [] instsArray = new Instance[attributesDelayedCount];
+        //Train
+
+        for (int i = 0; i < this.ensemble.length; i++)
+        {
+            this.ensemble[i].trainOnInstance(instsArray[i]);
+        }
+
 
     }
 
