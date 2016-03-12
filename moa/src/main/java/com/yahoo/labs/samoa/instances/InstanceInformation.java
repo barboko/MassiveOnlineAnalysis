@@ -213,4 +213,13 @@ public class InstanceInformation implements Serializable {
 
     }
 
+    public int[] attributesDelayTimes()
+    {
+        int[] delayTimes = new int[numAttributes()];
+        for (int i = 0; i < numAttributes(); i++) {
+            delayTimes[i] = attribute(i).getDelayTime();
+        }
+        return delayTimes;
+    }
+
 }

@@ -44,7 +44,6 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
         return "Accuracy Weighted Ensemble classifier as proposed by Wang et al. in 'Mining concept-drifting data streams using ensemble classifiers', KDD 2003";
     }
 
-
     /**
      * Simple weight comparator. Needed for sorting component classifiers.
      */
@@ -170,6 +169,7 @@ public class AccuracyWeightedEnsemble extends AbstractClassifier {
      */
     private void initVariables() {
         if (this.currentChunk == null) {
+            //Get the stream header and the ins
             this.currentChunk = new Instances(this.getModelContext());
         }
 
