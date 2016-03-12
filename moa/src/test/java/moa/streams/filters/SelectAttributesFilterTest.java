@@ -20,6 +20,8 @@ public class SelectAttributesFilterTest {
 		filter.inputStringOption.setValue("2-5,8");
 		filter.outputStringOption.setValue("1,5-7");
 
+
+
 	}
 	@Test
 	public void testNextInstance(){
