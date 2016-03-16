@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="moa:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/moa_jar</output-path>
+    <root id="archive" name="moa.jar">
+      <element id="module-output" name="moa" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/pentaho/pentaho-commons/pentaho-package-manager/1.0.8/pentaho-package-manager-1.0.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/weka-package/lib/sizeofag-1.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/nz/ac/waikato/cms/weka/weka-dev/3.7.12/weka-dev-3.7.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/fracpete/sizeofag/1.0.1/sizeofag-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/sf/squirrel-sql/thirdparty-non-maven/java-cup/0.11a/java-cup-0.11a.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

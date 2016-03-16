@@ -8,12 +8,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="sizeofag-1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: nz.ac.waikato.cms.moa:moa:2014.11" level="project" />
-    <orderEntry type="library" name="Maven: nz.ac.waikato.cms.weka:weka-dev:3.7.13" level="project" />
-    <orderEntry type="library" name="Maven: nz.ac.waikato.cms.weka.thirdparty:java-cup-11b:2015.03.26" level="project" />
-    <orderEntry type="library" name="Maven: nz.ac.waikato.cms.weka.thirdparty:java-cup-11b-runtime:2015.03.26" level="project" />
-    <orderEntry type="library" name="Maven: org.pentaho.pentaho-commons:pentaho-package-manager:1.0.11" level="project" />
-    <orderEntry type="library" name="Maven: com.googlecode.sizeofag:sizeofag:1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="sizeofag-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: nz.ac.waikato.cms.moa:moa:2014.11" level="project" />
+    <orderEntry type="library" exported="" name="Maven: nz.ac.waikato.cms.weka:weka-dev:3.7.13" level="project" />
+    <orderEntry type="library" exported="" name="Maven: nz.ac.waikato.cms.weka.thirdparty:java-cup-11b:2015.03.26" level="project" />
+    <orderEntry type="library" exported="" name="Maven: nz.ac.waikato.cms.weka.thirdparty:java-cup-11b-runtime:2015.03.26" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.pentaho.pentaho-commons:pentaho-package-manager:1.0.11" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.googlecode.sizeofag:sizeofag:1.0.0" level="project" />
   </component>
 </module>
