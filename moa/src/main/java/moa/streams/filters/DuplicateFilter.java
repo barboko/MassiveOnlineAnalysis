@@ -3,8 +3,6 @@ package moa.streams.filters;
 import com.yahoo.labs.samoa.instances.InstancesHeader;
 import moa.core.Example;
 
-import java.util.HashSet;
-
 /**
  * @author Bar Bokovza (barboko) & Leonid Rice (leorice)
  */
@@ -13,19 +11,14 @@ public class DuplicateFilter extends AbstractStreamFilter {
     private int counter;
     private Example last;
 
+    public DuplicateFilter(int amount) {
+        this.amount = amount;
+        this.counter = 1;
+    }
+
     @Override
     protected void restartImpl() {
-        counter = 0;
-
-        HashSet<Integer> delays = new HashSet<Integer>();
-        InstancesHeader header = getHeader();
-        for(int i = 0; i < header.size(); i++) {
-            int k = header.attribute(i).getDelayTime();
-            if(k >= 0)
-                delays.add(k);
-        }
-
-        amount = delays.size();
+        this.counter = 1;
     }
 
     @Override
@@ -35,17 +28,19 @@ public class DuplicateFilter extends AbstractStreamFilter {
 
     @Override
     public Example nextInstance() {
-        if(counter + 1 >= amount)
-        {
+        if(counter == 1)
             last = inputStream.nextInstance();
-            counter = 0;
-        } else
-            counter++;
+
+        counter++;
+
+        if(counter > amount)
+            counter = 1;
+
         return last;
     }
 
     @Override
     public void getDescription(StringBuilder sb, int indent) {
-
+        sb.append("Filter to return the same instance k times.");
     }
 }

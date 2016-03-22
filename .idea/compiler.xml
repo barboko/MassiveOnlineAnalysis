@@ -17,23 +17,17 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
-      <profile default="false" name="Annotation profile for weka-package" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="weka-package" />
-      </profile>
-      <profile default="false" name="Annotation profile for moa" enabled="true">
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="moa" />
+        <module name="weka-package" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="moa" target="1.6" />
+      <module name="moa" target="1.7" />
       <module name="moa-pom" target="1.5" />
       <module name="weka-package" target="1.6" />
     </bytecodeTargetLevel>

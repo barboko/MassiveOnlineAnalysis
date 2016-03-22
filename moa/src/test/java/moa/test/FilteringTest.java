@@ -1,8 +1,9 @@
 package moa.test;
 
-import moa.core.Example;
-import moa.streams.MultiTargetArffFileStream;
+import com.yahoo.labs.samoa.instances.Instance;
+import moa.streams.ArffFileStream;
 import moa.streams.filters.DuplicateFilter;
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -12,19 +13,18 @@ import org.junit.Test;
 public class FilteringTest {
     @Test
     public void run() {
-        MultiTargetArffFileStream stream = new MultiTargetArffFileStream(ClassLoader.getSystemResource("moa/classifiers/data/small_regression.arff").getPath(), "4-6");
-
-        DuplicateFilter filter = new DuplicateFilter();
+        ArffFileStream stream = new ArffFileStream("copy.arff", -1);
+        DuplicateFilter filter = new DuplicateFilter(3);
         filter.setInputStream(stream);
-        filter.restart();
+        filter.prepareForUse();
 
-        Example example = filter.nextInstance();
-        example = filter.nextInstance();
-        example = filter.nextInstance();
-        example = filter.nextInstance();
-        example = filter.nextInstance();
-        example = filter.nextInstance();
-        example = filter.nextInstance();
+        Instance instance = stream.nextInstance().getData();
+        Instance instance2 = stream.nextInstance().getData();
+        Instance instance3 = stream.nextInstance().getData();
+        Instance instance4 = stream.nextInstance().getData();
 
+        Assert.assertEquals(instance, instance2);
+        Assert.assertEquals(instance, instance3);
+        Assert.assertNotEquals(instance, instance4);
     }
 }
