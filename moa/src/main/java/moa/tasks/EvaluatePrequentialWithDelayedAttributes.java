@@ -18,7 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
+@SuppressWarnings("unused")
 public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
 
     //region Overrides
@@ -67,11 +69,13 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             "How many instances between memory bound checks.", 100000, 0,
             Integer.MAX_VALUE);
 
-    public FileOption dumpFileOption = new FileOption("dumpFile", 'd',
-            "File to append intermediate csv results to.", null, "csv", true);
+    //public FileOption dumpFileOption = new FileOption("dumpFile", 'd',
+    //        "File to append intermediate csv results to.", null, "csv", true);
 
-    public FileOption outputPredictionFileOption = new FileOption("outputPredictionFile", 'o',
-            "File to append output predictions to.", null, "pred", true);
+    //public FileOption outputPredictionFileOption = new FileOption("outputPredictionFile", 'o',
+    //        "File to append output predictions to.", null, "pred", true);
+
+    public FileOption outputFileOption = new FileOption("outputFile", 'o', "Output file", null, "csv", true);
 
     //New for prequential method DEPRECATED
     public IntOption widthOption = new IntOption("width",
@@ -89,11 +93,12 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     private SelectAttributesFilter[] selectors;
     private LearningCurve[] curves;
     private Classifier[] classifiers;
+    private double[] lastClassification;
     private LearningPerformanceEvaluator[] evaluators;
     private Map<Integer, Set<Integer>> attributes;
+    private List<Integer> delays;
     private boolean[] isOutput;
     //endregion
-
 
     //region Methods
     private void _initialize() {
@@ -108,6 +113,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         _createEvaluators();
         _createCurves();
 
+        lastClassification = new double[attributes.size()];
     }
 
     private void _createCurves() {
@@ -135,9 +141,8 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private void _createMapping() {
-        //TODO: Check "Test -> Train" for getting the output attribute
-
         int size = header.numAttributes();
         attributes = new HashMap<>();
 
@@ -150,12 +155,13 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             if (delay >= 0) {
                 Set<Integer> lst;
                 if (attributes.containsKey(delay)) lst = attributes.get(delay);
-                else attributes.put(delay, (lst = new HashSet<Integer>()));
+                else attributes.put(delay, (lst = new HashSet<>()));
                 lst.add(i);
             }
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private void _createFilters() {
         // Build the filter that duplicates the instances - tested
         DuplicateFilter copier = new DuplicateFilter(attributes.size());
@@ -173,11 +179,11 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         String outputStr = makeStr(output);
 
         List<Integer> inputIndexes = new LinkedList<>();
-        List<Integer> keys = new LinkedList<>(attributes.keySet());
-        Collections.sort(keys);
+        delays = new LinkedList<>(attributes.keySet());
+        Collections.sort(delays);
 
         // Load the vector with filters
-        for (Integer delay : keys) {
+        for (Integer delay : delays) {
             for (Integer idx : attributes.get(delay))
                 inputIndexes.add(idx + 1);
 
@@ -185,6 +191,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             String inputStr = makeStr(inputIndexes);
 
             SelectAttributesFilter filter = new SelectAttributesFilter();
+            //noinspection unchecked
             filter.setInputStream(copier);
             filter.inputStringOption.setValue(inputStr);
             filter.outputStringOption.setValue(outputStr);
@@ -202,6 +209,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void _createEvaluators() {
         evaluators = new LearningPerformanceEvaluator[selectors.length];
         LearningPerformanceEvaluator evaluator = (LearningPerformanceEvaluator) getPreparedClassOption(this.evaluatorOption);
@@ -210,12 +218,12 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             evaluators[i] = (LearningPerformanceEvaluator<Example>) evaluator.copy();
     }
 
-    private static String makeStr(Collection<Integer> obj) {
+    private static String makeStr(Collection<?> obj) {
         String s = "";
         boolean isFirst = true;
 
-        for (Integer i : obj) {
-            s += (isFirst ? "" : ",") + i;
+        for (Object i : obj) {
+            s += (isFirst ? "" : ",") + i.toString();
             isFirst = false;
         }
 
@@ -223,16 +231,41 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     }
     //endregion
 
+    //region CSV Methods
+    private void _createHeader(PrintStream stream) {
+        Collection<String> fields = new LinkedList<>();
+
+        fields.add("Id");
+        fields.add("True Class");
+
+        for (int delay : delays)
+            fields.add("Classifier #" + delay);
+
+        //fields.add("Runtime");
+        fields.add("Entropy");
+        fields.add("First Time True Class");
+        fields.add("Stability");
+        fields.add("Stability - from first right");
+
+        for (int delay : delays)
+            fields.add("Precision #" + delay);
+
+        fields.add("Average Precision");
+
+        stream.println(makeStr(fields));
+        stream.flush();
+    }
+    //endregion
+
     @Override
     protected Object doMainTask(TaskMonitor monitor, ObjectRepository repository) {
         _initialize();
 
-        Classifier learner = (Classifier) getPreparedClassOption(this.classifierOption);
+        //Classifier learner = (Classifier) getPreparedClassOption(this.classifierOption);
         ExampleStream stream = (ExampleStream) getPreparedClassOption(this.streamOption);
         LearningPerformanceEvaluator evaluator = (LearningPerformanceEvaluator) getPreparedClassOption(this.evaluatorOption);
         LearningCurve learningCurve = new LearningCurve(
                 "learning evaluation instances");
-
 
         //New for prequential methods
         if (evaluator instanceof WindowClassificationPerformanceEvaluator) {
@@ -265,63 +298,63 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         int secondsElapsed = 0;
         monitor.setCurrentActivity("Evaluating learner...", -1.0);
 
-        File dumpFile = this.dumpFileOption.getFile();
-        PrintStream immediateResultStream = null;
-        if (dumpFile != null) {
-            try {
-                if (dumpFile.exists()) {
-                    immediateResultStream = new PrintStream(
-                            new FileOutputStream(dumpFile, true), true);
-                } else {
-                    immediateResultStream = new PrintStream(
-                            new FileOutputStream(dumpFile), true);
-                }
-            } catch (Exception ex) {
-                throw new RuntimeException(
-                        "Unable to open immediate result file: " + dumpFile, ex);
-            }
-        }
-        //File for output predictions
-        File outputPredictionFile = this.outputPredictionFileOption.getFile();
-        PrintStream outputPredictionResultStream = null;
-        if (outputPredictionFile != null) {
-            try {
-                if (outputPredictionFile.exists()) {
-                    outputPredictionResultStream = new PrintStream(
-                            new FileOutputStream(outputPredictionFile, true), true);
-                } else {
-                    outputPredictionResultStream = new PrintStream(
-                            new FileOutputStream(outputPredictionFile), true);
-                }
-            } catch (Exception ex) {
-                throw new RuntimeException(
-                        "Unable to open prediction result file: " + outputPredictionFile, ex);
-            }
-        }
-        boolean firstDump = true;
-        boolean preciseCPUTiming = TimingUtils.enablePreciseTiming();
-        long evaluateStartTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
-        long lastEvaluateStartTime = evaluateStartTime;
-        double RAMHours = 0.0;
+        File outputFile = this.outputFileOption.getFile();
+        PrintStream outputFileStream = null;
 
+        //noinspection Duplicates
+        if (outputFile != null) {
+            try {
+                if (outputFile.exists()) {
+                    outputFileStream = new PrintStream(
+                            new FileOutputStream(outputFile, true), true);
+                } else {
+                    outputFileStream = new PrintStream(
+                            new FileOutputStream(outputFile), true);
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException(
+                        "Unable to open immediate result file: " + outputFile, ex);
+            }
+        }
+
+        if (outputFileStream != null)
+            _createHeader(outputFileStream);
+
+//        boolean firstDump = true;
+//        boolean preciseCPUTiming = TimingUtils.enablePreciseTiming();
+//        long evaluateStartTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
+//        long lastEvaluateStartTime = evaluateStartTime;
+//        double RAMHours = 0.0;
+
+
+        double entropy;
+        int stability, stabilityFirstRight, firstRight, trueClass = -1;
+        int[] lastPrediction = new int[classifiers.length];
+        double[] lastPrecision = new double[classifiers.length];
 
         while (stream.hasMoreInstances()
                 && ((maxInstances < 0) || (instancesProcessed < maxInstances))
                 && ((maxSeconds < 0) || (secondsElapsed < maxSeconds))) {
 
-            Example[] examples = new Example[classifiers.length];
+            AtomicReferenceArray<Example> examples = new AtomicReferenceArray<>(new Example[classifiers.length]);
+
             for (int i = 0; i < classifiers.length; i++) {
                 Example trainInstance = selectors[i].nextInstance();
+
+                @SuppressWarnings("UnnecessaryLocalVariable")
                 Example testInstance = trainInstance;
-                examples[i] = trainInstance;
+
+                examples.set(i, trainInstance);
 
                 Classifier classifier = classifiers[i];
 
+                //noinspection unchecked
                 double[] prediction = classifier.getVotesForInstance(testInstance);
+                lastPrediction[i] = prediction == null || prediction.length == 0 ? -1 : Utils.maxIndex(prediction);
 
-                if (outputPredictionFile != null) {
-                    int trueClass = (int) ((Instance) trainInstance.getData()).classValue();
-                    outputPredictionResultStream.println(Utils.maxIndex(prediction) + "," + trueClass);
+                if (i == 0) {
+                    Instance instance = ((Instance) trainInstance.getData());
+                    trueClass = instance.numOutputAttributes() == 0 ? -1 : (int) instance.valueOutputAttribute(0);
                 }
 
                 evaluators[i].addResult(testInstance, prediction);
@@ -329,47 +362,131 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             }
 
             instancesProcessed++;
-            if (instancesProcessed % this.sampleFrequencyOption.getValue() == 0
-                    || stream.hasMoreInstances() == false) {
-                long evaluateTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
-                double time = TimingUtils.nanoTimeToSeconds(evaluateTime - evaluateStartTime);
-                double timeIncrement = TimingUtils.nanoTimeToSeconds(evaluateTime - lastEvaluateStartTime);
-                double RAMHoursIncrement = learner.measureByteSize() / (1024.0 * 1024.0 * 1024.0); //GBs
-                RAMHoursIncrement *= (timeIncrement / 3600.0); //Hours
-                RAMHours += RAMHoursIncrement;
-                lastEvaluateStartTime = evaluateTime;
 
-                for (int i = 0; i < curves.length; i++) {
-                    Measurement[] m = new Measurement[]{
-                            new Measurement(
-                                    "learning evaluation instances",
-                                    instancesProcessed),
-                            new Measurement(
-                                    "evaluation time ("
-                                            + (preciseCPUTiming ? "cpu "
-                                            : "") + "seconds)",
-                                    time),
-                            new Measurement(
-                                    "model cost (RAM-Hours)",
-                                    RAMHours)
-                    };
+            //MEASUREMENTS FOR CSV
 
-                    LearningPerformanceEvaluator eval = evaluators[i];
-                    Classifier c = classifiers[i];
-                    LearningEvaluation eval2 = new LearningEvaluation(m, eval, c);
+            // Calculate Entropy
+            Set<Integer> values = new HashSet<>();
+            for(int val: lastPrediction)
+                values.add(val);
 
-                    curves[i].insertEntry(eval2);
-                }
-
-                if (immediateResultStream != null) {
-                    if (firstDump) {
-                        immediateResultStream.println(learningCurve.headerToString());
-                        firstDump = false;
-                    }
-                    immediateResultStream.println(learningCurve.entryToString(learningCurve.numEntries() - 1));
-                    immediateResultStream.flush();
+            entropy = 0;
+            int size = lastPrediction.length;
+            double log2 = Math.log(2);
+            if(values.size() > 1)
+            {
+                for(int key: values) {
+                    int count = 0;
+                    for(int val: lastPrediction)
+                        if(val == key)
+                            count++;
+                    double p = (double)count / size;
+                    entropy += -1 * p * (Math.log(p) / Math.log(2));
                 }
             }
+
+            /// FIRST RIGHT
+            firstRight = -1;
+            int k = 0;
+            for (double p : lastPrediction)
+                if (trueClass == p) {
+                    firstRight = k;
+                    break;
+                } else
+                    k++;
+
+            // STABILITY
+            stability = 0;
+            for (int i = 1; i < lastPrediction.length; i++)
+                if (lastPrediction[i - 1] != lastPrediction[i])
+                    stability++;
+
+
+            // STABILITY FIRST RIGHT
+            if (firstRight == -1)
+                stabilityFirstRight = -1;
+            else {
+                stabilityFirstRight = 0;
+
+                for (int i = firstRight + 1; i < lastPrediction.length; i++)
+                    if (lastPrediction[i - 1] != lastPrediction[i])
+                        stabilityFirstRight++;
+            }
+
+            // AVG PRECISION
+            double sumPrecision = 0;
+            for (double precision : lastPrecision)
+                sumPrecision += precision;
+            double avgPrecision = sumPrecision / lastPrecision.length;
+
+            // COLLECT ALL DATA
+            Collection<String> lst2 = new LinkedList<>();
+            lst2.add(String.valueOf(instancesProcessed));
+            lst2.add(String.valueOf(trueClass));
+
+            for (double predict : lastPrediction)
+                lst2.add(String.valueOf(predict));
+
+            lst2.add(String.valueOf(entropy));
+            lst2.add(String.valueOf(firstRight));
+            lst2.add(String.valueOf(stability));
+            lst2.add(String.valueOf(stabilityFirstRight));
+
+            //TODO: How to get the precision
+            for (double precision : lastPrecision)
+                lst2.add(String.valueOf(precision));
+
+            lst2.add(String.valueOf(avgPrecision));
+            //stream.print(makeStr(lst2)); TODO: Find how to write
+
+            if (outputFileStream != null) {
+                outputFileStream.println(makeStr(lst2));
+                outputFileStream.flush();
+            }
+
+//            if (instancesProcessed % this.sampleFrequencyOption.getValue() == 0
+//                    || stream.hasMoreInstances() == false) {
+//                long evaluateTime = TimingUtils.getNanoCPUTimeOfCurrentThread();
+//                double time = TimingUtils.nanoTimeToSeconds(evaluateTime - evaluateStartTime);
+//                double timeIncrement = TimingUtils.nanoTimeToSeconds(evaluateTime - lastEvaluateStartTime);
+//                double RAMHoursIncrement = learner.measureByteSize() / (1024.0 * 1024.0 * 1024.0); //GBs
+//                RAMHoursIncrement *= (timeIncrement / 3600.0); //Hours
+//                RAMHours += RAMHoursIncrement;
+//                lastEvaluateStartTime = evaluateTime;
+
+//                for (int i = 0; i < curves.length; i++) {
+//                    Measurement[] m = new Measurement[]{
+//                            new Measurement(
+//                                    "learning evaluation instances",
+//                                    instancesProcessed),
+//                            new Measurement(
+//                                    "evaluation time ("
+//                                            + (preciseCPUTiming ? "cpu "
+//                                            : "") + "seconds)",
+//                                    time),
+//                            new Measurement(
+//                                    "model cost (RAM-Hours)",
+//                                    RAMHours)
+//                    };
+//
+//                    LearningPerformanceEvaluator eval = evaluators[i];
+//                    Classifier c = classifiers[i];
+//                    LearningEvaluation eval2 = new LearningEvaluation(m, eval, c);
+//
+//                    curves[i].insertEntry(eval2);
+//                }
+
+//                if (immediateResultStream != null) {
+//                    if (firstDump) {
+//                        immediateResultStream.println(learningCurve.headerToString());
+//                        firstDump = false;
+//                    }
+//                    immediateResultStream.println(learningCurve.entryToString(learningCurve.numEntries() - 1));
+//                    immediateResultStream.flush();
+//                }
+        }
+
+            /*
             if (instancesProcessed % INSTANCES_BETWEEN_MONITOR_UPDATES == 0) {
                 if (monitor.taskShouldAbort()) {
                     return null;
@@ -391,13 +508,14 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
                 secondsElapsed = (int) TimingUtils.nanoTimeToSeconds(TimingUtils.getNanoCPUTimeOfCurrentThread()
                         - evaluateStartTime);
             }
+    }
+    */
+
+        if (outputFileStream != null) {
+            outputFileStream.flush();
+            outputFileStream.close();
         }
-        if (immediateResultStream != null) {
-            immediateResultStream.close();
-        }
-        if (outputPredictionResultStream != null) {
-            outputPredictionResultStream.close();
-        }
-        return curves;
+
+        return null;
     }
 }

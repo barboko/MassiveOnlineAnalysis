@@ -20,31 +20,19 @@
  */
 package moa.tasks;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-
-import moa.classifiers.Classifier;
-import moa.core.Example;
-import moa.core.Measurement;
-import moa.core.ObjectRepository;
-import moa.core.TimingUtils;
-import moa.evaluation.WindowClassificationPerformanceEvaluator;
-import moa.evaluation.EWMAClassificationPerformanceEvaluator;
-import moa.evaluation.FadingFactorClassificationPerformanceEvaluator;
-import moa.evaluation.LearningCurve;
-import moa.evaluation.LearningEvaluation;
-import moa.evaluation.LearningPerformanceEvaluator;
-import moa.learners.Learner;
-import moa.options.ClassOption;
-
 import com.github.javacliparser.FileOption;
 import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
-import moa.streams.ExampleStream;
-import moa.streams.InstanceStream;
 import com.yahoo.labs.samoa.instances.Instance;
-import moa.core.Utils;
+import moa.core.*;
+import moa.evaluation.*;
+import moa.learners.Learner;
+import moa.options.ClassOption;
+import moa.streams.ExampleStream;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 
 /**
  * Task for evaluating a classifier on a stream by testing then training with each example in sequence.
@@ -192,12 +180,20 @@ public class EvaluatePrequential extends MainTask {
                 && ((maxInstances < 0) || (instancesProcessed < maxInstances))
                 && ((maxSeconds < 0) || (secondsElapsed < maxSeconds))) {
             Example trainInst = stream.nextInstance();
-            Example testInst = (Example) trainInst; //.copy();
+            Example testInst = trainInst; //.copy();
             //testInst.setClassMissing();
             double[] prediction = learner.getVotesForInstance(testInst);
+
+            String str = "";
+            for(double weight: prediction)
+                str += weight + ",";
+            System.out.println(str);
+
+            Instance instance = (Instance)trainInst.getData();
+
             // Output prediction
             if (outputPredictionFile != null) {
-                int trueClass = (int) ((Instance) trainInst.getData()).classValue();
+                int trueClass = (int) instance.classValue();
                 outputPredictionResultStream.println(Utils.maxIndex(prediction) + "," + trueClass);
             }
 
