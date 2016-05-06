@@ -95,6 +95,12 @@ public class InstanceImpl implements MultiLabelInstance {
         this.instanceData = new DenseInstanceData(new double[numAttributes]); //JD
         this.weight = 1;
     }
+
+    public InstanceImpl(double weight, InstancesHeader header, double[] res) {
+        this.weight = weight;
+        this.instanceHeader = header;
+        this.instanceData = new DenseInstanceData(res);
+    }
     //endregion
 
     //region Weight Property

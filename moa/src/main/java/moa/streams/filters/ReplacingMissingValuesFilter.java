@@ -121,7 +121,7 @@ public class ReplacingMissingValuesFilter extends AbstractStreamFilter {
 			frequencies = new HashMap[numAttributes];
 			for(int i=0; i< inst.numAttributes(); i++){
 				if(inst.attribute(i).isNominal())
-					frequencies[i] = new HashMap<Double, Integer>();
+					frequencies[i] = new HashMap<>();
 			}
 			
 			numericalSelectedStrategy = this.numericReplacementStrategyOption.getChosenIndex();

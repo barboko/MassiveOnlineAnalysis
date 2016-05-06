@@ -31,7 +31,7 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 
 	@Override
 	public InstanceExample nextInstance() {
-		Instance instance = inputStream.nextInstance().getData();
+		Instance instance = (Instance) ((Instance) this.inputStream.nextInstance().getData());
 		if(dataset==null){
 			initialize(instance);
 		}		
@@ -43,8 +43,8 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 		outputsSelected=getSelection(outputStringOption.getValue());
 		int totAttributes=inputsSelected.numValues()+outputsSelected.numValues();
 		Instances ds= new Instances();
-		List<Attribute> v = new ArrayList<Attribute>(totAttributes);
-		List<Integer> indexValues = new ArrayList<Integer>(totAttributes);
+		List<Attribute> v = new ArrayList<>(totAttributes);
+		List<Integer> indexValues = new ArrayList<>(totAttributes);
 		int ct=0;
 		for (int i=0; i<inputsSelected.numEntries();i++)
 		{
@@ -62,12 +62,24 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 				indexValues.add(ct);
 				ct++;
 			}
-		}		
+		}
+
 		ds.setAttributes(v,indexValues);
 		Range r= new Range("-" + outputsSelected.numValues());
 		r.setUpper(totAttributes);
 		ds.setRangeOutputIndices(r);
-		dataset=(new InstancesHeader(ds));
+		dataset= new InstancesHeader(ds);
+
+		if(dataset.numOutputAttributes() > 0) {
+			String name = dataset.outputAttribute(0).name();
+
+			for(int i = 0; i < dataset.numAttributes(); i++)
+				if(dataset.attribute(i).name().equals(name))
+				{
+					dataset.setClassIndex(i);
+					break;
+				}
+		}
 	}
 
 	private Selection getSelection(String text) {
@@ -76,12 +88,13 @@ public class SelectAttributesFilter extends AbstractMultiLabelStreamFilter imple
 		for (String p : parts)
 		{
 			int index=p.indexOf('-');
-			if(index==-1) {//is a single entry
-				s.add(Integer.parseInt(p));
+			if(index <= 0) {//is a single entry
+				int val = Integer.parseInt(p);
+				s.add(val < 0 ? getHeader().numAttributes() - val : val);
 			}
 			else
 			{
-				String [] vals=p.split("-");
+				String [] vals =p.split("-");
 				s.add(Integer.parseInt(vals[0]),Integer.parseInt(vals[1]));
 			}
 		}

@@ -7,7 +7,7 @@ public class Selection {
 	private int numvalues;
 	
 	public Selection(){
-		selection=new ArrayList<Selection.Node>(1);
+		selection= new ArrayList<>(1);
 	}
 	
 	public boolean add(int start, int end){

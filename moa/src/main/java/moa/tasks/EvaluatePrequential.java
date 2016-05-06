@@ -34,18 +34,24 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
+import static com.yahoo.labs.samoa.instances.AttributeType.String;
+
 /**
  * Task for evaluating a classifier on a stream by testing then training with each example in sequence.
  *
  * @author Richard Kirkby (rkirkby@cs.waikato.ac.nz)
  * @author Albert Bifet (abifet at cs dot waikato dot ac dot nz)
  * @version $Revision: 7 $
+ *
+ *
  */
 public class EvaluatePrequential extends MainTask {
 
     @Override
     public String getPurposeString() {
         return "Evaluates a classifier on a stream by testing then training with each example in sequence.";
+
+
     }
 
     private static final long serialVersionUID = 1L;

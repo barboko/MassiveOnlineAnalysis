@@ -26,6 +26,7 @@ public class SelectAttributesFilterTest {
 	@Test
 	public void testNextInstance(){
 		Instance inst=filter.nextInstance().getData();
+
 		assertEquals("F2", inst.inputAttribute(0).name());
 		assertEquals("N1", inst.inputAttribute(1).name());
 		assertEquals("R1", inst.inputAttribute(2).name());
@@ -50,5 +51,10 @@ public class SelectAttributesFilterTest {
 		assertEquals(2, inst.value(6),EPS);
 		assertEquals(3, inst.value(7),EPS);
 		assertEquals(3.3, inst.value(8),EPS);
+		assertEquals(0, inst.classIndex(), EPS);
+
+		//assertEquals(1.1, inst.classValue(), EPS);
+
+
 	}
 }

@@ -11,7 +11,9 @@ import moa.core.*;
 import moa.evaluation.*;
 import moa.options.ClassOption;
 import moa.streams.ExampleStream;
+import moa.streams.filters.DefaultValueFilter;
 import moa.streams.filters.DuplicateFilter;
+import moa.streams.filters.MultiLabelStreamFilter;
 import moa.streams.filters.SelectAttributesFilter;
 
 import java.io.File;
@@ -90,7 +92,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     //region Properties - For comport
     private ExampleStream<Example<Instance>> stream;
     private InstancesHeader header;
-    private SelectAttributesFilter[] selectors;
+    private MultiLabelStreamFilter[] selectors;
     private LearningCurve[] curves;
     private Classifier[] classifiers;
     private double[] lastClassification;
@@ -168,33 +170,44 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         copier.setInputStream(stream);
 
         // Create the vector of SelectAttributesFilter
-        selectors = new SelectAttributesFilter[attributes.size()];
+        selectors = new DefaultValueFilter[attributes.size()];
 
         // Create the output string
-        List<Integer> output = new LinkedList<>();
-        for (int i = 0; i < isOutput.length; i++)
-            if (isOutput[i])
-                output.add(i + 1);
+        //List<Integer> output = new LinkedList<>();
+        //for (int i = 0; i < isOutput.length; i++)
+        //    if (isOutput[i])
+        //        output.add(i + 1);
 
-        String outputStr = makeStr(output);
+        //String outputStr = makeStr(output);
 
         List<Integer> inputIndexes = new LinkedList<>();
+        //FIX
+        for(int delay: attributes.keySet())
+            for(int value: attributes.get(delay))
+                inputIndexes.add(value);
+
         delays = new LinkedList<>(attributes.keySet());
         Collections.sort(delays);
 
         // Load the vector with filters
         for (Integer delay : delays) {
             for (Integer idx : attributes.get(delay))
-                inputIndexes.add(idx + 1);
+                inputIndexes.remove(idx);
 
             Collections.sort(inputIndexes);
-            String inputStr = makeStr(inputIndexes);
 
-            SelectAttributesFilter filter = new SelectAttributesFilter();
+            List<Integer> before = new LinkedList<>();
+            for(int index: inputIndexes)
+                before.add(index+1);
+            String inputStr = makeStr(before);
+
+            //SelectAttributesFilter filter = new SelectAttributesFilter();
+            DefaultValueFilter filter = new DefaultValueFilter();
             //noinspection unchecked
             filter.setInputStream(copier);
-            filter.inputStringOption.setValue(inputStr);
-            filter.outputStringOption.setValue(outputStr);
+            filter.attributesOption.setValue(inputStr);
+            //filter.inputStringOption.setValue(inputStr);
+            //filter.outputStringOption.setValue(outputStr);
             filter.prepareForUse();
             selectors[delay] = filter;
         }
@@ -261,7 +274,6 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     protected Object doMainTask(TaskMonitor monitor, ObjectRepository repository) {
         _initialize();
 
-        //Classifier learner = (Classifier) getPreparedClassOption(this.classifierOption);
         ExampleStream stream = (ExampleStream) getPreparedClassOption(this.streamOption);
         LearningPerformanceEvaluator evaluator = (LearningPerformanceEvaluator) getPreparedClassOption(this.evaluatorOption);
         LearningCurve learningCurve = new LearningCurve(
