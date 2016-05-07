@@ -170,46 +170,40 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         copier.setInputStream(stream);
 
         // Create the vector of SelectAttributesFilter
-        selectors = new DefaultValueFilter[attributes.size()];
+        selectors = new SelectAttributesFilter[attributes.size()];
 
         // Create the output string
-        //List<Integer> output = new LinkedList<>();
-        //for (int i = 0; i < isOutput.length; i++)
-        //    if (isOutput[i])
-        //        output.add(i + 1);
+        List<Integer> output = new LinkedList<>();
+        for (int i = 0; i < isOutput.length; i++)
+            if (isOutput[i])
+                output.add(i + 1);
 
-        //String outputStr = makeStr(output);
+        String outputStr = makeStr(output);
 
         List<Integer> inputIndexes = new LinkedList<>();
-        //FIX
-        for(int delay: attributes.keySet())
-            for(int value: attributes.get(delay))
-                inputIndexes.add(value);
 
         delays = new LinkedList<>(attributes.keySet());
         Collections.sort(delays);
 
         // Load the vector with filters
+        int i = 0;
         for (Integer delay : delays) {
             for (Integer idx : attributes.get(delay))
-                inputIndexes.remove(idx);
+                inputIndexes.add(idx+1);
 
             Collections.sort(inputIndexes);
+            String inputStr = makeStr(inputIndexes);
 
-            List<Integer> before = new LinkedList<>();
-            for(int index: inputIndexes)
-                before.add(index+1);
-            String inputStr = makeStr(before);
-
-            //SelectAttributesFilter filter = new SelectAttributesFilter();
-            DefaultValueFilter filter = new DefaultValueFilter();
+            SelectAttributesFilter filter = new SelectAttributesFilter();
+            //DefaultValueFilter filter = new DefaultValueFilter();
             //noinspection unchecked
             filter.setInputStream(copier);
-            filter.attributesOption.setValue(inputStr);
-            //filter.inputStringOption.setValue(inputStr);
-            //filter.outputStringOption.setValue(outputStr);
+            //filter.attributesOption.setValue(inputStr);
+            filter.inputStringOption.setValue(inputStr);
+            filter.outputStringOption.setValue(outputStr);
             filter.prepareForUse();
-            selectors[delay] = filter;
+            selectors[i] = filter;
+            i++;
         }
     }
 
@@ -339,8 +333,8 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
 //        double RAMHours = 0.0;
 
 
-        double entropy;
-        int stability, stabilityFirstRight, firstRight, trueClass = -1;
+        double entropy, trueClass = -1;
+        int stability, stabilityFirstRight, firstRight;
         int[] lastPrediction = new int[classifiers.length];
         double[] lastPrecision = new double[classifiers.length];
 
@@ -366,7 +360,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
 
                 if (i == 0) {
                     Instance instance = ((Instance) trainInstance.getData());
-                    trueClass = instance.numOutputAttributes() == 0 ? -1 : (int) instance.valueOutputAttribute(0);
+                    trueClass = instance.classValue(); //instance.numOutputAttributes() == 0 ? -1 : (int) instance.valueOutputAttribute(0);
                 }
 
                 evaluators[i].addResult(testInstance, prediction);
@@ -401,7 +395,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             firstRight = -1;
             int k = 0;
             for (double p : lastPrediction)
-                if (trueClass == p) {
+                if (p == trueClass) {
                     firstRight = k;
                     break;
                 } else
