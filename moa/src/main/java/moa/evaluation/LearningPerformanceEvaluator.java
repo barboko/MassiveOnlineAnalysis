@@ -40,7 +40,6 @@ public interface LearningPerformanceEvaluator<E extends Example> extends MOAObje
      */
     void reset();
 
-
     void addResult(E testInst, Prediction prediction);
 
     /**

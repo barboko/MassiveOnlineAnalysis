@@ -86,9 +86,11 @@ public class EvaluatePrequential extends MainTask {
             "How many instances between memory bound checks.", 100000, 0,
             Integer.MAX_VALUE);
 
+    //NOTICE
     public FileOption dumpFileOption = new FileOption("dumpFile", 'd',
             "File to append intermediate csv results to.", null, "csv", true);
 
+    //NOTICE
     public FileOption outputPredictionFileOption = new FileOption("outputPredictionFile", 'o',
             "File to append output predictions to.", null, "pred", true);
 
