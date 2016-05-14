@@ -7,11 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82942c07-4b68-4aae-b0a6-be2da73a076a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/LearningPerformanceEvaluator.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/LearningPerformanceEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequential.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequential.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" />
     </list>
     <ignored path="moa-pom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,14 +41,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1863">
               <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;field#serialVersionUID#0;class#SelectAttributesFilter#0" expanded="false" />
-                <element signature="e#867#868#0" expanded="false" />
-                <element signature="e#928#929#0" expanded="false" />
-                <element signature="e#978#979#0" expanded="false" />
-                <element signature="e#999#1000#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,99 +51,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1012">
               <caret line="92" column="7" selection-start-line="92" selection-start-column="7" selection-end-line="92" selection-end-column="7" />
-              <folding>
-                <element signature="e#0#10554#0" expanded="false" />
-                <element signature="docComment;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;field#weight#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;field#instanceData#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;field#instanceHeader#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#InstanceImpl#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#InstanceImpl#1;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#InstanceImpl#2;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#InstanceImpl#3;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#InstanceImpl#4;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#weight#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#3013#3014#0" expanded="false" />
-                <element signature="e#3042#3043#0" expanded="false" />
-                <element signature="docComment;method#setWeight#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#3183#3184#0" expanded="false" />
-                <element signature="e#3219#3220#0" expanded="false" />
-                <element signature="docComment;method#attribute#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#3417#3418#0" expanded="false" />
-                <element signature="e#3483#3484#0" expanded="false" />
-                <element signature="docComment;method#deleteAttributeAt#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#3614#3615#0" expanded="false" />
-                <element signature="e#3668#3669#0" expanded="false" />
-                <element signature="docComment;method#insertAttributeAt#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#3799#3800#0" expanded="false" />
-                <element signature="e#3877#3878#0" expanded="false" />
-                <element signature="docComment;method#numAttributes#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#3987#3988#0" expanded="false" />
-                <element signature="e#4043#4044#0" expanded="false" />
-                <element signature="docComment;method#value#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#4204#4205#0" expanded="false" />
-                <element signature="e#4264#4265#0" expanded="false" />
-                <element signature="docComment;method#isMissing#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#4454#4455#0" expanded="false" />
-                <element signature="e#4518#4519#0" expanded="false" />
-                <element signature="docComment;method#numValues#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#4620#4621#0" expanded="false" />
-                <element signature="e#4672#4673#0" expanded="false" />
-                <element signature="docComment;method#index#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#4799#4800#0" expanded="false" />
-                <element signature="e#4848#4849#0" expanded="false" />
-                <element signature="docComment;method#valueSparse#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#4994#4995#0" expanded="false" />
-                <element signature="e#5049#5050#0" expanded="false" />
-                <element signature="docComment;method#isMissingSparse#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#5231#5232#0" expanded="false" />
-                <element signature="e#5290#5291#0" expanded="false" />
-                <element signature="docComment;method#value#1;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#stringValue#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#5647#5648#0" expanded="false" />
-                <element signature="e#5725#5726#0" expanded="false" />
-                <element signature="docComment;method#toDoubleArray#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#5853#5854#0" expanded="false" />
-                <element signature="e#5909#5910#0" expanded="false" />
-                <element signature="docComment;method#setValue#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#6092#6093#0" expanded="false" />
-                <element signature="e#6151#6152#0" expanded="false" />
-                <element signature="docComment;method#classValue#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#6268#6269#0" expanded="false" />
-                <element signature="e#6328#6329#0" expanded="false" />
-                <element signature="docComment;method#classIndex#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#numClasses#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#6675#6676#0" expanded="false" />
-                <element signature="e#6730#6731#0" expanded="false" />
-                <element signature="docComment;method#classIsMissing#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#6866#6867#0" expanded="false" />
-                <element signature="e#6930#6931#0" expanded="false" />
-                <element signature="docComment;method#classAttribute#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#7061#7062#0" expanded="false" />
-                <element signature="e#7127#7128#0" expanded="false" />
-                <element signature="docComment;method#setClassValue#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#7272#7273#0" expanded="false" />
-                <element signature="e#7318#7319#0" expanded="false" />
-                <element signature="docComment;method#copy#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#7472#7473#0" expanded="false" />
-                <element signature="e#7517#7518#0" expanded="false" />
-                <element signature="docComment;method#dataset#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#7680#7681#0" expanded="false" />
-                <element signature="e#7722#7723#0" expanded="false" />
-                <element signature="docComment;method#setDataset#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#7889#7890#0" expanded="false" />
-                <element signature="e#7955#7956#0" expanded="false" />
-                <element signature="docComment;method#addSparseValues#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="docComment;method#toString#0;class#InstanceImpl#0" expanded="false" />
-                <element signature="e#8821#8822#0" expanded="false" />
-                <element signature="e#8884#8885#0" expanded="false" />
-                <element signature="e#8938#8939#0" expanded="false" />
-                <element signature="e#8982#8983#0" expanded="false" />
-                <element signature="e#9040#9041#0" expanded="false" />
-                <element signature="e#9104#9105#0" expanded="false" />
-                <element signature="e#9168#9169#0" expanded="false" />
-                <element signature="e#9225#9226#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -183,7 +80,7 @@
       <file leaf-file-name="EvaluatePrequential.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequential.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
+            <state relative-caret-position="2369">
               <caret line="146" column="8" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="8" />
               <folding />
             </state>
@@ -193,7 +90,7 @@
       <file leaf-file-name="DelayedAttributesEvaluation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
+            <state relative-caret-position="3358">
               <caret line="179" column="18" selection-start-line="179" selection-start-column="18" selection-end-line="179" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -234,16 +131,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="138">
               <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#2445#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;class#LearningEvaluation#0" expanded="false" />
-                <element signature="e#1405#1406#0" expanded="false" />
-                <element signature="e#1461#1462#0" expanded="false" />
-                <element signature="e#1653#1666#0" expanded="false" />
-                <element signature="e#2230#2231#0" expanded="false" />
-                <element signature="e#2278#2279#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -253,17 +141,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
               <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#4184#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;class#Measurement#0" expanded="false" />
-                <element signature="e#1388#1389#0" expanded="false" />
-                <element signature="e#1420#1421#0" expanded="false" />
-                <element signature="e#1452#1453#0" expanded="false" />
-                <element signature="e#1485#1486#0" expanded="false" />
-                <element signature="e#2351#2359#0" expanded="false" />
-                <element signature="e#3186#3199#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -273,26 +151,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1196">
               <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#6505#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;class#TaskThread#0" expanded="false" />
-                <element signature="e#1652#1676#0" expanded="false" />
-                <element signature="e#1715#1716#0" expanded="false" />
-                <element signature="e#1748#1749#0" expanded="false" />
-                <element signature="e#4137#4138#0" expanded="false" />
-                <element signature="e#4176#4177#0" expanded="false" />
-                <element signature="e#5635#5636#0" expanded="false" />
-                <element signature="e#5674#5675#0" expanded="false" />
-                <element signature="e#5747#5748#0" expanded="false" />
-                <element signature="e#5796#5797#0" expanded="false" />
-                <element signature="e#5872#5873#0" expanded="false" />
-                <element signature="e#5924#5925#0" expanded="false" />
-                <element signature="e#6333#6334#0" expanded="false" />
-                <element signature="e#6397#6398#0" expanded="false" />
-                <element signature="e#6452#6453#0" expanded="false" />
-                <element signature="e#6501#6502#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -387,9 +246,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -554,6 +410,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -950,7 +809,14 @@
       <option name="project" value="LOCAL" />
       <updated>1462619399488</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Allow getting a prediction file">
+      <created>1462889992259</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1462889992259</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -990,22 +856,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29136163" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47178683" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2507837" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29136163" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47178683" sideWeight="0.49707174" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1014,9 +876,13 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47178683" sideWeight="0.49707174" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2507837" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1065,7 +931,8 @@
     <MESSAGE value="Add Prequential" />
     <MESSAGE value="Add CSV Support" />
     <MESSAGE value="Minor Changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor Changes" />
+    <MESSAGE value="Allow getting a prediction file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow getting a prediction file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1374,89 +1241,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#13730#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#Instances#0" expanded="false" />
-            <element signature="docComment;field#ARFF_RELATION#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;field#ARFF_DATA#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;field#instanceInformation#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;field#instances#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;field#arff#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#1;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#2;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#3;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#4;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#5;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#6;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#Instances#7;class#Instances#0" expanded="false" />
-            <element signature="e#3883#3884#0" expanded="false" />
-            <element signature="e#3949#3950#0" expanded="false" />
-            <element signature="docComment;method#setRelationName#0;class#Instances#0" expanded="false" />
-            <element signature="e#4118#4119#0" expanded="false" />
-            <element signature="e#4182#4183#0" expanded="false" />
-            <element signature="docComment;method#getRelationName#0;class#Instances#0" expanded="false" />
-            <element signature="e#4301#4302#0" expanded="false" />
-            <element signature="e#4366#4367#0" expanded="false" />
-            <element signature="docComment;method#classIndex#0;class#Instances#0" expanded="false" />
-            <element signature="e#4456#4457#0" expanded="false" />
-            <element signature="e#4516#4517#0" expanded="false" />
-            <element signature="docComment;method#setClassIndex#0;class#Instances#0" expanded="false" />
-            <element signature="e#4655#4656#0" expanded="false" />
-            <element signature="e#4721#4722#0" expanded="false" />
-            <element signature="docComment;method#classAttribute#0;class#Instances#0" expanded="false" />
-            <element signature="e#4831#4832#0" expanded="false" />
-            <element signature="e#4895#4896#0" expanded="false" />
-            <element signature="docComment;method#numAttributes#0;class#Instances#0" expanded="false" />
-            <element signature="e#4991#4992#0" expanded="false" />
-            <element signature="e#5054#5055#0" expanded="false" />
-            <element signature="docComment;method#attribute#0;class#Instances#0" expanded="false" />
-            <element signature="e#5180#5181#0" expanded="false" />
-            <element signature="e#5240#5241#0" expanded="false" />
-            <element signature="docComment;method#numClasses#0;class#Instances#0" expanded="false" />
-            <element signature="e#5330#5331#0" expanded="false" />
-            <element signature="e#5390#5391#0" expanded="false" />
-            <element signature="docComment;method#deleteAttributeAt#0;class#Instances#0" expanded="false" />
-            <element signature="e#5522#5523#0" expanded="false" />
-            <element signature="e#5589#5590#0" expanded="false" />
-            <element signature="docComment;method#insertAttributeAt#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#instance#0;class#Instances#0" expanded="false" />
-            <element signature="e#6103#6104#0" expanded="false" />
-            <element signature="e#6149#6150#0" expanded="false" />
-            <element signature="docComment;method#numInstances#0;class#Instances#0" expanded="false" />
-            <element signature="e#6243#6244#0" expanded="false" />
-            <element signature="e#6287#6288#0" expanded="false" />
-            <element signature="docComment;method#add#0;class#Instances#0" expanded="false" />
-            <element signature="e#6412#6413#0" expanded="false" />
-            <element signature="e#6459#6460#0" expanded="false" />
-            <element signature="docComment;method#randomize#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#stratify#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#trainCV#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#testCV#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#meanOrMode#0;class#Instances#0" expanded="false" />
-            <element signature="e#10129#10130#0" expanded="false" />
-            <element signature="e#10216#10217#0" expanded="false" />
-            <element signature="docComment;method#readInstance#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#delete#0;class#Instances#0" expanded="false" />
-            <element signature="e#10736#10737#0" expanded="false" />
-            <element signature="e#10794#10795#0" expanded="false" />
-            <element signature="docComment;method#delete#1;class#Instances#0" expanded="false" />
-            <element signature="e#10862#10863#0" expanded="false" />
-            <element signature="e#10906#10907#0" expanded="false" />
-            <element signature="docComment;method#swap#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#instanceInformation#0;class#Instances#0" expanded="false" />
-            <element signature="e#11294#11295#0" expanded="false" />
-            <element signature="e#11341#11342#0" expanded="false" />
-            <element signature="e#11606#11607#0" expanded="false" />
-            <element signature="e#11648#11649#0" expanded="false" />
-            <element signature="e#11693#11694#0" expanded="false" />
-            <element signature="e#11736#11737#0" expanded="false" />
-            <element signature="e#11770#11771#0" expanded="false" />
-            <element signature="e#11809#11810#0" expanded="false" />
-            <element signature="docComment;method#toString#0;class#Instances#0" expanded="false" />
-            <element signature="docComment;method#stringWithoutHeader#0;class#Instances#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1464,14 +1248,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1863">
           <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;field#serialVersionUID#0;class#SelectAttributesFilter#0" expanded="false" />
-            <element signature="e#867#868#0" expanded="false" />
-            <element signature="e#928#929#0" expanded="false" />
-            <element signature="e#978#979#0" expanded="false" />
-            <element signature="e#999#1000#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1479,99 +1256,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1012">
           <caret line="92" column="7" selection-start-line="92" selection-start-column="7" selection-end-line="92" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#10554#0" expanded="false" />
-            <element signature="docComment;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;field#weight#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;field#instanceData#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;field#instanceHeader#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#InstanceImpl#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#InstanceImpl#1;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#InstanceImpl#2;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#InstanceImpl#3;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#InstanceImpl#4;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#weight#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#3013#3014#0" expanded="false" />
-            <element signature="e#3042#3043#0" expanded="false" />
-            <element signature="docComment;method#setWeight#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#3183#3184#0" expanded="false" />
-            <element signature="e#3219#3220#0" expanded="false" />
-            <element signature="docComment;method#attribute#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#3417#3418#0" expanded="false" />
-            <element signature="e#3483#3484#0" expanded="false" />
-            <element signature="docComment;method#deleteAttributeAt#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#3614#3615#0" expanded="false" />
-            <element signature="e#3668#3669#0" expanded="false" />
-            <element signature="docComment;method#insertAttributeAt#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#3799#3800#0" expanded="false" />
-            <element signature="e#3877#3878#0" expanded="false" />
-            <element signature="docComment;method#numAttributes#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#3987#3988#0" expanded="false" />
-            <element signature="e#4043#4044#0" expanded="false" />
-            <element signature="docComment;method#value#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#4204#4205#0" expanded="false" />
-            <element signature="e#4264#4265#0" expanded="false" />
-            <element signature="docComment;method#isMissing#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#4454#4455#0" expanded="false" />
-            <element signature="e#4518#4519#0" expanded="false" />
-            <element signature="docComment;method#numValues#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#4620#4621#0" expanded="false" />
-            <element signature="e#4672#4673#0" expanded="false" />
-            <element signature="docComment;method#index#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#4799#4800#0" expanded="false" />
-            <element signature="e#4848#4849#0" expanded="false" />
-            <element signature="docComment;method#valueSparse#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#4994#4995#0" expanded="false" />
-            <element signature="e#5049#5050#0" expanded="false" />
-            <element signature="docComment;method#isMissingSparse#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#5231#5232#0" expanded="false" />
-            <element signature="e#5290#5291#0" expanded="false" />
-            <element signature="docComment;method#value#1;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#stringValue#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#5647#5648#0" expanded="false" />
-            <element signature="e#5725#5726#0" expanded="false" />
-            <element signature="docComment;method#toDoubleArray#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#5853#5854#0" expanded="false" />
-            <element signature="e#5909#5910#0" expanded="false" />
-            <element signature="docComment;method#setValue#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#6092#6093#0" expanded="false" />
-            <element signature="e#6151#6152#0" expanded="false" />
-            <element signature="docComment;method#classValue#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#6268#6269#0" expanded="false" />
-            <element signature="e#6328#6329#0" expanded="false" />
-            <element signature="docComment;method#classIndex#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#numClasses#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#6675#6676#0" expanded="false" />
-            <element signature="e#6730#6731#0" expanded="false" />
-            <element signature="docComment;method#classIsMissing#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#6866#6867#0" expanded="false" />
-            <element signature="e#6930#6931#0" expanded="false" />
-            <element signature="docComment;method#classAttribute#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#7061#7062#0" expanded="false" />
-            <element signature="e#7127#7128#0" expanded="false" />
-            <element signature="docComment;method#setClassValue#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#7272#7273#0" expanded="false" />
-            <element signature="e#7318#7319#0" expanded="false" />
-            <element signature="docComment;method#copy#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#7472#7473#0" expanded="false" />
-            <element signature="e#7517#7518#0" expanded="false" />
-            <element signature="docComment;method#dataset#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#7680#7681#0" expanded="false" />
-            <element signature="e#7722#7723#0" expanded="false" />
-            <element signature="docComment;method#setDataset#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#7889#7890#0" expanded="false" />
-            <element signature="e#7955#7956#0" expanded="false" />
-            <element signature="docComment;method#addSparseValues#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="docComment;method#toString#0;class#InstanceImpl#0" expanded="false" />
-            <element signature="e#8821#8822#0" expanded="false" />
-            <element signature="e#8884#8885#0" expanded="false" />
-            <element signature="e#8938#8939#0" expanded="false" />
-            <element signature="e#8982#8983#0" expanded="false" />
-            <element signature="e#9040#9041#0" expanded="false" />
-            <element signature="e#9104#9105#0" expanded="false" />
-            <element signature="e#9168#9169#0" expanded="false" />
-            <element signature="e#9225#9226#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1579,26 +1264,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1196">
           <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#6505#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#TaskThread#0" expanded="false" />
-            <element signature="e#1652#1676#0" expanded="false" />
-            <element signature="e#1715#1716#0" expanded="false" />
-            <element signature="e#1748#1749#0" expanded="false" />
-            <element signature="e#4137#4138#0" expanded="false" />
-            <element signature="e#4176#4177#0" expanded="false" />
-            <element signature="e#5635#5636#0" expanded="false" />
-            <element signature="e#5674#5675#0" expanded="false" />
-            <element signature="e#5747#5748#0" expanded="false" />
-            <element signature="e#5796#5797#0" expanded="false" />
-            <element signature="e#5872#5873#0" expanded="false" />
-            <element signature="e#5924#5925#0" expanded="false" />
-            <element signature="e#6333#6334#0" expanded="false" />
-            <element signature="e#6397#6398#0" expanded="false" />
-            <element signature="e#6452#6453#0" expanded="false" />
-            <element signature="e#6501#6502#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1620,17 +1286,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#4184#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#Measurement#0" expanded="false" />
-            <element signature="e#1388#1389#0" expanded="false" />
-            <element signature="e#1420#1421#0" expanded="false" />
-            <element signature="e#1452#1453#0" expanded="false" />
-            <element signature="e#1485#1486#0" expanded="false" />
-            <element signature="e#2351#2359#0" expanded="false" />
-            <element signature="e#3186#3199#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1645,16 +1301,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
           <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#2445#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#LearningEvaluation#0" expanded="false" />
-            <element signature="e#1405#1406#0" expanded="false" />
-            <element signature="e#1461#1462#0" expanded="false" />
-            <element signature="e#1653#1666#0" expanded="false" />
-            <element signature="e#2230#2231#0" expanded="false" />
-            <element signature="e#2278#2279#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1679,7 +1326,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequential.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
+        <state relative-caret-position="2369">
           <caret line="146" column="8" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="8" />
           <folding />
         </state>
@@ -1687,7 +1334,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
+        <state relative-caret-position="3358">
           <caret line="179" column="18" selection-start-line="179" selection-start-column="18" selection-end-line="179" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
