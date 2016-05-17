@@ -6,7 +6,7 @@ import com.github.javacliparser.IntOption;
 import com.yahoo.labs.samoa.instances.Attribute;
 import com.yahoo.labs.samoa.instances.Instance;
 import com.yahoo.labs.samoa.instances.InstancesHeader;
-import com.yahoo.labs.samoa.instances.Prediction;
+import moa.utility.DelayPrediction;
 import moa.classifiers.Classifier;
 import moa.core.*;
 import moa.evaluation.*;
@@ -15,6 +15,7 @@ import moa.streams.ExampleStream;
 import moa.streams.filters.DuplicateFilter;
 import moa.streams.filters.MultiLabelStreamFilter;
 import moa.streams.filters.SelectAttributesFilter;
+import moa.utility.PredictionList;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -74,9 +75,10 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     //public FileOption dumpFileOption = new FileOption("dumpFile", 'd',
     //        "File to append intermediate csv results to.", null, "csv", true);
 
-    public FileOption outputPredictionFileOption = new FileOption("outputPredictionFile", 'p', "File to append output predictions to.", null, "pred", true);
+    public FileOption outputPredictionFileOption = new FileOption("outputPredictionFile", 'p', "File to append output predictions to.", null, "csv", true);
 
-    public FileOption outputFileOption = new FileOption("outputFile", 'o', "Output file", null, "csv", true);
+    public FileOption outputAccuracyFileOption = new FileOption(
+      "outputAccuracy", 'z', "File to appent output accuracies to.", null, "csv", true);
 
     //New for prequential method DEPRECATED
     public IntOption widthOption = new IntOption("width",
@@ -103,6 +105,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     private Map<Integer, Set<Integer>> attributes;
     private List<Integer> delays;
     private boolean[] isOutput;
+    private PredictionList predictions;
     //endregion
 
     //region Methods
@@ -110,6 +113,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         //noinspection unchecked
         stream = (ExampleStream<Example<Instance>>) getPreparedClassOption(this.streamOption);
         header = stream.getHeader();
+        predictions = new PredictionList(widthOption.getValue());
 
         _createMap();
         _createMapping();
@@ -118,7 +122,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         _createEvaluators();
         _createCurves();
 
-        superEvaluator = new DelayedAttributesEvaluation(classifiers, delays);
+        superEvaluator = new DelayedAttributesEvaluation(delays);
         lastClassification = new double[attributes.size()];
     }
 
@@ -305,8 +309,6 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     protected Object doMainTask(TaskMonitor monitor, ObjectRepository repository) {
         _initialize();
 
-
-
         //ExampleStream stream = (ExampleStream) getPreparedClassOption(this.streamOption);
 
         //LearningPerformanceEvaluator evaluator = (LearningPerformanceEvaluator) getPreparedClassOption(this.evaluatorOption);
@@ -346,6 +348,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         /// Create Print Streams
         PrintStream outputFileStream = _createStream(this.outputFileOption);
         PrintStream predictionsFileStream = _createStream(this.outputPredictionFileOption);
+        PrintStream accuracyFileStream = _createStream(this.outputAccuracyFileOption);
         superEvaluator.setStream(predictionsFileStream);
         superEvaluator.writeHeader();
 
@@ -385,9 +388,12 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
                 classifier.trainOnInstance(instanceExample);
             }
 
+            DelayPrediction pred = new DelayPrediction((int)trueClass, lastPrediction);
+            predictions.add(pred);
+
             instancesProcessed++;
 
-            superEvaluator.write(lastPrediction, trueClass);
+            superEvaluator.write(pred);
 
             if (instancesProcessed % this.sampleFrequencyOption.getValue() == 0
                     || stream.hasMoreInstances() == false) {

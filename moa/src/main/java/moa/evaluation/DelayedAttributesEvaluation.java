@@ -1,19 +1,16 @@
 package moa.evaluation;
 
 import moa.AbstractMOAObject;
-import moa.classifiers.Classifier;
 import moa.core.Measurement;
+import moa.utility.DelayPrediction;
 
 import java.io.PrintStream;
 import java.util.*;
 
-/**
- * Created by bokov on 07/05/2016.
- */
+
 public class DelayedAttributesEvaluation extends AbstractMOAObject {
 
     //region Members
-    private Classifier[] _source;
     private int[] _delays;
     private int _count;
     private PrintStream stream = null;
@@ -24,11 +21,7 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
     //endregion
 
     //region Constructors
-    public DelayedAttributesEvaluation(Classifier[] classifiers, List<Integer> delays) {
-        if ((_source = classifiers) == null || classifiers.length == 0
-                || delays == null || classifiers.length != delays.size())
-            throw new NullPointerException("Classifier must be declared.");
-
+    public DelayedAttributesEvaluation(List<Integer> delays) {
         _delays = new int[delays.size()];
 
         int i = 0;
@@ -52,21 +45,21 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
     //endregion
 
     //region Methods
-    public Measurement[] generateMeasurements(int[] predictions, double trueClass) {
+    public Measurement[] generateMeasurements(DelayPrediction prediction) {
         List<Measurement> results = new LinkedList<>();
 
-        if(predictions == null || predictions.length != _source.length)
+        if(prediction == null)
             return null;
 
         results.add(new Measurement("ID", _count));
-        for(int i = 0; i < predictions.length; i++)
-            results.add(new Measurement("Prediction #"+_delays[i], predictions[i]));
+        for(int i = 0; i < prediction.size(); i++)
+            results.add(new Measurement("Prediction #"+_delays[i], prediction.getPrediction(i)));
 
-        results.add(new Measurement("Entropy", entropy(predictions)));
-        results.add(new Measurement("First True Prediction", firstTrue(predictions, trueClass)));
-        results.add(new Measurement("Stability", stability(predictions)));
+        results.add(new Measurement("Entropy", entropy(prediction.getPredictions())));
+        results.add(new Measurement("First True Prediction", firstTrue(prediction.getPredictions(), prediction.getTrueClass())));
+        results.add(new Measurement("Stability", stability(prediction.getPredictions())));
         results.add(new Measurement("Stability From First True",
-                stabilityFirstTrue(predictions, trueClass)));
+                stabilityFirstTrue(prediction.getPredictions(), prediction.getTrueClass())));
 
         _count++;
 
@@ -95,13 +88,13 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
 
         double entropy = 0;
         int size = values.length;
-        double log2 = Math.log(2);
+        final double log2 = Math.log(2);
 
         if(mapping.size() > 1)
         {
             for(double key: mapping.keySet()) {
                 double p = mapping.get(key) / size;
-                entropy += -1 * p * (Math.log(p) / Math.log(2));
+                entropy += -1 * p * (Math.log(p) / log2);
             }
         }
 
@@ -144,7 +137,7 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
         if(stream == null)
             return;
 
-        Measurement[] temp = generateMeasurements(new int[] {0, 0, 0}, 0);
+        Measurement[] temp = generateMeasurements(new DelayPrediction(0, new int[] {0, 0, 0}));
 
         String result = "";
         boolean isFirst = true;
@@ -161,8 +154,10 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
         stream.println(result);
         stream.flush();
     }
-    public Measurement[] write(int[] predictions, double trueClass) {
-        Measurement[] temp = generateMeasurements(predictions, trueClass);
+    public Measurement[] write(DelayPrediction prediction) {
+
+
+        Measurement[] temp = generateMeasurements(prediction);
 
         String result = "";
         boolean isFirst = true;
