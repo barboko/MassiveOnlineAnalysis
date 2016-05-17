@@ -76,7 +76,7 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
         if (prediction == null)
             return null;
 
-        results.add(new Measurement("ID", _count));
+        results.add(new Measurement("Count", _count));
         for (int i = 0; i < prediction.size(); i++)
             results.add(new Measurement("Prediction #" + _delays[i], prediction.getPrediction(i)));
 
