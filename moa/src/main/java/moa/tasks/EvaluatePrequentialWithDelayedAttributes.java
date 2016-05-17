@@ -276,6 +276,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     }
     //endregion
 
+    //region Handle Streams
     private PrintStream _createStream(FileOption option) {
         File file = option.getFile();
         if(file == null)
@@ -299,6 +300,8 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
 
         return result;
     }
+    //endregion
+
 
     private void _disposeStream(PrintStream stream) {
         if(stream == null)
@@ -348,11 +351,19 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         monitor.setCurrentActivity("Evaluating learner...", -1.0);
 
         /// Create Print Streams
-        PrintStream outputFileStream = _createStream(this.outputFileOption);
+        //PrintStream outputFileStream = _createStream(this.outputFileOption);
+
+
+        // Create Predictions File Stream
         PrintStream predictionsFileStream = _createStream(this.outputPredictionFileOption);
-        PrintStream accuracyFileStream = _createStream(this.outputAccuracyFileOption);
         superEvaluator.setStream(predictionsFileStream);
         superEvaluator.writeHeader();
+
+        // Create Accuracy File Stream
+        PrintStream accuracyFileStream = _createStream(this.outputAccuracyFileOption);
+        accuracyEvaluation.setStream(accuracyFileStream);
+        accuracyEvaluation.writeHeader();
+
 
         /// FOR MEASUREMENTS
         boolean preciseCPUTiming = TimingUtils.enablePreciseTiming();
@@ -390,12 +401,12 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
                 classifier.trainOnInstance(instanceExample);
             }
 
-            DelayPrediction pred = new DelayPrediction((int)trueClass, lastPrediction);
-            predictions.add(pred);
-
+            DelayPrediction pred = new DelayPrediction(
+                    (int)trueClass, lastPrediction);
             instancesProcessed++;
-
+            predictions.add(pred);
             superEvaluator.write(pred);
+            accuracyEvaluation.write();
 
             if (instancesProcessed % this.sampleFrequencyOption.getValue() == 0
                     || stream.hasMoreInstances() == false) {
@@ -453,8 +464,10 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             }
     }
 
-        _disposeStream(outputFileStream);
+        //_disposeStream(outputFileStream);
         _disposeStream(predictionsFileStream);
+        _disposeStream(accuracyFileStream);
+
         return null;
     }
 }

@@ -68,7 +68,7 @@ public class DelayedAttributesAccuracyEvaluation
         stream.flush();
     }
     public void write() {
-        if(stream == null)
+        if(stream == null || !predictions.isFull())
             return;
 
         Measurement[] measurements = generateMeasurements();
