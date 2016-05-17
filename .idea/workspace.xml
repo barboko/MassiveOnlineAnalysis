@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="82942c07-4b68-4aae-b0a6-be2da73a076a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" />
     </list>
     <ignored path="moa-pom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -838,7 +837,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463480808787</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fix CSV (SYLK Format)">
+      <created>1463481517740</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1463481517740</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -958,7 +964,8 @@
     <MESSAGE value="Adding Accuracy Measurement (pre-finish 2)" />
     <MESSAGE value="Adding Accuracy Measurement (Before Testing)" />
     <MESSAGE value="Fix CSV Compatibility Issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix CSV Compatibility Issues" />
+    <MESSAGE value="Fix CSV (SYLK Format)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix CSV (SYLK Format)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
