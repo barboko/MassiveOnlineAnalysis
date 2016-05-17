@@ -70,13 +70,14 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
     //endregion
 
     //region Methods
-    public Measurement[] generateMeasurements(DelayPrediction prediction) {
+    public Measurement[] generateMeasurements(DelayPrediction prediction, DelayPrediction actual) {
         List<Measurement> results = new LinkedList<>();
 
         if (prediction == null)
             return null;
 
         results.add(new Measurement("Count", _count));
+        results.add(new Measurement("Actual Prediction", actual.getPrediction(0)));
         for (int i = 0; i < prediction.size(); i++)
             results.add(new Measurement("Prediction #" + _delays[i], prediction.getPrediction(i)));
 
@@ -157,11 +158,12 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
         if (stream == null)
             return;
 
-        int[] tmp = new int[_delays.length];
+        int[] tmp = new int[_delays.length], tmp2 = new int[1];
         for (int i = 0; i < tmp.length; i++)
             tmp[i] = 0;
+        tmp2[0] = 0;
 
-        Measurement[] measurements = generateMeasurements(new DelayPrediction(0, tmp));
+        Measurement[] measurements = generateMeasurements(new DelayPrediction(0, tmp), new DelayPrediction(0, tmp2));
 
         boolean isNotFirst = false;
         for (Measurement m : measurements) {
@@ -176,8 +178,8 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
         stream.print('\n');
     }
 
-    public Measurement[] write(DelayPrediction prediction) {
-        Measurement[] measurements = generateMeasurements(prediction);
+    public Measurement[] write(DelayPrediction prediction, DelayPrediction actual) {
+        Measurement[] measurements = generateMeasurements(prediction, actual);
 
         boolean isNotFirst = false;
 

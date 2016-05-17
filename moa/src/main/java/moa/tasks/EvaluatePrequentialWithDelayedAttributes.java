@@ -3,6 +3,7 @@ package moa.tasks;
 import com.github.javacliparser.FileOption;
 import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
+import com.sun.org.apache.bcel.internal.generic.DUP;
 import com.yahoo.labs.samoa.instances.Attribute;
 import com.yahoo.labs.samoa.instances.Instance;
 import com.yahoo.labs.samoa.instances.InstancesHeader;
@@ -21,7 +22,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 @SuppressWarnings("ALL")
 public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
@@ -96,7 +96,9 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     private InstancesHeader header;
     private MultiLabelStreamFilter[] selectors;
     private Classifier[] classifiers;
+    private Classifier actualClassifier;
     private double[] lastClassification;
+    private DuplicateFilter copier;
     /// FOR EVALUATION
     private LearningPerformanceEvaluator[] evaluators;
     private LearningCurve[] curves;
@@ -107,6 +109,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     private List<Integer> delays;
     private boolean[] isOutput;
     private PredictionList predictions;
+    private PredictionList actualPredictions;
     //endregion
 
     //region Methods
@@ -115,6 +118,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         stream = (ExampleStream<Example<Instance>>) getPreparedClassOption(this.streamOption);
         header = stream.getHeader();
         predictions = new PredictionList(widthOption.getValue());
+        actualPredictions = new PredictionList(widthOption.getValue());
 
         _createMap();
         _createMapping();
@@ -124,8 +128,9 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         _createCurves();
 
         superEvaluator = new DelayedAttributesEvaluation(delays);
-        accuracyEvaluation = new DelayedAttributesAccuracyEvaluation(delays, predictions);
+        accuracyEvaluation = new DelayedAttributesAccuracyEvaluation(delays, predictions, actualPredictions);
         lastClassification = new double[attributes.size()];
+
     }
 
     private void _createMap() {
@@ -179,7 +184,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     @SuppressWarnings("Duplicates")
     private void _createFilters() {
         // Build the filter that duplicates the instances - tested
-        DuplicateFilter copier = new DuplicateFilter(attributes.size());
+        this.copier = new DuplicateFilter(attributes.size()+1);
         copier.setInputStream(stream);
 
         // Create the vector of SelectAttributesFilter
@@ -218,11 +223,11 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     }
 
     private void _createClassifiers() {
-        Classifier c = (Classifier) getPreparedClassOption(this.classifierOption);
+        actualClassifier = (Classifier) getPreparedClassOption(this.classifierOption);
         classifiers = new Classifier[selectors.length];
 
         for (int i = 0; i < classifiers.length; i++) {
-            classifiers[i] = c.copy();
+            classifiers[i] = actualClassifier.copy();
         }
     }
 
@@ -373,17 +378,17 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
 
         /// FOR CLASSIFICATION
         int[] lastPrediction = new int[classifiers.length];
-        double trueClass = 0;
+        int trueClass = 0;
 
         while (stream.hasMoreInstances()
                 && ((maxInstances < 0) || (instancesProcessed < maxInstances))
                 && ((maxSeconds < 0) || (secondsElapsed < maxSeconds))) {
 
-            AtomicReferenceArray<Example> examples = new AtomicReferenceArray<>(new Example[classifiers.length]);
+            //AtomicReferenceArray<Example> examples = new AtomicReferenceArray<>(new Example[classifiers.length]);
 
             for (int i = 0; i < classifiers.length; i++) {
                 Example instanceExample = selectors[i].nextInstance();
-                examples.set(i, instanceExample);
+                //examples.set(i, instanceExample);
                 Classifier classifier = classifiers[i];
 
                 //noinspection unchecked
@@ -393,7 +398,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
 
                 if (i == 0) {
                     Instance instance = ((Instance) instanceExample.getData());
-                    trueClass = instance.classValue();
+                    trueClass = (int)instance.classValue();
                 }
 
                 evaluators[i].addResult(instanceExample, prediction);
@@ -401,11 +406,22 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
                 classifier.trainOnInstance(instanceExample);
             }
 
-            DelayPrediction pred = new DelayPrediction(
-                    (int)trueClass, lastPrediction);
+            int[] actual = new int[1];
+
+            {
+                Example instanceEx = copier.nextInstance();
+                double[] prediction = actualClassifier.getVotesForInstance(instanceEx);
+                actual[0] = prediction == null ||
+                        prediction.length == 0 ? -1 : Utils.maxIndex(prediction);
+                actualClassifier.trainOnInstance(instanceEx);
+            }
+
+            DelayPrediction actualPred = new DelayPrediction(trueClass, actual);
+            DelayPrediction pred = new DelayPrediction(trueClass, lastPrediction);
             instancesProcessed++;
             predictions.add(pred);
-            superEvaluator.write(pred);
+            actualPredictions.add(actualPred);
+            superEvaluator.write(pred, actualPred);
             accuracyEvaluation.write();
 
             if (instancesProcessed % this.sampleFrequencyOption.getValue() == 0

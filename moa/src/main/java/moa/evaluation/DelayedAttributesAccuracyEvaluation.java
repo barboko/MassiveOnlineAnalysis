@@ -21,7 +21,9 @@ public class DelayedAttributesAccuracyEvaluation
     //region Members
     private int[] delays;
     private PredictionList predictions;
+    private PredictionList actualPredictions;
     private PrintStream stream;
+    private int count;
     //endregion
 
     //region Properties
@@ -29,15 +31,21 @@ public class DelayedAttributesAccuracyEvaluation
     //endregion
 
     //region Constructors
-    public DelayedAttributesAccuracyEvaluation(List<Integer> delays, PredictionList predictions) {
+    public DelayedAttributesAccuracyEvaluation(List<Integer> delays, PredictionList predictions, PredictionList actualPredictions) {
         this.delays = DelayedAttributesEvaluation.convert(delays);
         this.predictions = predictions;
+        this.actualPredictions = actualPredictions;
+        this.count = 0;
     }
     //endregion
 
     private Measurement[] generateMeasurements() {
         List<Measurement> m = new LinkedList<>();
 
+        m.add(new Measurement("Count", count));
+        count++;
+
+        m.add(new Measurement("Actual Accuracy", actualPredictions.accuracy(0)));
 
         for(int idx = 0; idx < delays.length; idx++)
             m.add(new Measurement("Accuracy #" + delays[idx], predictions.accuracy(idx)));
