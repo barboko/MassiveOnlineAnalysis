@@ -22,16 +22,38 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
 
     //region Constructors
     public DelayedAttributesEvaluation(List<Integer> delays) {
-        _delays = new int[delays.size()];
+        _delays = convert(delays);
+        reset();
+    }
+
+    public static <T> T[] convert(List<T> source, T[] output) {
+        if(source == null || output == null || source.size() != output.length)
+            return null;
 
         int i = 0;
-        for(int delay: delays)
+
+        for(T val : source)
         {
-            _delays[i] = delay;
+            output[i] = val;
             i++;
         }
 
-        reset();
+        return output;
+    }
+    public static int[] convert(List<Integer> source) {
+        if(source == null)
+            return null;
+
+        int[] result = new int[source.size()];
+        int i = 0;
+
+        for(int val : source)
+        {
+            result[i] = val;
+            i++;
+        }
+
+        return result;
     }
 
     public void reset() { _count = 1;}
@@ -62,16 +84,8 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
                 stabilityFirstTrue(prediction.getPredictions(), prediction.getTrueClass())));
 
         _count++;
-
-        // CONVERSION ONLY
-        Measurement[] output = new Measurement[results.size()];
-        int i = 0;
-        for(Measurement m: results) {
-            output[i] = m;
-            i++;
-        }
-
-        return output;
+        Measurement[] res = new Measurement[results.size()];
+        return convert(results, res);
     }
 
 
@@ -137,7 +151,11 @@ public class DelayedAttributesEvaluation extends AbstractMOAObject {
         if(stream == null)
             return;
 
-        Measurement[] temp = generateMeasurements(new DelayPrediction(0, new int[] {0, 0, 0}));
+        int[] tmp = new int[_delays.length];
+        for(int i = 0; i < tmp.length; i++)
+            tmp[i] = 0;
+
+        Measurement[] temp = generateMeasurements(new DelayPrediction(0, tmp));
 
         String result = "";
         boolean isFirst = true;

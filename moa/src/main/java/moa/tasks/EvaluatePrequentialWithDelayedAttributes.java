@@ -101,6 +101,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
     private LearningPerformanceEvaluator[] evaluators;
     private LearningCurve[] curves;
     private DelayedAttributesEvaluation superEvaluator;
+    private DelayedAttributesAccuracyEvaluation accuracyEvaluation;
     /// OTHER
     private Map<Integer, Set<Integer>> attributes;
     private List<Integer> delays;
@@ -123,6 +124,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
         _createCurves();
 
         superEvaluator = new DelayedAttributesEvaluation(delays);
+        accuracyEvaluation = new DelayedAttributesAccuracyEvaluation(delays, predictions);
         lastClassification = new double[attributes.size()];
     }
 
