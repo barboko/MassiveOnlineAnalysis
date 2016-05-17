@@ -6,8 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82942c07-4b68-4aae-b0a6-be2da73a076a" name="Default" comment="">
+    <list default="true" id="82942c07-4b68-4aae-b0a6-be2da73a076a" name="Default" comment="Adding Accuracy Measurement (Before Testing)">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/utility/DelayPrediction.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/utility/DelayPrediction.java" />
     </list>
     <ignored path="moa-pom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,26 +40,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EvaluatePrequentialWithDelayedAttributes.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EvaluatePrequentialWithDelayedAttributes.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="405" column="33" selection-start-line="405" selection-start-column="33" selection-end-line="405" selection-end-column="33" />
+            <state relative-caret-position="247">
+              <caret line="310" column="23" selection-start-line="310" selection-start-column="23" selection-end-line="310" selection-end-column="23" />
               <folding>
-                <element signature="e#827#851#0" expanded="true" />
+                <element signature="imports" expanded="true" />
                 <element signature="n#!!doc;n#getPurposeString#0;n#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="method#_createMap#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-                <element signature="method#_createMapping#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-                <element signature="method#_createCurves#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="method#_createFilters#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="method#_createClassifiers#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="method#_createEvaluators#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="method#makeStr#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="n#!!doc;n#_createHeader#0;n#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
                 <element signature="method#_createHeader#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-                <element signature="method#_createStream#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-                <element signature="method#_disposeStream#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-                <marker date="1463477240995" expanded="true" signature="13320:17623" ph="{...}" />
+                <marker date="1463480641724" expanded="true" signature="13321:17624" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -64,16 +64,37 @@
       <file leaf-file-name="DelayedAttributesAccuracyEvaluation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="70" column="30" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+            <state relative-caret-position="330">
+              <caret line="57" column="27" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="n#!!doc;n#getDescription#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-                <element signature="n#!!doc;n#delays#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
                 <element signature="n#!!doc;n#setStream#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
                 <element signature="n#!!doc;n#DelayedAttributesAccuracyEvaluation#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-                <element signature="method#generateMeasurements#0;class#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-                <element signature="method#writeHeader#0;class#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+                <element signature="method#write#0;class#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DelayedAttributesEvaluation.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="422">
+              <caret line="197" column="15" selection-start-line="197" selection-start-column="15" selection-end-line="197" selection-end-column="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+                <element signature="e#475#476#0" expanded="true" />
+                <element signature="method#convert#0;class#DelayedAttributesEvaluation#0" expanded="false" />
+                <element signature="method#convert#1;class#DelayedAttributesEvaluation#0" expanded="false" />
+                <element signature="e#1271#1272#0" expanded="true" />
+                <element signature="e#1297#1298#0" expanded="true" />
+                <element signature="n#!!doc;n#getDescription#0;n#DelayedAttributesEvaluation#0" expanded="false" />
+                <element signature="n#!!doc;n#entropy#0;n#DelayedAttributesEvaluation#0" expanded="false" />
+                <element signature="method#firstTrue#0;class#DelayedAttributesEvaluation#0" expanded="false" />
+                <element signature="method#stability#1;class#DelayedAttributesEvaluation#0" expanded="false" />
+                <element signature="method#stabilityFirstTrue#0;class#DelayedAttributesEvaluation#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -120,9 +141,9 @@
         <option value="$PROJECT_DIR$/moa/src/main/java/moa/utility/OverrideList.java" />
         <option value="$PROJECT_DIR$/moa/src/main/java/moa/utility/PredictionList.java" />
         <option value="$PROJECT_DIR$/moa/src/main/java/moa/utility/DelayPrediction.java" />
-        <option value="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" />
-        <option value="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java" />
         <option value="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" />
+        <option value="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java" />
+        <option value="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java" />
       </list>
     </option>
   </component>
@@ -380,7 +401,7 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="outputPredictionFileOption&#9;PSI&#9;JAVA://moa.tasks.EvaluatePrequential#outputPredictionFileOption&#10;Lear&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/LearningCurve.java&#10;Print&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_77/src.zip!/java/io/PrintStream.java&#10;Evalua&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluatePrequential.java&#10;Evaluat&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/LearningEvaluation.java&#10;LearningEvaluation&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/LearningEvaluation.java&#10;Meas&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/core/Measurement.java&#10;InstanceIm&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/com/yahoo/labs/samoa/instances/InstanceImpl.java&#10;Sele&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;Instances&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/com/yahoo/labs/samoa/instances/Instances.java&#10;Arff&#9;PSI&#9;JAVA://moa.tasks.WriteStreamToARFFFile&#10;Default&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/DefaultValueFilter.java&#10;eval&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java&#10;SelectA&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;small_regression.arff&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/test/resources/moa/classifiers/data/small_regression.arff&#10;MultiLab&#9;PSI&#9;JAVA://moa.streams.MultiLabelFilteredStream&#10;Select&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;Measure&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/core/Measurement.java&#10;naive&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/classifiers/bayes/NaiveBayes.java&#10;evalua&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluateModel.java&#10;acu&#9;PSI&#9;JAVA://moa.classifiers.meta.AccuracyUpdatedEnsemble&#10;Learner&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/learners/Learner.java&#10;Classifier&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/classifiers/AbstractClassifier.java&#10;Naive&#9;PSI&#9;JAVA://moa.classifiers.bayes.NaiveBayes&#10;select&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;Evaluate&#9;PSI&#9;JAVA://moa.tasks.EvaluateModel&#10;AbstractTask&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/AbstractTask.java&#10;Dela&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/classifiers/meta/DelayedAttributesClassifier.java&#10;AbstractClass&#9;PSI&#9;JAVA://moa.classifiers.AbstractClassifier&#10;InstanceExample&#9;PSI&#9;JAVA://moa.core.InstanceExample&#10;Converter&#9;PSI&#9;JAVA://com.yahoo.labs.samoa.instances.WekaToSamoaInstanceConverter&#10;ArffLoader&#9;PSI&#9;JAVA://com.yahoo.labs.samoa.instances.ArffLoader&#10;Delay&#9;PSI&#9;JAVA://moa.classifiers.meta.DelayedAttributesClassifier&#10;small_regre&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/test/resources/moa/classifiers/data/small_regression.arff" />
+    <property name="SearchEverywhereHistoryKey" value="Delayed&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java&#10;Eva&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java&#10;Delay&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/utility/DelayPrediction.java&#10;outputPredictionFileOption&#9;PSI&#9;JAVA://moa.tasks.EvaluatePrequential#outputPredictionFileOption&#10;Lear&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/LearningCurve.java&#10;Print&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_77/src.zip!/java/io/PrintStream.java&#10;Evalua&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluatePrequential.java&#10;Evaluat&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/LearningEvaluation.java&#10;LearningEvaluation&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/evaluation/LearningEvaluation.java&#10;Meas&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/core/Measurement.java&#10;InstanceIm&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/com/yahoo/labs/samoa/instances/InstanceImpl.java&#10;Sele&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;Instances&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/com/yahoo/labs/samoa/instances/Instances.java&#10;Arff&#9;PSI&#9;JAVA://moa.tasks.WriteStreamToARFFFile&#10;Default&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/DefaultValueFilter.java&#10;eval&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java&#10;SelectA&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;small_regression.arff&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/test/resources/moa/classifiers/data/small_regression.arff&#10;MultiLab&#9;PSI&#9;JAVA://moa.streams.MultiLabelFilteredStream&#10;Select&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;Measure&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/core/Measurement.java&#10;naive&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/classifiers/bayes/NaiveBayes.java&#10;evalua&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/EvaluateModel.java&#10;acu&#9;PSI&#9;JAVA://moa.classifiers.meta.AccuracyUpdatedEnsemble&#10;Learner&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/learners/Learner.java&#10;Classifier&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/classifiers/AbstractClassifier.java&#10;Naive&#9;PSI&#9;JAVA://moa.classifiers.bayes.NaiveBayes&#10;select&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/streams/filters/SelectAttributesFilter.java&#10;Evaluate&#9;PSI&#9;JAVA://moa.tasks.EvaluateModel&#10;AbstractTask&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/tasks/AbstractTask.java&#10;Dela&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/main/java/moa/classifiers/meta/DelayedAttributesClassifier.java&#10;AbstractClass&#9;PSI&#9;JAVA://moa.classifiers.AbstractClassifier&#10;InstanceExample&#9;PSI&#9;JAVA://moa.core.InstanceExample&#10;Converter&#9;PSI&#9;JAVA://com.yahoo.labs.samoa.instances.WekaToSamoaInstanceConverter&#10;ArffLoader&#9;PSI&#9;JAVA://com.yahoo.labs.samoa.instances.ArffLoader&#10;small_regre&#9;FILE&#9;file://C:/Users/bokov/Documents/Workspace/MOA/MassiveOnlineAnalysis/moa/src/test/resources/moa/classifiers/data/small_regression.arff" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.34827587" />
@@ -806,7 +827,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463477253807</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Adding Accuracy Measurement (Before Testing)">
+      <created>1463477460867</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1463477460867</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -848,17 +876,20 @@
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3191801" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47178683" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2507837" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3191801" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47178683" sideWeight="0.49707174" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -867,12 +898,9 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47178683" sideWeight="0.49707174" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2507837" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -956,7 +984,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java</url>
-          <line>69</line>
+          <line>72</line>
           <properties class="moa.evaluation.DelayedAttributesEvaluation" method="generateMeasurements" />
           <option name="timeStamp" value="69" />
         </line-breakpoint>
@@ -1418,23 +1446,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1300">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#convert#0;class#DelayedAttributesEvaluation#0" expanded="false" />
-            <element signature="method#convert#1;class#DelayedAttributesEvaluation#0" expanded="false" />
-            <element signature="n#!!doc;n#getDescription#0;n#DelayedAttributesEvaluation#0" expanded="false" />
-            <element signature="n#!!doc;n#entropy#0;n#DelayedAttributesEvaluation#0" expanded="false" />
-            <element signature="method#firstTrue#0;class#DelayedAttributesEvaluation#0" expanded="false" />
-            <element signature="method#stability#1;class#DelayedAttributesEvaluation#0" expanded="false" />
-            <element signature="method#stabilityFirstTrue#0;class#DelayedAttributesEvaluation#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/LearningCurve.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -1451,17 +1462,6 @@
         <state relative-caret-position="184">
           <caret line="105" column="36" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/utility/DelayPrediction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
-          <folding>
-            <element signature="method#isTruePrediction#0;class#DelayPrediction#0" expanded="false" />
-            <element signature="method#deepCopy#0;class#DelayPrediction#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1492,41 +1492,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java">
+    <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/utility/DelayPrediction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="70" column="30" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+        <state relative-caret-position="230">
+          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="n#!!doc;n#getDescription#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-            <element signature="n#!!doc;n#delays#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-            <element signature="n#!!doc;n#setStream#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-            <element signature="n#!!doc;n#DelayedAttributesAccuracyEvaluation#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-            <element signature="method#generateMeasurements#0;class#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
-            <element signature="method#writeHeader#0;class#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+            <element signature="method#isTruePrediction#0;class#DelayPrediction#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="405" column="33" selection-start-line="405" selection-start-column="33" selection-end-line="405" selection-end-column="33" />
+        <state relative-caret-position="247">
+          <caret line="310" column="23" selection-start-line="310" selection-start-column="23" selection-end-line="310" selection-end-column="23" />
           <folding>
-            <element signature="e#827#851#0" expanded="true" />
+            <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#getPurposeString#0;n#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="method#_createMap#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-            <element signature="method#_createMapping#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-            <element signature="method#_createCurves#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="method#_createFilters#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="method#_createClassifiers#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="method#_createEvaluators#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="method#makeStr#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="n#!!doc;n#_createHeader#0;n#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
             <element signature="method#_createHeader#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-            <element signature="method#_createStream#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-            <element signature="method#_disposeStream#0;class#EvaluatePrequentialWithDelayedAttributes#0" expanded="false" />
-            <marker date="1463477240995" expanded="true" signature="13320:17623" ph="{...}" />
+            <marker date="1463480641724" expanded="true" signature="13321:17624" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="57" column="27" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc;n#getDescription#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+            <element signature="n#!!doc;n#setStream#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+            <element signature="n#!!doc;n#DelayedAttributesAccuracyEvaluation#0;n#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+            <element signature="method#write#0;class#DelayedAttributesAccuracyEvaluation#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesEvaluation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="197" column="15" selection-start-line="197" selection-start-column="15" selection-end-line="197" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#475#476#0" expanded="true" />
+            <element signature="method#convert#0;class#DelayedAttributesEvaluation#0" expanded="false" />
+            <element signature="method#convert#1;class#DelayedAttributesEvaluation#0" expanded="false" />
+            <element signature="e#1271#1272#0" expanded="true" />
+            <element signature="e#1297#1298#0" expanded="true" />
+            <element signature="n#!!doc;n#getDescription#0;n#DelayedAttributesEvaluation#0" expanded="false" />
+            <element signature="n#!!doc;n#entropy#0;n#DelayedAttributesEvaluation#0" expanded="false" />
+            <element signature="method#firstTrue#0;class#DelayedAttributesEvaluation#0" expanded="false" />
+            <element signature="method#stability#1;class#DelayedAttributesEvaluation#0" expanded="false" />
+            <element signature="method#stabilityFirstTrue#0;class#DelayedAttributesEvaluation#0" expanded="false" />
           </folding>
         </state>
       </provider>

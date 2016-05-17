@@ -287,7 +287,7 @@ public class EvaluatePrequentialWithDelayedAttributes extends MainTask {
             try {
                 if (file.exists()) {
                     result = new PrintStream(
-                            new FileOutputStream(file, true), true);
+                            new FileOutputStream(file, false), true);
                 } else {
                     result = new PrintStream(
                             new FileOutputStream(file), true);

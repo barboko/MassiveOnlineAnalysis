@@ -19,7 +19,7 @@ public class DelayPrediction {
             throw new IllegalArgumentException("index is not in the range [0,"+size()+")");
         return predictions[index];
     }
-    public int[] getPredictions() {return getPredictions();}
+    public int[] getPredictions() {return predictions;}
     //endregion
 
     //region Constructors

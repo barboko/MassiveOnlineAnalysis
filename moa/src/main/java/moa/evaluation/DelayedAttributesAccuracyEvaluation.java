@@ -52,40 +52,36 @@ public class DelayedAttributesAccuracyEvaluation
 
         Measurement[] measurements = generateMeasurements();
 
-        String result = "";
-        boolean isFirst = true;
+        boolean isNotFirst = false;
 
-        for(Measurement m : measurements) {
-            if(isFirst)
-                isFirst = false;
+        for (Measurement m : measurements) {
+            if (isNotFirst)
+                stream.print(',');
             else
-                result += ",";
+                isNotFirst = true;
 
-            result += m.getName();
+            stream.print(m.getName());
         }
 
-        stream.println(result);
-        stream.flush();
+        stream.print('\n');
     }
     public void write() {
-        if(stream == null || !predictions.isFull())
+        if(stream == null)
             return;
 
         Measurement[] measurements = generateMeasurements();
 
-        String result = "";
-        boolean isFirst = true;
+        boolean isNotFirst = false;
 
-        for(Measurement m : measurements) {
-            if(isFirst)
-                isFirst = false;
+        for (Measurement m : measurements) {
+            if (isNotFirst)
+                stream.print(',');
             else
-                result += ",";
+                isNotFirst = true;
 
-            result += m.getValue();
+            stream.print(m.getValue());
         }
 
-        stream.println(result);
-        stream.flush();
+        stream.print('\n');
     }
 }
