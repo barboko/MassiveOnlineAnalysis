@@ -8,8 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="82942c07-4b68-4aae-b0a6-be2da73a076a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/evaluation/DelayedAttributesAccuracyEvaluation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" afterPath="$PROJECT_DIR$/moa/src/main/java/moa/tasks/EvaluatePrequentialWithDelayedAttributes.java" />
     </list>
     <ignored path="moa-pom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -801,7 +799,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463476904176</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Adding Accuracy Measurement (Before Testing)">
+      <created>1463477253807</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1463477253807</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -919,7 +924,8 @@
     <MESSAGE value="Allow getting a prediction file" />
     <MESSAGE value="Adding Accuracy Measurement (pre-finish)" />
     <MESSAGE value="Adding Accuracy Measurement (pre-finish 2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding Accuracy Measurement (pre-finish 2)" />
+    <MESSAGE value="Adding Accuracy Measurement (Before Testing)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding Accuracy Measurement (Before Testing)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
